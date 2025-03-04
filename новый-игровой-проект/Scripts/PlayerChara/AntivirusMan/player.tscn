@@ -1,0 +1,119 @@
+[gd_scene load_steps=21 format=3 uid="uid://myv87mqaa4pd"]
+
+[ext_resource type="Script" path="res://Scripts/Common/StateMachine/StateMachine.cs" id="1_6fvfi"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/physicsUpdate.gd" id="1_a1sqt"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/IdleState.cs" id="2_widxs"]
+[ext_resource type="Script" path="res://Scripts/ComponentFinders/RigidBodySetter.cs" id="3_5h43p"]
+[ext_resource type="Texture2D" uid="uid://28pcw4x1nhtu" path="res://Sprites/PlayerChara/AntivirusMan/AntivirusManDefault.png" id="3_cwdl7"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/MoveState.cs" id="3_ul4v7"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/Transitions/MoveTransition.cs" id="5_fcauc"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/JumpState.cs" id="5_gu8uy"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/AttackState.cs" id="7_mf0xj"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/Transitions/JumpTransition.cs" id="8_5j2gi"]
+[ext_resource type="PackedScene" uid="uid://b73wh1voxd1cx" path="res://Prefabs/Attack/Attack.tscn" id="9_d2snp"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/States/Transitions/AttackTransition.cs" id="10_bil8w"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/Animator/Animator.cs" id="11_o45n1"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/Attack/BasicAttack.cs" id="12_rr4hi"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/RechargingEnergy.cs" id="15_2eghx"]
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusIndicatorUIFactory.cs" id="16_002hn"]
+[ext_resource type="PackedScene" uid="uid://cb56m556k8t23" path="res://Prefabs/UI/AtkCounterCell.tscn" id="17_5jkc2"]
+[ext_resource type="PackedScene" uid="uid://ctaqlmg5fgxg4" path="res://Prefabs/UI/Indicators.tscn" id="18_uquex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n726p"]
+size = Vector2(12, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxawv"]
+atlas = ExtResource("3_cwdl7")
+region = Rect2(0, 0, 32, 32)
+
+[node name="Body" type="CharacterBody2D"]
+floor_block_on_wall = false
+floor_max_angle = 0.872665
+floor_snap_length = 3.0
+safe_margin = 1.0
+script = ExtResource("1_a1sqt")
+x_velocity_cap = 240.0
+y_velocity_cap = 240.0
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_5h43p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n726p")
+
+[node name="StateMachine" type="Node" parent="CollisionShape2D" node_paths=PackedStringArray("initialState")]
+script = ExtResource("1_6fvfi")
+initialState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="CollisionShape2D/StateMachine"]
+script = ExtResource("2_widxs")
+friction = 999
+
+[node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Idle" node_paths=PackedStringArray("entranceStates")]
+script = ExtResource("5_fcauc")
+entranceStates = [NodePath("../../Move")]
+
+[node name="Move" type="Node" parent="CollisionShape2D/StateMachine"]
+script = ExtResource("3_ul4v7")
+speed = 100
+
+[node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Move" node_paths=PackedStringArray("entranceStates")]
+script = ExtResource("5_fcauc")
+isEnter = true
+entranceStates = [NodePath("../../Idle")]
+
+[node name="Jump" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("5_gu8uy")
+idleState = NodePath("../Idle")
+speed = 15
+force = 42
+jumpStartPower = 50.0
+jumpLeftover = -5.08
+wallBouncyness = 4.205
+wallclimbing = 0.16
+speedDecreace = 0.045
+
+[node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Jump" node_paths=PackedStringArray("entranceStates")]
+script = ExtResource("8_5j2gi")
+entranceStates = [NodePath("../../Move"), NodePath("../../Idle")]
+
+[node name="Attack" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("attacks", "idleState")]
+script = ExtResource("7_mf0xj")
+attacks = [NodePath("../../Animator/Sprite/RegularAttack")]
+idleState = NodePath("../Jump")
+
+[node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Attack" node_paths=PackedStringArray("entranceStates")]
+script = ExtResource("10_bil8w")
+entranceStates = [NodePath("../../Jump"), NodePath("../../Move"), NodePath("../../Idle")]
+
+[node name="Test" type="Node" parent="CollisionShape2D/StateMachine"]
+
+[node name="Animator" type="Node2D" parent="CollisionShape2D"]
+script = ExtResource("11_o45n1")
+
+[node name="Sprite" type="Sprite2D" parent="CollisionShape2D/Animator"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(3, -1.5)
+texture = SubResource("AtlasTexture_bxawv")
+
+[node name="RegularAttack" type="Node2D" parent="CollisionShape2D/Animator/Sprite" node_paths=PackedStringArray("parent")]
+position = Vector2(32, 0)
+script = ExtResource("12_rr4hi")
+moveWhileAttack = 35.0
+moveAfterAttack = 80.0
+gravityCountering = -0.13
+attackScene = ExtResource("9_d2snp")
+parent = NodePath("../../../..")
+Delay = 0.2
+AmmoCost = 1
+
+[node name="Energy" type="Node2D" parent="."]
+script = ExtResource("15_2eghx")
+max = 5
+rechargeTime = 0.75
+
+[node name="UICreator" type="Node" parent="."]
+script = ExtResource("16_002hn")
+energyIndicatorScene = ExtResource("17_5jkc2")
+SceneProduct = ExtResource("18_uquex")

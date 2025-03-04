@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Godot Run",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "C:/Users/Anton/Searches/Desktop/IT/Godot_v4.3-stable_mono_win64/Godot_v4.3-stable_mono_win64.exe",
+            "cwd":"${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": ["--path","${workspaceRoot}"],
+            "requireExactSource": false
+        }
+    ],
+    "compounds": []
+}

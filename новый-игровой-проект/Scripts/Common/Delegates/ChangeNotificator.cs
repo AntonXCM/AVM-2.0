@@ -1,0 +1,1 @@
+public delegate void ChangeNotificator<T>(T oldValue, T newValue);

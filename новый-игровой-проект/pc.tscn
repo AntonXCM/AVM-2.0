@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://chimdesiuh3q6"]
+
+[ext_resource type="Script" path="res://Scripts/Level/NPC/PcController.cs" id="1_2a6u3"]
+[ext_resource type="Texture2D" uid="uid://csc1vtncleat8" path="res://Sprites/Levels/Train/Characters/PC.png" id="2_ei8q6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b2i63"]
+radius = 8.0
+height = 21.0
+
+[node name="PC" type="RigidBody2D" node_paths=PackedStringArray("ray")]
+position = Vector2(-338, -60)
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.847
+center_of_mass_mode = 1
+center_of_mass = Vector2(1, 5)
+script = ExtResource("1_2a6u3")
+ray = NodePath("RayCast2D")
+rayLength = 0.3
+xDispersion = 2.5
+ySpeed = -0.4
+xSpeed = 0.07
+angularSpeed = 28.02
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("CapsuleShape2D_b2i63")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ei8q6")
+hframes = 6
+vframes = 3
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-9, 5)
+target_position = Vector2(0, 25)
+collision_mask = 2

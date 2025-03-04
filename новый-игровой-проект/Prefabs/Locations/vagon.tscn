@@ -1,0 +1,131 @@
+[gd_scene load_steps=4 format=4 uid="uid://c0oltcd30ejc4"]
+
+[ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
+[ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="2_6p7kc"]
+[ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/TVTower/tileset.tres" id="3_0n34t"]
+
+[node name="Vagon" type="Sprite2D"]
+position = Vector2(-456, -112)
+texture = ExtResource("1_euxhe")
+offset = Vector2(0, -1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(279, 47)
+collision_layer = 3
+
+[node name="Interior" type="Sprite2D" parent="StaticBody2D"]
+z_index = -1
+position = Vector2(-279, -40)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(464, 272, 560, 240)
+
+[node name="Window5" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-24, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window6" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-24, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window7" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-88, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window8" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-88, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window3" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-152, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window4" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-152, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window2" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-216, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window9" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(232, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window10" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(232, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window11" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(168, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window12" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(168, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window13" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(104, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window14" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(104, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window15" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(40, 64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window16" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(40, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window" type="Sprite2D" parent="StaticBody2D/Interior"]
+position = Vector2(-216, -64)
+texture = ExtResource("2_6p7kc")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Floor" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-558, 66, -558, 80, 0, 80, 0, 66)
+
+[node name="Celling&walls" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-14, 0, 0, 0, 0, -168, -3, -170, -7, -171, -15, -172, -31, -173, -63, -174, -495, -174, -527, -173, -543, -172, -551, -171, -555, -170, -558, -168, -558, 0, -544, 0, -544, -160, -14, -160)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
+texture_filter = 3
+position = Vector2(1, 0)
+tile_map_data = PackedByteArray("AADi/wMAAAAGAAYAAADj/wIAAAAGAAYAAADk/wEAAAAGAAYAAADj/wMAAAAHAAYAAADk/wIAAAAHAAYAAADl/wIAAAAIAAYAAADm/wIAAAAJAAYAAADm/wMAAAAIAAYAAADn/wMAAAAJAAYAAADl/wEAAAAJAAYAAADk/wMAAAAEAAYAAADl/wMAAAAFAAYAAADo//z/AAAGAAUAAADo//3/AAAGAAIAAADo//7/AAAGAAMAAADs//z/AAAGAAUAAADs//3/AAAGAAIAAADs//7/AAAGAAMAAADw//z/AAAAAAQAAADw/wAAAAAAAAQAAAD0/wAAAAAAAAQAAAD0//z/AAAAAAQAAAD2/wEAAAAHAAEAAAD2/wIAAAAHAAIAAAD2/wMAAAAHAAMAAAD3/wEAAAAIAAEAAAD3/wIAAAAIAAIAAAD3/wMAAAAIAAMAAAD4/wEAAAAJAAEAAAD4/wIAAAAJAAIAAAD4/wMAAAAJAAMAAAD4//7/AAABAAEAAAD4////AAABAAIAAAD4/wAAAAABAAMAAAD5//7/AAACAAEAAAD5////AAAIAAIAAAD5/wAAAAACAAMAAAD6//7/AAADAAEAAAD6////AAADAAIAAAD6/wAAAAADAAMAAAD5/wEAAAAGAAEAAAD5/wIAAAAGAAIAAAD5/wMAAAAGAAMAAAD7//j/AAAAAAIAAAD7//n/AAAGAAIAAAD7//r/AAAGAAIAAAD7//v/AAAKAAEAAAD8//v/AAAIAAAAAAD9//v/AAAIAAAAAAD+//v/AAAIAAAAAAA=")
+tile_set = ExtResource("3_0n34t")

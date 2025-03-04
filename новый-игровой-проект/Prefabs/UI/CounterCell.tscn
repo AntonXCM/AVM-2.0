@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs7dw7c3n8unk"]
+
+[ext_resource type="Texture2D" uid="uid://bmxod08lvlnah" path="res://Sprites/Ui/counters.png" id="1_dhou8"]
+[ext_resource type="Script" path="res://Scripts/UI/counter_cell.gd" id="1_wrwvo"]
+
+[node name="CenterContainer" type="CenterContainer"]
+custom_minimum_size = Vector2(4, 4)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wrwvo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_dhou8")
+centered = false
+hframes = 4
+vframes = 2
+frame = 3
+region_enabled = true
+region_rect = Rect2(96, 0, 32, 16)

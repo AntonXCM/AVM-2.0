@@ -1,0 +1,19 @@
+{
+    "godotTools.editorPath.godot4": "c:\\Users\\Anton\\Searches\\Desktop\\IT\\Godot_v4.3-stable_mono_win64\\Godot_v4.3-stable_mono_win64.exe",
+    "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": false,
+    "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": false,
+    "csharp.inlayHints.enableInlayHintsForTypes": false,
+    "editor.inlineSuggest.enabled": false,
+    "editor.inlineSuggest.edits.codeShifting": false,
+    "editor.inlineSuggest.edits.renderSideBySide": "never",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.screenReaderAnnounceInlineSuggestion": false,
+    "editor.suggest.showInlineDetails": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.snippetSuggestions": "top",
+    "editor.snippets.codeActions.enabled": false,
+    "editor.suggest.showSnippets": false,
+    "java.dependency.packagePresentation": "hierarchical",
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.formatOnType": true
+}

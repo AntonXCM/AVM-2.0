@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bap5b501s87yr"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerChara/AntivirusMan/physicsUpdate.gd" id="1_mdh68"]
+[ext_resource type="Texture2D" uid="uid://bngqstaa701np" path="res://Sprites/Test/testBall.png" id="2_j6qbg"]
+[ext_resource type="Script" path="res://testPhysics.gd" id="3_vlfys"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxlo2"]
+radius = 8.0
+
+[node name="TestPhysics" type="Node2D"]
+script = ExtResource("3_vlfys")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_mdh68")
+x_velocity_cap = 100.0
+y_velocity_cap = 100.0
+gravity_scale = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_jxlo2")
+
+[node name="TestBall" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_j6qbg")
