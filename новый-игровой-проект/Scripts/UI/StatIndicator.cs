@@ -36,7 +36,6 @@ public partial class StatIndicator : Node
     }
 	private void UpdateIndicators(float oldValue, float newValue)
 	{
-		GD.Print($"oldValue: {oldValue}; newValue: {newValue}");
 		if (newValue > oldValue)
 			for (int i = Mathf.Max((int)oldValue, 0); i < newValue && i < Stat.Max; i++)
 				indicators[i].Call("Enable");

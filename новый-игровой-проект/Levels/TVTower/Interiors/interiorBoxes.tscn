@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg2uby7n3t70j"]
+
+[ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_37wgn"]
+
+[node name="Interior" type="Sprite2D"]
+z_index = -10
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(464, 272, 560, 240)
+
+[node name="Windows" type="Node2D" parent="."]
+
+[node name="Window5" type="Sprite2D" parent="Windows"]
+position = Vector2(-24, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(500, 368, 32, 48)
+
+[node name="Window6" type="Sprite2D" parent="Windows"]
+position = Vector2(-24, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window7" type="Sprite2D" parent="Windows"]
+position = Vector2(-88, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(500, 368, 32, 48)
+
+[node name="Window17" type="Sprite2D" parent="Windows"]
+position = Vector2(-88, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(500, 368, 32, 48)
+
+[node name="Window8" type="Sprite2D" parent="Windows"]
+position = Vector2(-88, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window3" type="Sprite2D" parent="Windows"]
+position = Vector2(-152, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window4" type="Sprite2D" parent="Windows"]
+position = Vector2(-152, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window2" type="Sprite2D" parent="Windows"]
+position = Vector2(-216, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window9" type="Sprite2D" parent="Windows"]
+position = Vector2(232, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window10" type="Sprite2D" parent="Windows"]
+position = Vector2(232, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window11" type="Sprite2D" parent="Windows"]
+position = Vector2(168, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window12" type="Sprite2D" parent="Windows"]
+position = Vector2(168, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window13" type="Sprite2D" parent="Windows"]
+position = Vector2(104, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(500, 368, 32, 48)
+
+[node name="Window14" type="Sprite2D" parent="Windows"]
+position = Vector2(104, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window15" type="Sprite2D" parent="Windows"]
+position = Vector2(40, 64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(500, 368, 32, 48)
+
+[node name="Window16" type="Sprite2D" parent="Windows"]
+position = Vector2(40, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window" type="Sprite2D" parent="Windows"]
+position = Vector2(-216, -64)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Box1" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(24, 71)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(256, 128, 256, 64)

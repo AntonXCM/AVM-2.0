@@ -7,4 +7,3 @@ func _ready() -> void:
 	rb = get_child(0)
 func _process(delta: float) -> void:
 	rb.velocity = vector*delta
-	

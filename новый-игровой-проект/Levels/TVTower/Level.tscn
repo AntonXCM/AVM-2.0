@@ -1,17 +1,16 @@
-[gd_scene load_steps=13 format=4 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=12 format=4 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
-[ext_resource type="Script" path="res://Levels/TVTower/movingBackround.gd" id="1_uo06l"]
+[ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
 [ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/Gradient.png" id="2_nupcv"]
 [ext_resource type="Texture2D" uid="uid://doc5dm1cv5c5k" path="res://Sprites/Levels/Train/Background/Sun.png" id="3_hpjpt"]
 [ext_resource type="Texture2D" uid="uid://0240dtsepks6" path="res://Sprites/Levels/Train/Background/Props.png" id="3_ix047"]
 [ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
-[ext_resource type="Script" path="res://Scripts/Common/WindowManagement/GlobalZoomedCamera.cs" id="7_ne20o"]
-[ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/TVTower/tileset.tres" id="8_o2b1w"]
+[ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/GlobalZoomedCamera.cs" id="7_ne20o"]
+[ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="8_kwkea"]
 [ext_resource type="PackedScene" uid="uid://chimdesiuh3q6" path="res://pc.tscn" id="9_kt0gt"]
-[ext_resource type="Script" path="res://Scripts/Common/WindowManagement/GlobalZoomCalculator.cs" id="18_sny0v"]
-[ext_resource type="PackedScene" uid="uid://c0oltcd30ejc4" path="res://Prefabs/Locations/vagon.tscn" id="19_iajmc"]
-[ext_resource type="Script" path="res://Scripts/Level/Generators/Instatitators/Chain.cs" id="20_0oabx"]
+[ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/TVTower/Prefabs/train.tscn" id="11_m2n1c"]
+[ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/GlobalZoomCalculator.cs" id="18_sny0v"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -21,7 +20,7 @@
 position = Vector2(247, -85)
 motion_scale = Vector2(0, 1)
 motion_mirroring = Vector2(8, 0)
-script = ExtResource("1_uo06l")
+script = ExtResource("1_yf6p5")
 speed = Vector2(2, 0)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Gradient"]
@@ -33,7 +32,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1000, 256)
 
 [node name="Sun" type="ParallaxLayer" parent="ParallaxBackground"]
-script = ExtResource("1_uo06l")
+script = ExtResource("1_yf6p5")
 speed = Vector2(0, -1)
 
 [node name="Spriite" type="Sprite2D" parent="ParallaxBackground/Sun"]
@@ -44,7 +43,7 @@ region_rect = Rect2(0, 0, 960, 64)
 
 [node name="Props" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(2048, 0)
-script = ExtResource("1_uo06l")
+script = ExtResource("1_yf6p5")
 speed = Vector2(-200, 0)
 
 [node name="Sprite" type="Sprite2D" parent="ParallaxBackground/Props"]
@@ -56,7 +55,7 @@ region_rect = Rect2(0, 0, 1000, 256)
 [node name="Rails" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2(0, 21)
 motion_mirroring = Vector2(384, 0)
-script = ExtResource("1_uo06l")
+script = ExtResource("1_yf6p5")
 speed = Vector2(-600, 0)
 
 [node name="Spriite" type="Sprite2D" parent="ParallaxBackground/Rails"]
@@ -68,7 +67,6 @@ region_rect = Rect2(0, 0, 2048, 64)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-455, -105)
-zoom = Vector2(0.15, 0.15)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
@@ -77,17 +75,7 @@ position = Vector2(-409, -16)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD4/wAAAAAHAAEAAAD4/wEAAAAHAAIAAAD4/wIAAAAHAAMAAAD5/wAAAAAIAAEAAAD5/wEAAAAIAAIAAAD6/wAAAAAIAAEAAAD6/wEAAAAIAAIAAAD7/wAAAAAIAAEAAAD7/wEAAAAIAAIAAAD8/wAAAAAIAAEAAAD8/wEAAAAIAAIAAAD9/wAAAAAIAAEAAAD9/wEAAAAIAAIAAAD+/wAAAAAIAAEAAAD+/wEAAAAIAAIAAAD//wAAAAAIAAEAAAD//wEAAAAIAAIAAAAAAAAAAAAIAAEAAAAAAAEAAAAIAAIAAAABAAAAAAAIAAEAAAABAAEAAAAIAAIAAAACAAAAAAAIAAEAAAACAAEAAAAIAAIAAAADAAAAAAAIAAEAAAADAAEAAAAIAAIAAAAEAAAAAAAIAAEAAAAEAAEAAAAIAAIAAAAFAAAAAAAIAAEAAAAFAAEAAAAIAAIAAAAGAAAAAAAIAAEAAAAGAAEAAAAIAAIAAAAHAAAAAAAIAAEAAAAHAAEAAAAIAAIAAAAIAAAAAAAIAAEAAAAIAAEAAAAIAAIAAAAJAAAAAAAIAAEAAAAJAAEAAAAIAAIAAAAKAAAAAAAIAAEAAAAKAAEAAAAIAAIAAAALAAAAAAAIAAEAAAALAAEAAAAIAAIAAAAMAAAAAAAIAAEAAAAMAAEAAAAIAAIAAAD5/wIAAAAIAAMAAAD6/wIAAAAIAAMAAAD7/wIAAAAIAAMAAAD8/wIAAAAIAAMAAAD9/wIAAAAIAAMAAAD+/wIAAAAIAAMAAAD//wIAAAAIAAMAAAAAAAIAAAAIAAMAAAABAAIAAAAIAAMAAAACAAIAAAAIAAMAAAADAAIAAAAIAAMAAAAEAAIAAAAIAAMAAAAFAAIAAAAIAAMAAAAGAAIAAAAIAAMAAAAHAAIAAAAIAAMAAAAIAAIAAAAIAAMAAAAJAAIAAAAIAAMAAAAKAAIAAAAIAAMAAAALAAIAAAAIAAMAAAAMAAIAAAAIAAMAAAANAAAAAAAIAAEAAAANAAEAAAAIAAIAAAANAAIAAAAIAAMAAAAOAAAAAAAIAAEAAAAOAAEAAAAIAAIAAAAOAAIAAAAIAAMAAAAPAAAAAAAIAAEAAAAPAAEAAAAIAAIAAAAPAAIAAAAIAAMAAAAQAAAAAAAIAAEAAAAQAAEAAAAIAAIAAAAQAAIAAAAIAAMAAAARAAAAAAAIAAEAAAARAAEAAAAIAAIAAAARAAIAAAAIAAMAAAASAAAAAAAIAAEAAAASAAEAAAAIAAIAAAASAAIAAAAIAAMAAAATAAAAAAAHAAcAAAATAAEAAAAIAAIAAAATAAIAAAAIAAMAAAAUAAAAAAAIAAEAAAAUAAEAAAAIAAIAAAAUAAIAAAAIAAMAAAAVAAAAAAAIAAEAAAAVAAEAAAAIAAIAAAAVAAIAAAAIAAMAAAAWAAAAAAAIAAEAAAAWAAEAAAAIAAIAAAAWAAIAAAAIAAMAAAAXAAAAAAAIAAEAAAAXAAEAAAAIAAIAAAAXAAIAAAAIAAMAAAAYAAAAAAAIAAEAAAAYAAEAAAAIAAIAAAAYAAIAAAAIAAMAAAAZAAAAAAAIAAEAAAAZAAEAAAAIAAIAAAAZAAIAAAAIAAMAAAAaAAAAAAAIAAEAAAAaAAEAAAAIAAIAAAAaAAIAAAAIAAMAAAAbAAAAAAAIAAEAAAAbAAEAAAAIAAIAAAAbAAIAAAAIAAMAAAAcAAAAAAAIAAEAAAAcAAEAAAAIAAIAAAAcAAIAAAAIAAMAAAAdAAAAAAAIAAEAAAAdAAEAAAAIAAIAAAAdAAIAAAAIAAMAAAAeAAAAAAAIAAEAAAAeAAEAAAAIAAIAAAAeAAIAAAAIAAMAAAAfAAAAAAAJAAEAAAAfAAEAAAAJAAIAAAAfAAIAAAAJAAMAAAADAP3/AAAGAAEAAAADAP7/AAAGAAIAAAADAP//AAAGAAMAAAAKAP7/AAAAAAIAAAAKAP//AAAAAAMAAAAKAPz/AAAAAAEAAAAKAP3/AAAAAAIAAAAQAPz/AAAAAAAAAAATAP//AAAGAAcAAAAUAP7/AAAGAAcAAAAVAP3/AAAAAAcAAAAWAPz/AAAGAAcAAAAXAPz/AAAJAAUAAAAXAP3/AAAJAAIAAAAXAP7/AAAJAAIAAAAXAP//AAAJAAIAAAAWAP7/AAAIAAIAAAAWAP3/AAAHAAcAAAAVAP7/AAABAAcAAAAVAP//AAAIAAIAAAAUAP//AAAHAAcAAAAWAP//AAACAAIAAAAZAPv/AAAGAAAAAAAbAPv/AAAGAAAAAAAZAPr/AAAHAAAAAAAaAPr/AAAIAAAAAAAbAPr/AAAJAAAAAAAZAPn/AAAHAAMAAAAaAPn/AAAIAAMAAAAbAPn/AAAJAAMAAAAZAPf/AAABAAEAAAAZAPj/AAAHAAIAAAAaAPf/AAAIAAEAAAAaAPj/AAAIAAIAAAAbAPf/AAAJAAEAAAAbAPj/AAAJAAIAAAAZAPb/AAABAAEAAAAaAPb/AAACAAEAAAAbAPb/AAADAAEAAAA=")
-tile_set = ExtResource("8_o2b1w")
-
-[node name="PC3" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-270, -30)
-rotation = 0.952965
-rayLength = 1.0
-
-[node name="PC2" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-308, -84)
-rotation = -1.45909
-rayLength = 1.0
+tile_set = ExtResource("8_kwkea")
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
 position = Vector2(-339, -72)
@@ -98,23 +86,5 @@ script = ExtResource("18_sny0v")
 targetHeight = 999.0
 pixelSize = 3.0
 
-[node name="Train" type="Node2D" parent="."]
-position = Vector2(2304, -105)
-script = ExtResource("20_0oabx")
-LinkPrefab = ExtResource("19_iajmc")
-Speed = Vector2(-100, 0)
-Spacing = Vector2(-576, 0)
-
-[node name="PC4" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-538, -55)
-rotation = 0.952965
-rayLength = 1.0
-
-[node name="PC5" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-420, -66)
-rotation = -1.45909
-rayLength = 1.0
-
-[node name="PC6" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-451, -54)
-rayLength = 1.0
+[node name="Train" parent="." instance=ExtResource("11_m2n1c")]
+position = Vector2(1662, -104)

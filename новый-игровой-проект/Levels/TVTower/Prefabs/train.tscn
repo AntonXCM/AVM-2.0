@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://k0pxkffckcdo"]
+
+[ext_resource type="Script" uid="uid://bu753jqoq27jk" path="res://Scripts/Level/Generators/Generic/Instatitators/Chain.cs" id="1_x2h0u"]
+[ext_resource type="PackedScene" uid="uid://c0oltcd30ejc4" path="res://Levels/TVTower/Prefabs/Locations/vagon.tscn" id="2_matxw"]
+
+[node name="Train" type="Node2D"]
+script = ExtResource("1_x2h0u")
+LinkPrefab = ExtResource("2_matxw")
+Speed = Vector2(-100, 0)
+Spacing = Vector2(-592, 0)

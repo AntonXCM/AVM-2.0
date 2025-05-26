@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctaqlmg5fgxg4"]
+
+[ext_resource type="Script" uid="uid://boms4xysko7c7" path="res://Scripts/Common/WindowManagement/OnTopWindow.cs" id="1_3vut8"]
+[ext_resource type="Script" uid="uid://sotf64kibawn" path="res://Scripts/Common/WindowManagement/draggableBorderlessWindow.gd" id="2_2l67j"]
+[ext_resource type="Texture2D" uid="uid://bmxod08lvlnah" path="res://Sprites/Ui/counters.png" id="3_ykbdf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_indxg"]
+load_path = "res://.godot/imported/counters.png-3f6fe0a09f98ad03797dfffe3360f500.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lprov"]
+atlas = SubResource("CompressedTexture2D_indxg")
+region = Rect2(0, 25, 37, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kk0cb"]
+load_path = "res://.godot/imported/counters.png-3f6fe0a09f98ad03797dfffe3360f500.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0ovr"]
+atlas = SubResource("CompressedTexture2D_kk0cb")
+region = Rect2(0, 28, 37, 1)
+
+[node name="Window" type="Window"]
+auto_translate_mode = 1
+disable_3d = true
+transparent_bg = true
+title = "UI Counters: HP, ATK, EXP, TIME"
+position = Vector2i(0, 207)
+size = Vector2i(96, 18)
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+extend_to_title = true
+content_scale_size = Vector2i(96, 18)
+content_scale_mode = 2
+content_scale_aspect = 4
+script = ExtResource("1_3vut8")
+animationTime = 100
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_2l67j")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(64, 16)
+texture = ExtResource("3_ykbdf")
+offset = Vector2(8, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 144, 32)
+
+[node name="Exp" type="TextureProgressBar" parent="."]
+offset_left = 42.0
+offset_top = 10.0
+offset_right = 79.0
+offset_bottom = 11.0
+value = 100.0
+allow_greater = true
+allow_lesser = true
+texture_progress = SubResource("AtlasTexture_lprov")
+
+[node name="Time" type="TextureProgressBar" parent="."]
+offset_left = 42.0
+offset_top = 14.0
+offset_right = 79.0
+offset_bottom = 15.0
+value = 100.0
+allow_greater = true
+allow_lesser = true
+texture_progress = SubResource("AtlasTexture_f0ovr")
+
+[node name="Hearts" type="GridContainer" parent="."]
+offset_right = 8.0
+pivot_offset = Vector2(8, 8)
+columns = 5
+
+[node name="Energy" type="GridContainer" parent="."]
+offset_left = 40.0
+offset_right = 76.0
+offset_bottom = 4.0
+pivot_offset = Vector2(8, 8)
+columns = 5

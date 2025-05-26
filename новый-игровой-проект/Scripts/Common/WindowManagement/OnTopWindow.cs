@@ -16,18 +16,15 @@ public partial class OnTopWindow : Window
 		{
 			case (int)NotificationApplicationFocusIn:
 			ShowAnim();
-			GD.Print("windowOpend");
 			break;
 			case (int)NotificationApplicationFocusOut:
 			HideAnim();
-			GD.Print("windowHided");
 			break;
 		}
 	}
 
 	public override void _Ready()
 	{
-		GD.Print(GetTree().ToString());
 		defaultSize = Size;
 		Resize();
 		GlobalZoomCalculator.OnZoomChanged += Resize;
@@ -40,11 +37,7 @@ public partial class OnTopWindow : Window
 		if(mainWindow.Mode == ModeEnum.Minimized) HideAnim();
 		else if(mainWindow.HasFocus()) ShowAnim();
 	}
-	void Resize()
-	{
-		Size = (Vector2I)(defaultSize * GlobalZoomCalculator.ZoomVector);
-		GD.Print(Size);
-	}
+	void Resize() => Size = (Vector2I)(defaultSize * GlobalZoomCalculator.ZoomVector);
 	async void HideAnim(bool check = true)
 	{
 		if(check && !opened) return;
