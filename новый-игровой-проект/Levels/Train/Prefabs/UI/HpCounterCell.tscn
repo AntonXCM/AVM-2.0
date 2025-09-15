@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://7dtnacqahhmv"]
+
+[ext_resource type="PackedScene" uid="uid://bs7dw7c3n8unk" path="res://Levels/Train/Prefabs/UI/CounterCell.tscn" id="1_2cvh2"]
+
+[node name="CenterContainer" instance=ExtResource("1_2cvh2")]

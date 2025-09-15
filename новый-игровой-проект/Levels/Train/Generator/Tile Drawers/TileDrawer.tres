@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TileDrawer" load_steps=2 format=3 uid="uid://r7q1bffvo74r"]
+
+[ext_resource type="Script" uid="uid://d156s2qdyl2pq" path="res://Levels/Train/Generator/Tile Drawers/tileDrawer.gd" id="1_maedx"]
+
+[resource]
+script = ExtResource("1_maedx")
+metadata/_custom_type_script = "uid://d156s2qdyl2pq"

@@ -4,6 +4,7 @@ using System.Linq;
 namespace DustyStudios.MathAVM;
 
 public enum TouchSide : byte { None, Left, Right, Top, Bottom }
+[GodotClassName("Rect2Extentions")]
 public static class Rect2Extentions
 {
     #region CutBy

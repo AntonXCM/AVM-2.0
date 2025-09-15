@@ -1,17 +1,20 @@
-[gd_scene load_steps=15 format=4 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=18 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
-[ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/TVTower/Interiors/interior.tscn" id="2_2avv3"]
+[ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
 [ext_resource type="Script" uid="uid://conn2vmr1uaqh" path="res://Scripts/Level/Generators/Generic/ComplexGenerable.cs" id="2_q0e82"]
 [ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="3_0n34t"]
 [ext_resource type="Script" uid="uid://bfxhp3w5idjhk" path="res://Scripts/Level/Generators/Generic/RandomChildInstantitator.cs" id="3_5m7wl"]
 [ext_resource type="Texture2D" uid="uid://bmqyvtvx3h425" path="res://Sprites/Test/testTiles.png" id="4_3khji"]
 [ext_resource type="Script" uid="uid://desktypkq8eru" path="res://Scripts/Level/Generators/Level2/GeneratorOutput.cs" id="5_5fhiw"]
 [ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="6_2avv3"]
-[ext_resource type="PackedScene" uid="uid://k5retu3lwvfv" path="res://Levels/TVTower/Interiors/interiorKitketPainting.tscn" id="6_i52w0"]
-[ext_resource type="PackedScene" uid="uid://c310nxga0r0gs" path="res://Levels/TVTower/Interiors/interiorBookafe.tscn" id="7_i5f5r"]
-[ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/TVTower/Interiors/interiorArmenians.tscn" id="8_7wg6q"]
-[ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/TVTower/Interiors/interiorPointer.tscn" id="9_7wg6q"]
+[ext_resource type="PackedScene" uid="uid://k5retu3lwvfv" path="res://Levels/Train/Interiors/interiorKitketPainting.tscn" id="6_i52w0"]
+[ext_resource type="PackedScene" uid="uid://c310nxga0r0gs" path="res://Levels/Train/Interiors/interiorBookafe.tscn" id="7_i5f5r"]
+[ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/Train/Interiors/interiorArmenians.tscn" id="8_7wg6q"]
+[ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/Train/Interiors/interiorPointer.tscn" id="9_7wg6q"]
+[ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="13_l0fbg"]
+[ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="14_uwxun"]
+[ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="15_mwgeh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fhiw"]
 texture = ExtResource("4_3khji")
@@ -38,7 +41,8 @@ script = ExtResource("2_q0e82")
 position = Vector2(279, 47)
 collision_layer = 3
 
-[node name="Node2D" type="Node2D" parent="StaticBody2D"]
+[node name="BackgroundSpawner" type="Node2D" parent="StaticBody2D"]
+z_index = -10
 position = Vector2(-279, -40)
 script = ExtResource("3_5m7wl")
 PossibleChildren = Array[PackedScene]([ExtResource("2_2avv3"), ExtResource("6_i52w0"), ExtResource("7_i5f5r"), ExtResource("8_7wg6q"), ExtResource("9_7wg6q")])
@@ -50,20 +54,18 @@ polygon = PackedVector2Array(-558, 66, -558, 80, 0, 80, 0, 66)
 [node name="Celling&walls" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(0, -1)
 polygon = PackedVector2Array(-14, 0, 0, 0, 0, -168, -3, -170, -7, -171, -15, -172, -31, -173, -63, -174, -495, -174, -527, -173, -543, -172, -551, -171, -555, -170, -558, -168, -558, 0, -544, 0, -544, -160, -14, -160)
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
-texture_filter = 3
-position = Vector2(-557, -160)
-tile_map_data = PackedByteArray("AAAUAA0AAAAJAAMAAAAUAAwAAAAJAAIAAAAUAAsAAAAJAAIAAAAUAAoAAAAJAAIAAAAUAAkAAAAJAAUAAAATAA0AAAAIAAMAAAATAAwAAAAIAAIAAAATAAsAAAAIAAIAAAATAAoAAAAIAAIAAAATAAkAAAAIAAUAAAASAA0AAAAIAAMAAAASAAwAAAAIAAIAAAASAAsAAAAIAAIAAAASAAoAAAAIAAIAAAASAAkAAAAIAAUAAAARAA0AAAAIAAMAAAARAAwAAAAIAAIAAAARAAsAAAAIAAIAAAARAAoAAAAIAAIAAAARAAkAAAAIAAUAAAAQAA0AAAAIAAMAAAAQAAwAAAAIAAIAAAAQAAsAAAAIAAIAAAAQAAoAAAAIAAIAAAAQAAkAAAAIAAUAAAAPAA0AAAAIAAMAAAAPAAwAAAAIAAIAAAAPAAsAAAAIAAIAAAAPAAoAAAAHAAgAAAAPAAkAAAAHAAUAAAANAA0AAAADAAMAAAANAAwAAAADAAIAAAANAAsAAAADAAIAAAANAAoAAAADAAIAAAANAAkAAAADAAUAAAAMAA0AAAACAAMAAAAMAAwAAAACAAIAAAAMAAsAAAACAAIAAAAMAAoAAAACAAIAAAAMAAkAAAACAAUAAAALAA0AAAACAAMAAAALAAwAAAACAAIAAAALAAsAAAACAAIAAAALAAoAAAACAAIAAAALAAkAAAACAAUAAAAKAA0AAAACAAMAAAAKAAwAAAACAAIAAAAKAAsAAAACAAIAAAAKAAoAAAACAAIAAAAKAAkAAAACAAUAAAAJAA0AAAACAAMAAAAJAAwAAAACAAIAAAAJAAsAAAACAAIAAAAJAAoAAAACAAIAAAAJAAkAAAACAAUAAAAIAA0AAAACAAMAAAAIAAwAAAACAAIAAAAIAAsAAAACAAIAAAAIAAoAAAACAAIAAAAIAAkAAAACAAUAAAAHAA0AAAABAAMAAAAHAAwAAAABAAIAAAAHAAsAAAABAAIAAAAHAAoAAAABAAIAAAAHAAkAAAAAAAgAAAAOAA0AAAAHAAMAAAAOAAwAAAAHAAIAAAAOAAsAAAAHAAIAAAAOAAoAAAAGAAgAAAANAAgAAAAJAAAAAAAMAAgAAAAIAAAAAAALAAgAAAAIAAAAAAAKAAgAAAAIAAAAAAAJAAgAAAAIAAAAAAAIAAgAAAAIAAAAAAAHAAgAAAAHAAAAAAA=")
-tile_set = ExtResource("3_0n34t")
 
 [node name="TestTileMap" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -1
 texture_filter = 3
 position = Vector2(-543, -160)
 tile_set = SubResource("TileSet_2avv3")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
+z_index = -2
+texture_filter = 3
+position = Vector2(-543, -160)
+tile_set = ExtResource("3_0n34t")
 
 [node name="Generator output" type="Node" parent="StaticBody2D" node_paths=PackedStringArray("debugLayer", "gameplayLayer")]
 script = ExtResource("5_5fhiw")
@@ -74,3 +76,6 @@ generatorPath = NodePath("../../Generator")
 [node name="Generator" type="Node" parent="."]
 script = ExtResource("6_2avv3")
 roomSize = Rect2i(0, 0, 33, 14)
+subdivisors = Array[Resource]([ExtResource("13_l0fbg")])
+shapeCreators = Array[Resource]([ExtResource("14_uwxun")])
+tileDrawer = ExtResource("15_mwgeh")

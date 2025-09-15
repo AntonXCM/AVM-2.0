@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TiledSubdivisor" load_steps=2 format=3 uid="uid://cub84eafbcvo6"]
+
+[ext_resource type="Script" uid="uid://dgw2sbafduvf" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.gd" id="1_5qgjl"]
+
+[resource]
+script = ExtResource("1_5qgjl")
+count = Vector4i(3, 8, 2, 4)
+metadata/_custom_type_script = "uid://dgw2sbafduvf"

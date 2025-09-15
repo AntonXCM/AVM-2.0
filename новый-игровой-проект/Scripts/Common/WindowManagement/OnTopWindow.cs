@@ -26,8 +26,8 @@ public partial class OnTopWindow : Window
 	public override void _Ready()
 	{
 		defaultSize = Size;
-		Resize();
-		GlobalZoomCalculator.OnZoomChanged += Resize;
+		// Resize();
+		// ZoomCalculator.OnZoomChanged += Resize;
 		Position = new Vector2I(0, WinuserWrapper.GetSystemMetrics(4));
 		mainWindow = GetTree().Root;
 		mainWindow.FocusExited += ChangeVisibility;
@@ -37,7 +37,7 @@ public partial class OnTopWindow : Window
 		if(mainWindow.Mode == ModeEnum.Minimized) HideAnim();
 		else if(mainWindow.HasFocus()) ShowAnim();
 	}
-	void Resize() => Size = (Vector2I)(defaultSize * GlobalZoomCalculator.ZoomVector);
+	// void Resize() => Size = (Vector2I)(defaultSize * ZoomCalculator.ZoomVector);
 	async void HideAnim(bool check = true)
 	{
 		if(check && !opened) return;

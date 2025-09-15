@@ -10,21 +10,21 @@
 [ext_resource type="Script" uid="uid://csedd8hp03uu" path="res://Scripts/PlayerChara/AntivirusMan/States/JumpState.cs" id="5_gu8uy"]
 [ext_resource type="Script" uid="uid://brkplmsnc2shn" path="res://Scripts/PlayerChara/AntivirusMan/States/AttackState.cs" id="7_mf0xj"]
 [ext_resource type="Script" uid="uid://cnhw6rvhaww4c" path="res://Scripts/PlayerChara/AntivirusMan/States/Transitions/JumpTransition.cs" id="8_5j2gi"]
-[ext_resource type="PackedScene" uid="uid://b73wh1voxd1cx" path="res://Levels/TVTower/Prefabs/Attack/Attack.tscn" id="9_d2snp"]
+[ext_resource type="PackedScene" uid="uid://b73wh1voxd1cx" path="res://Levels/Train/Prefabs/Attack/Attack.tscn" id="9_d2snp"]
 [ext_resource type="Script" uid="uid://bllth410olvn8" path="res://Scripts/PlayerChara/AntivirusMan/States/Transitions/AttackTransition.cs" id="10_bil8w"]
 [ext_resource type="Script" uid="uid://dovqt4g2ukdny" path="res://Scripts/PlayerChara/AntivirusMan/Animator/Animator.cs" id="11_o45n1"]
 [ext_resource type="Script" uid="uid://b14jternc6muw" path="res://Scripts/PlayerChara/AntivirusMan/Attack/BasicAttack.cs" id="12_rr4hi"]
 [ext_resource type="Script" uid="uid://blrpvok7y7lh7" path="res://Scripts/PlayerChara/AntivirusMan/RechargingEnergy.cs" id="15_2eghx"]
 [ext_resource type="Script" uid="uid://6rfavpmxvsgm" path="res://Scripts/PlayerChara/AntivirusIndicatorUIFactory.cs" id="16_002hn"]
-[ext_resource type="PackedScene" uid="uid://cb56m556k8t23" path="res://Levels/TVTower/Prefabs/UI/AtkCounterCell.tscn" id="17_5jkc2"]
-[ext_resource type="PackedScene" uid="uid://ctaqlmg5fgxg4" path="res://Levels/TVTower/Prefabs/UI/Indicators.tscn" id="18_uquex"]
+[ext_resource type="PackedScene" uid="uid://cb56m556k8t23" path="res://Levels/Train/Prefabs/UI/AtkCounterCell.tscn" id="17_5jkc2"]
+[ext_resource type="PackedScene" uid="uid://ctaqlmg5fgxg4" path="res://Levels/Train/Prefabs/UI/Indicators.tscn" id="18_uquex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n726p"]
-size = Vector2(12, 27)
+size = Vector2(12, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxawv"]
 atlas = ExtResource("3_cwdl7")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 48, 32)
 
 [node name="Body" type="CharacterBody2D"]
 floor_block_on_wall = false
@@ -94,13 +94,13 @@ script = ExtResource("11_o45n1")
 [node name="Sprite" type="Sprite2D" parent="CollisionShape2D/Animator"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(3, -1.5)
+position = Vector2(-4, 0)
 texture = SubResource("AtlasTexture_bxawv")
 
 [node name="RegularAttack" type="Node2D" parent="CollisionShape2D/Animator/Sprite" node_paths=PackedStringArray("parent")]
 position = Vector2(32, 0)
 script = ExtResource("12_rr4hi")
-moveWhileAttack = 35.0
+moveWhileAttack = 50.0
 moveAfterAttack = 80.0
 gravityCountering = -0.13
 attackScene = ExtResource("9_d2snp")

@@ -1,12 +1,13 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DustyStudios.AVM2.StateMachine;
 public partial class StateMachine : Node
 {
 	IState current;
 	[Export] EmptyState initialState;
-	HashSet<string> keys = new();
+	HashSet<string> keys = [];
 	public override void _Ready()
 	{
 		SetState(initialState);
@@ -22,9 +23,8 @@ public partial class StateMachine : Node
 	}
 	public override void _Input(InputEvent Event)
 	{
-		if(current == null) return;
-		if(Event is not InputEventKey) return;
-		string key = Event.AsText();
+		if(current == null || Event is not InputEventKey) return;
+        string key = Event.AsText();
 		if(!Event.IsPressed())
 		{
 			keys.Remove(key);
@@ -34,6 +34,7 @@ public partial class StateMachine : Node
 			if(keys.Contains(key)) return;
 			keys.Add(key); 
 		}
+		Debug.Write("EEEE");
 		current.Update(GetKeys());
 	}
 	public HashSet<string> GetKeys() => new(keys);

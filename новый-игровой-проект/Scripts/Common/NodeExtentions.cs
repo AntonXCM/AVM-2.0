@@ -18,6 +18,15 @@ public static class NodeExtentions
 		else return node.GetParent().TryGetComponentInParent(out component);
 	}
 
+	public static T GetComponentInParents<T>(this Node node)
+	{
+		if (node == null)
+			return default;
+		if(node is T result)
+			return result;
+		else return node.GetParent().GetComponentInParents<T>();
+	}
+
 	public static IEnumerable<Node> GetChildrenRecursive(this Node node)
 	{
 		for (int i = node.GetChildCount() - 1; i >= 0;)
@@ -31,7 +40,7 @@ public static class NodeExtentions
 	}
 	public static Dictionary<string, Node> GetChildrenDictRecursive(this Node node)
 	{
-		Dictionary<string, Node> dict = new Dictionary<string, Node>();
+		Dictionary<string, Node> dict = [];
 
 		foreach (Node child in node.GetChildrenRecursive())
 			if (!dict.ContainsKey(child.Name))

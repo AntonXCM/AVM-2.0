@@ -4,10 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
-
-using Godot;
-
 namespace DustyStudios
 {
 	public class DustyConsole
@@ -74,7 +70,7 @@ namespace DustyStudios
         }
         private static MethodInfo[] GetCommands()
         {
-            List<MethodInfo> commands = new List<MethodInfo>();
+            List<MethodInfo> commands = [];
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();
             foreach (var type in types)
             {

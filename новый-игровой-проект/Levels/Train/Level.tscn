@@ -6,17 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://doc5dm1cv5c5k" path="res://Sprites/Levels/Train/Background/Sun.png" id="3_hpjpt"]
 [ext_resource type="Texture2D" uid="uid://0240dtsepks6" path="res://Sprites/Levels/Train/Background/Props.png" id="3_ix047"]
 [ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
-[ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/GlobalZoomedCamera.cs" id="7_ne20o"]
+[ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/ZoomedCamera.cs" id="7_ne20o"]
 [ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="8_kwkea"]
-[ext_resource type="PackedScene" uid="uid://chimdesiuh3q6" path="res://pc.tscn" id="9_kt0gt"]
-[ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/TVTower/Prefabs/train.tscn" id="11_m2n1c"]
-[ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/GlobalZoomCalculator.cs" id="18_sny0v"]
+[ext_resource type="PackedScene" uid="uid://chimdesiuh3q6" path="res://Levels/Train/pc.tscn" id="9_kt0gt"]
+[ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
+[ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 
-[node name="Node2D" type="Node2D"]
+[node name="TrainScene" type="Node2D"]
+texture_filter = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Gradient" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
 position = Vector2(247, -85)
 motion_scale = Vector2(0, 1)
 motion_mirroring = Vector2(8, 0)
@@ -32,6 +34,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1000, 256)
 
 [node name="Sun" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
 script = ExtResource("1_yf6p5")
 speed = Vector2(0, -1)
 
@@ -42,6 +45,7 @@ texture = ExtResource("3_hpjpt")
 region_rect = Rect2(0, 0, 960, 64)
 
 [node name="Props" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
 motion_mirroring = Vector2(2048, 0)
 script = ExtResource("1_yf6p5")
 speed = Vector2(-200, 0)
@@ -53,6 +57,7 @@ texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
 [node name="Rails" type="ParallaxLayer" parent="ParallaxBackground"]
+texture_filter = 1
 position = Vector2(0, 21)
 motion_mirroring = Vector2(384, 0)
 script = ExtResource("1_yf6p5")
@@ -70,6 +75,11 @@ position = Vector2(-455, -105)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
+[node name="Zoom calculator" type="Node" parent="Camera2D"]
+script = ExtResource("18_sny0v")
+targetHeight = 800.0
+pixelSize = 3.0
+
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
 position = Vector2(-409, -16)
 
@@ -80,11 +90,6 @@ tile_set = ExtResource("8_kwkea")
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
 position = Vector2(-339, -72)
 rayLength = 1.0
-
-[node name="GlobalZoomCalculator" type="Node" parent="."]
-script = ExtResource("18_sny0v")
-targetHeight = 999.0
-pixelSize = 3.0
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
 position = Vector2(1662, -104)

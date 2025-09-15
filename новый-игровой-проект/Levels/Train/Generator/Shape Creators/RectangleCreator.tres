@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RectangleCreator" load_steps=2 format=3 uid="uid://dv18wc6mje7mj"]
+
+[ext_resource type="Script" uid="uid://b2pwtwsac3148" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.gd" id="1_sa2kn"]
+
+[resource]
+script = ExtResource("1_sa2kn")
+tileType = Array[int]([2])
+metadata/_custom_type_script = "uid://b2pwtwsac3148"

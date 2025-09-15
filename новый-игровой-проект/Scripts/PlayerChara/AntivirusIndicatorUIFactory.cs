@@ -9,8 +9,10 @@ public partial class AntivirusIndicatorUIFactory : AbstractSceneFactory
     public override void _Ready()
     {
         IEnergy ammoStat = (IEnergy)GetNode("../Energy");
-        Dictionary<string, Func<Node>> overrides = new();
-        overrides["Energy"] = () => new StatIndicator(ammoStat, energyIndicatorScene);
+        Dictionary<string, Func<Node>> overrides = new()
+        {
+            ["Energy"] = () => new StatIndicator(ammoStat, energyIndicatorScene)
+        };
 
         Tests.Tests.CutByTest();
 

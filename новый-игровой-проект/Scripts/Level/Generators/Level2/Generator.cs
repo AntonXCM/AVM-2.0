@@ -1,3 +1,4 @@
+using DustyStudios.MathAVM;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -5,34 +6,65 @@ using System.Linq;
 public partial class Generator : Node
 {
     [Export] Rect2I roomSize;
-    RandomPickFactory<ISubdivisor> subdivisorFactory;
+    [Export] Resource[] subdivisors, shapeCreators;
+    [Export] Resource tileDrawer;
+    RandomPickFactory<Resource> subdivisorFactory, shapeCreatorFactory;
 
-    public Generator()
+    private void Init()
     {
-        subdivisorFactory = new([new TiledSubdivisor()]);
+        subdivisorFactory = new([.. subdivisors]);
+        shapeCreatorFactory = new([.. shapeCreators]);
     }
     public void Generate(TileMapLayer debug, TileMapLayer gameplay)
     {
         debug.Clear();
-
-        ISubdivisor subdivisor = subdivisorFactory.Get();
+        if (subdivisorFactory is null) Init();
+        Resource subdivisor = subdivisorFactory.Get();
         var colorEnum = GetColors();
 
-        LevelSubdivision subdivision = subdivisor.Subdivide(roomSize);
+        LevelSubdivision subdivision = subdivisor.Call("subdivide", [roomSize]).Obj as LevelSubdivision;
 
-        var end = FindEnd(subdivision);
-        var path = FindPath(FindStart(subdivision),r => r == end);
-        if (path.Count == 0) return;
-        foreach (var rect in subdivision)
-            DebugDrawRegion(rect, debug, colorEnum);
+        LevelRegion
+            start = FindStart(subdivision),
+            end = FindEnd(subdivision);
+        var path = FindPath(start, r => r == end, subdivision);
+
+        // foreach (var rect in subdivision)
+        //     DebugDrawRegion(rect, debug, colorEnum);
+
+        path.Peek().IsStart = true;
         while (path.Count > 1)
         {
             LevelRegion current = path.Pop();
-            DebugDrawRegionBounds(current, debug, colorEnum);
+
             current.RequireTransition(path.Peek());
             path.Peek().RequireTransition(current);
+
+            DrawRectOutline(current.Bounds, debug, colorEnum);
         }
-        DebugDrawRegionBounds(path.Pop(), debug, colorEnum);
+        path.Peek().IsEnd = true;
+        DrawRectOutline(path.Pop().Bounds, debug, colorEnum);
+
+        Godot.Collections.Array<Godot.Collections.Array<int>> tilemap = [];
+        for (int x = 0; x < roomSize.Size.X; x++)
+        {
+            tilemap.Add([]);
+            for (int y = 0; y < roomSize.Size.Y; y++)
+                tilemap[x].Add(0);
+        }
+
+        foreach (var region in subdivision)
+        {
+            var tiles = shapeCreatorFactory.Get().Call("create", region).AsGodotArray<Variant>();
+            for (int x = 0; x < region.Bounds.Size.X; x++)
+            {
+                var column = tiles[x].AsGodotArray<int>();
+                for (int y = 0; y < region.Bounds.Size.Y; y++)
+                    tilemap[x + region.Bounds.Position.X][y + region.Bounds.Position.Y] = column[y];
+            }
+        }
+
+        tileDrawer.Call("draw", tilemap, gameplay);
         IEnumerator<Vector2I> GetColors()
         {
         Start:
@@ -48,27 +80,28 @@ public partial class Generator : Node
             goto Start;
         }
     }
-    private static void DebugDrawRegionBounds(LevelRegion rect, TileMapLayer tileMap, IEnumerator<Vector2I> colorEnum)
+    private static void DrawRectOutline(Rect2I rect, TileMapLayer tileMap, IEnumerator<Vector2I> colorEnum)
     {
         colorEnum.MoveNext();
         Vector2I tileSetCoords = colorEnum.Current;
-        for (int x = rect.bounds.Position.X; x < rect.bounds.End.X; x++)
+        for (int x = rect.Position.X; x < rect.End.X; x++)
         {
-            tileMap.SetCell(new(x, rect.bounds.Position.Y), 0, tileSetCoords);
-            tileMap.SetCell(new(x, rect.bounds.End.Y - 1), 0, tileSetCoords);
+            tileMap.SetCell(new(x, rect.Position.Y), 0, tileSetCoords);
+            tileMap.SetCell(new(x, rect.End.Y - 1), 0, tileSetCoords);
         }
-        for (int y = rect.bounds.Position.Y + 1; y < rect.bounds.End.Y-1; y++)
+        for (int y = rect.Position.Y + 1; y < rect.End.Y-1; y++)
         {   
-            tileMap.SetCell(new(rect.bounds.Position.X, y),0, tileSetCoords);
-            tileMap.SetCell(new(rect.bounds.End.X - 1, y),0, tileSetCoords);
+            tileMap.SetCell(new(rect.Position.X, y),0, tileSetCoords);
+            tileMap.SetCell(new(rect.End.X - 1, y),0, tileSetCoords);
         }
     }
-    private static void DebugDrawRegion(LevelRegion rect, TileMapLayer tileMap, IEnumerator<Vector2I> colorEnum)
+    private static void DrawRectFilled(Rect2I rect, TileMapLayer tileMap, IEnumerator<Vector2I> colorEnum)
     {
         colorEnum.MoveNext();
         Vector2I tileSetCoords = colorEnum.Current;
-        foreach (var pos in rect)
-            tileMap.SetCell(pos, 0, tileSetCoords);
+        var enumetator = rect.GetEnumerator();
+        while(enumetator.MoveNext())
+            tileMap.SetCell(enumetator.Current, 0, tileSetCoords);
     }
     #region Pathfinding
     public static LevelRegion FindEnd(LevelSubdivision level)
@@ -77,9 +110,9 @@ public partial class Generator : Node
 
         foreach (var region in level)
         {
-            if (region.bounds.End.X > end.bounds.End.X ||
-               (region.bounds.End.X == end.bounds.End.X &&
-                region.bounds.Position.Y > end.bounds.Position.Y))
+            if (region.Bounds.End.X > end.Bounds.End.X ||
+               (region.Bounds.End.X == end.Bounds.End.X &&
+                region.Bounds.Position.Y > end.Bounds.Position.Y))
                 end = region;
         }
 
@@ -91,39 +124,46 @@ public partial class Generator : Node
 
         foreach (var region in level)
         {
-            if (region.bounds.Position.X < start.bounds.Position.X ||
-               (region.bounds.Position.X == start.bounds.Position.X &&
-                region.bounds.Position.Y > start.bounds.Position.Y))
+            if (region.Bounds.Position.X < start.Bounds.Position.X ||
+               (region.Bounds.Position.X == start.Bounds.Position.X &&
+                region.Bounds.Position.Y > start.Bounds.Position.Y))
                 start = region;
         }
 
         return start;
     }
-    public static Stack<LevelRegion> FindPath(LevelRegion start, Predicate<LevelRegion> endPredicate)
+    public static Stack<LevelRegion> FindPath(LevelRegion start, Predicate<LevelRegion> endPredicate, LevelSubdivision subdivision)
     {
-        HashSet<LevelRegion> visited = new HashSet<LevelRegion>();
-        Stack<LevelRegion> stack = new Stack<LevelRegion>();
+        HashSet<LevelRegion> visited = [];
+        Stack<LevelRegion> stack = new();
+        LevelRegion[] neighbors = new LevelRegion[subdivision.Length]; //Без аллокации B)
 
         stack.Push(start);
         visited.Add(start);
 
-        while (stack.Count > 0)
+        while (true) //Если стак кончится мы всё равно получим ошибку далее 
         {
-            LevelRegion current = stack.Peek();
+            LevelRegion current;
+            current = stack.Peek();
 
             if (endPredicate(current))
                 break;
 
-            var neighbors = current.Neighbors().Where(n => !visited.Contains(n)).ToArray();
+            int neighborsCount = 0;
+            float minY = current.Bounds.Position.Y, maxY = current.Bounds.End.Y;
+            var neighborsEnum = current.Neighbors(horizontalPredicate: neighbor => Mathf.Min(neighbor.Bounds.End.Y,maxY) - Mathf.Max(neighbor.Bounds.Position.Y,minY) >= 2).GetEnumerator();
+            while (neighborsEnum.MoveNext())
+                if (!visited.Contains(neighborsEnum.Current))
+                    neighbors[neighborsCount++] = neighborsEnum.Current; 
 
-            if (neighbors.Length > 0)
+            if (neighborsCount > 0)
             {
-                LevelRegion next = neighbors[Random.Shared.Next(neighbors.Length)];
+                LevelRegion next = neighbors[Random.Shared.Next(neighborsCount)];
                 stack.Push(next);
                 visited.Add(next);
             }
             else
-                stack.Pop(); // Откат назад
+                stack.Pop();
         }
 
         return stack;

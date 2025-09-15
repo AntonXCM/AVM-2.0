@@ -1,0 +1,17 @@
+Stopwatch stopwatch = new();
+stopwatch.Start();
+
+for(int i = 1000000000; i > 0; i--)
+    _ = subdivisors.Length * subdivisors.Length;
+
+stopwatch.Stop();
+Debug.Print("Not cahed" + stopwatch.Elapsed.ToString());
+stopwatch.Restart();
+int a = subdivisors.Length;
+for(int i = 1000000000; i > 0; i--)
+    _ = a * a;
+
+stopwatch.Stop();
+Debug.Print("Cached" + stopwatch.Elapsed.ToString()); 
+
+//Yes

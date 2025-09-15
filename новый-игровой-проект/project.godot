@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Антивирусмэн"
-run/main_scene="uid://tg5el2hicmu"
+run/main_scene="uid://cbwyyml307uah"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
@@ -34,7 +34,7 @@ project/assembly_name="Антивирусмэн2.0"
 
 folder_colors={
 "res://Levels/": "teal",
-"res://Levels/TVTower/Prefabs/": "teal",
+"res://Levels/Train/Prefabs/": "teal",
 "res://Scripts/PlayerChara/": "gray",
 "res://Sprites/": "yellow"
 }
@@ -48,6 +48,9 @@ folder_colors={
 
 textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="mobile"
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+anti_aliasing/screen_space_roughness_limiter/amount=0.01
+anti_aliasing/screen_space_roughness_limiter/limit=0.01
 textures/decals/filter=0
 textures/light_projectors/filter=0
 2d/snap/snap_2d_vertices_to_pixel=true

@@ -4,7 +4,6 @@
     "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": false,
     "csharp.inlayHints.enableInlayHintsForTypes": false,
     "editor.inlineSuggest.enabled": false,
-    "editor.inlineSuggest.edits.codeShifting": false,
     "editor.inlineSuggest.edits.renderSideBySide": "never",
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.screenReaderAnnounceInlineSuggestion": false,
@@ -15,5 +14,7 @@
     "editor.suggest.showSnippets": false,
     "java.dependency.packagePresentation": "hierarchical",
     "editor.defaultFormatter": "ms-dotnettools.csharp",
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "dotnet.defaultSolution": "Антивирусмэн2.0.sln"
 }
