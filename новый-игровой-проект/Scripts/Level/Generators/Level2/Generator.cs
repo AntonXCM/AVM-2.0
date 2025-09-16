@@ -32,7 +32,7 @@ public partial class Generator : Node
         // foreach (var rect in subdivision)
         //     DebugDrawRegion(rect, debug, colorEnum);
 
-        path.Peek().IsStart = true;
+        path.Peek().IsEnd = true;
         while (path.Count > 1)
         {
             LevelRegion current = path.Pop();
@@ -42,7 +42,7 @@ public partial class Generator : Node
 
             DrawRectOutline(current.Bounds, debug, colorEnum);
         }
-        path.Peek().IsEnd = true;
+        path.Peek().IsStart = true;
         DrawRectOutline(path.Pop().Bounds, debug, colorEnum);
 
         Godot.Collections.Array<Godot.Collections.Array<int>> tilemap = [];
@@ -56,10 +56,12 @@ public partial class Generator : Node
         foreach (var region in subdivision)
         {
             var tiles = shapeCreatorFactory.Get().Call("create", region).AsGodotArray<Variant>();
-            for (int x = 0; x < region.Bounds.Size.X; x++)
+            int xSize = Mathf.Min(region.Bounds.Size.X, tiles.Count);
+            for (int x = 0; x < xSize; x++)
             {
                 var column = tiles[x].AsGodotArray<int>();
-                for (int y = 0; y < region.Bounds.Size.Y; y++)
+                int ySize = Mathf.Min(region.Bounds.Size.Y, column.Count);
+                for (int y = 0; y < ySize; y++)
                     tilemap[x + region.Bounds.Position.X][y + region.Bounds.Position.Y] = column[y];
             }
         }

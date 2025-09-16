@@ -1,5 +1,4 @@
-extends UseTileType
-class_name RectangleCreator
+class_name RectangleCreator extends UseTileType
 @export var tileType : Array[TileType]
 
 func create(region: LevelRegion) -> Array:
@@ -9,7 +8,7 @@ func create(region: LevelRegion) -> Array:
 	var isStartOrEnd = region.IsStart or region.IsEnd
 	var neighborsWrapper
 	if not isStartOrEnd:
-		neighborsWrapper = region.GetTransitionsWrapper()
+		neighborsWrapper = region.GetTransitionsBounding
 		neighborsWrapper.position -= region.Bounds.position + Vector2i.ONE
 		neighborsWrapper.size += Vector2i.ONE * 2
 	for x in size.x:

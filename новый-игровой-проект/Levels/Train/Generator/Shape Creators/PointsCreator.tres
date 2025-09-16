@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PointsCreator" load_steps=2 format=3 uid="uid://rjll1rc1rqxe"]
+
+[ext_resource type="Script" uid="uid://c6fc1dmmbcgma" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.gd" id="1_asioc"]
+
+[resource]
+script = ExtResource("1_asioc")
+spacing_range = Vector4i(2, 4, 2, 4)
+emptyTile = 1
+metadata/_custom_type_script = "uid://c6fc1dmmbcgma"

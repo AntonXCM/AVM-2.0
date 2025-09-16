@@ -37,58 +37,63 @@ public partial class LevelRegion : GodotObject, IEnumerable<Vector2I>
         foreach (var neighbor in BottomNeighbors)
             yield return neighbor;
     }
-    public Rect2I GetNeighborsWrapper() //Я тупой, зачем я это делал пол часа?
+    public Rect2I GetNeighborsBounding //Я тупой, зачем я это делал пол часа?
     {
-        int minX = int.MaxValue,
-            minY = int.MaxValue,
-            maxX = int.MinValue,
-            maxY = int.MinValue;
-        AggregateSide(LeftNeighbors, isLeft: RightNeighbors.Count is not 0);
-        AggregateSide(RightNeighbors, isRight: LeftNeighbors.Count is not 0);
-        AggregateSide(TopNeighbors, isTop: BottomNeighbors.Count is not 0);
-        AggregateSide(BottomNeighbors, isBottom: TopNeighbors.Count is not 0);
-
-        void AggregateSide(Array<LevelRegion> arr, bool isBottom = false, bool isTop = false, bool isLeft = false, bool isRight = false)
+        get
         {
-            foreach (LevelRegion neigh in arr)
+            int minX = int.MaxValue,
+                minY = int.MaxValue,
+                maxX = int.MinValue,
+                maxY = int.MinValue;
+            Aggregate(LeftNeighbors, isLeft: RightNeighbors.Count is not 0);
+            Aggregate(RightNeighbors, isRight: LeftNeighbors.Count is not 0);
+            Aggregate(TopNeighbors, isTop: BottomNeighbors.Count is not 0);
+            Aggregate(BottomNeighbors, isBottom: TopNeighbors.Count is not 0);
+
+            void Aggregate(Array<LevelRegion> arr, bool isBottom = false, bool isTop = false, bool isLeft = false, bool isRight = false)
             {
-                Rect2I bounds = neigh.Bounds;
-                Vector2I boundsEnd = bounds.End;
-                if (!isRight && bounds.Position.X < minX)
-                    minX = bounds.Position.X;
-                if (!isLeft && boundsEnd.X > maxX)
-                    maxX = boundsEnd.X;
-                if (!isTop && bounds.Position.Y < minY)
-                    minY = bounds.Position.Y;
-                if (!isBottom && boundsEnd.Y > maxY)
-                    maxY = boundsEnd.Y;
+                foreach (LevelRegion neigh in arr)
+                {
+                    Rect2I bounds = neigh.Bounds;
+                    Vector2I boundsEnd = bounds.End;
+                    if (!isRight && bounds.Position.X < minX)
+                        minX = bounds.Position.X;
+                    if (!isLeft && boundsEnd.X > maxX)
+                        maxX = boundsEnd.X;
+                    if (!isTop && bounds.Position.Y < minY)
+                        minY = bounds.Position.Y;
+                    if (!isBottom && boundsEnd.Y > maxY)
+                        maxY = boundsEnd.Y;
+                }
             }
-        }
-        if (maxX < minX || maxY < minY)
+            if (minX is not int.MaxValue)
+                return new(position: new(minX, minY), size: new(maxX - minX, maxY - minY));
             return default;
-
-        return new(position: new(minX, minY), size: new(maxX - minX, maxY - minY));
-    }
-    public Rect2I GetTransitionsWrapper()
-    {
-        int minX = int.MaxValue,
-            minY = int.MaxValue,
-            maxX = int.MinValue,
-            maxY = int.MinValue;
-
-        foreach (var transition in Transitions)
-        {
-            var bounds = transition.Bounds;
-            if (bounds.Position.X < minX) minX = bounds.Position.X;
-            if (bounds.Position.Y < minY) minY = bounds.Position.Y;
-            var end = bounds.End;
-            if (end.X > maxX) maxX = end.X;
-            if (end.Y > maxY) maxY = end.Y;
         }
+    }
+    public Rect2I GetTransitionsBounding
+    {
+        get
+        {
+            int minX = int.MaxValue,
+                minY = int.MaxValue,
+                maxX = int.MinValue,
+                maxY = int.MinValue;
 
-        if (minX is not int.MaxValue) 
-            return new(position: new(minX, minY), size: new(maxX - minX, maxY - minY));
-        return default;
+            foreach (var transition in Transitions)
+            {
+                var bounds = transition.Bounds;
+                if (bounds.Position.X < minX) minX = bounds.Position.X;
+                if (bounds.Position.Y < minY) minY = bounds.Position.Y;
+                var end = bounds.End;
+                if (end.X > maxX) maxX = end.X;
+                if (end.Y > maxY) maxY = end.Y;
+            }
+
+            if (minX is not int.MaxValue)
+                return new(position: new(minX, minY), size: new(maxX - minX, maxY - minY));
+            return default;
+        }
     }
     public void ExpandLeft(int range)
     {
@@ -141,6 +146,98 @@ public partial class LevelRegion : GodotObject, IEnumerable<Vector2I>
         if (Neighbors().Contains(region))
             Transitions.Add(region);
     }
+    public Array<LevelRegion> GetBottomTransitions
+    {
+        get
+        {
+            Array<LevelRegion> result = new();
+            foreach (var transition in Transitions)
+                if (BottomNeighbors.Contains(transition))
+                    result.Add(transition);
+            return result;
+        }
+    }
+
+    public bool HasBottomTransitions
+    {
+        get
+        {
+            foreach (var transition in Transitions)
+                if (BottomNeighbors.Contains(transition))
+                    return true;
+            return false;
+        }
+    }
+
+    public Array<LevelRegion> GetLeftTransitions
+    {
+        get
+        {
+            Array<LevelRegion> result = new();
+            foreach (var transition in Transitions)
+                if (LeftNeighbors.Contains(transition))
+                    result.Add(transition);
+            return result;
+        }
+    }
+
+    public bool HasLeftTransitions
+    {
+        get
+        {
+            foreach (var transition in Transitions)
+                if (LeftNeighbors.Contains(transition))
+                    return true;
+            return false;
+        }
+    }
+    public Array<LevelRegion> GetTopTransitions
+    {
+        get
+        {
+            Array<LevelRegion> result = new();
+            foreach (var transition in Transitions)
+                if (TopNeighbors.Contains(transition))
+                    result.Add(transition);
+            return result;
+        }
+    }
+
+    public bool HasTopTransitions
+    {
+        get
+        {
+            foreach (var transition in Transitions)
+                if (TopNeighbors.Contains(transition))
+                    return true;
+            return false;
+        }
+    }
+
+    public Array<LevelRegion> GetRightTransitions
+    {
+        get
+        {
+            Array<LevelRegion> result = new();
+            foreach (var transition in Transitions)
+                if (RightNeighbors.Contains(transition))
+                    result.Add(transition);
+            return result;
+        }
+    }
+
+    public bool HasRightTransitions
+    {
+        get
+        {
+            foreach (var transition in Transitions)
+                if (RightNeighbors.Contains(transition))
+                    return true;
+            return false;
+        }
+    }
+
+
     public IEnumerator<Vector2I> GetEnumerator() => Bounds.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => Bounds.GetEnumerator();
     public static implicit operator Rect2I(LevelRegion region) => region.Bounds;

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="FullRectangleCreator" load_steps=2 format=3 uid="uid://ddi4x6o1x5ara"]
+
+[ext_resource type="Script" uid="uid://0mmol8ya4u3" path="res://Levels/Train/Generator/Shape Creators/FullRectangleCreator.gd" id="1_qo5xu"]
+
+[resource]
+script = ExtResource("1_qo5xu")
+metadata/_custom_type_script = "uid://0mmol8ya4u3"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ColumnCreator" load_steps=2 format=3 uid="uid://dkbhkcogs8bn5"]
+
+[ext_resource type="Script" uid="uid://dwh54wtbefeo5" path="res://Levels/Train/Generator/Shape Creators/ColumnsCreator.gd" id="1_o8dma"]
+
+[resource]
+script = ExtResource("1_o8dma")
+obstacle_spacing = Vector2i(2, 4)
+max_height = Vector2i(3, 4)
+metadata/_custom_type_script = "uid://dwh54wtbefeo5"
