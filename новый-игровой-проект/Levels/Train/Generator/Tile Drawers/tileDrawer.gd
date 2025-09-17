@@ -4,22 +4,25 @@ class_name TileDrawer
 
 func draw(tiles : Array, tilemap : TileMapLayer):
 	var tileset_data := TilesetData.new(tilemap.tile_set)
+	var has_right := len(tiles) - 1
+	var tree = tilemap.get_tree()
 	for x in len(tiles):
 		var col = tiles[x]
+		var has_bottom := len(col) - 1
+		var left := x > 0
+		var right := x < has_right
 		for y in len(col):
-			var tile = Tile.new()
-			tile.type = tiles[x][y]
+			var tile = Tile.new() #Удалять не надо, в будущем он будет использован для тайлов с отрисовкой в несколько проходов
+			tile.type = col[y]
 			if tile.type == TileType.EMPTY or tile.type == TileType.UNDEFINED:
 				tilemap.erase_cell(Vector2i(x,y))
 			else:
 				var top := y > 0
-				var bottom :=  y < len(tiles[x]) - 1
-				var left := x > 0
-				var right := x < len(tiles) - 1
+				var bottom := y < has_bottom
 				if top:
-					tile.top_tile = define_BJ9Tb(tiles[x][y - 1])
+					tile.top_tile = define_BJ9Tb(col[y - 1])
 				if bottom: 
-					tile.bottom_tile = define_BJ9Tb(tiles[x][y + 1])
+					tile.bottom_tile = define_BJ9Tb(col[y + 1])
 				if left: 
 					tile.left_tile = define_BJ9Tb(tiles[x - 1][y])
 				if right:
@@ -33,34 +36,47 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 				if bottom and left: 
 					tile.bottomleft_tile = define_BJ9Tb(tiles[x - 1][y + 1])
 				tilemap.set_cell(Vector2i(x,y),0,tile.get_atlas_coords(tileset_data))
+				await tree.process_frame
 func define_BJ9Tb(tile : TileType) -> TileType:
 	return TileType.EMPTY if tile == TileType.UNDEFINED else tile 
 
 class TilesetData:
-	var tiles : TileSetAtlasSource
-	var top_connection
-	var bottom_connection
-	var topright_connection
-	var bottomright_connection
-	var topleft_connection
-	var bottomleft_connection
-	var left_connection
-	var right_connection
-	var count
+	var top_connection : Dictionary[int, PackedByteArray] = {}
+	var bottom_connection : Dictionary[int, PackedByteArray] = {}
+	var topright_connection : Dictionary[int, PackedByteArray] = {}
+	var bottomright_connection : Dictionary[int, PackedByteArray] = {}
+	var topleft_connection : Dictionary[int, PackedByteArray] = {}
+	var bottomleft_connection : Dictionary[int, PackedByteArray] = {}
+	var left_connection : Dictionary[int, PackedByteArray] = {}
+	var right_connection : Dictionary[int, PackedByteArray] = {}
+	var vector : Dictionary[int, Vector2i] = {}
+	var count := 0
 	
 	func _init(tileset : TileSet = null) -> void:
 		if tileset == null:
 			return
-		tiles = tileset.get_source(0)
+		var tiles := tileset.get_source(0) as TileSetAtlasSource
 		count = tiles.get_tiles_count()
-		top_connection = tileset.get_custom_data_layer_by_name("top_connection")
-		bottom_connection = tileset.get_custom_data_layer_by_name("bottom_connection")
-		topright_connection = tileset.get_custom_data_layer_by_name("topright_connection")
-		bottomright_connection = tileset.get_custom_data_layer_by_name("bottomright_connection")
-		topleft_connection = tileset.get_custom_data_layer_by_name("topleft_connection")
-		bottomleft_connection = tileset.get_custom_data_layer_by_name("bottomleft_connection")
-		left_connection = tileset.get_custom_data_layer_by_name("left_connection")
-		right_connection = tileset.get_custom_data_layer_by_name("right_connection")
+		var top_connection_id = tileset.get_custom_data_layer_by_name("top_connection")
+		var bottom_connection_id = tileset.get_custom_data_layer_by_name("bottom_connection")
+		var left_connection_id = tileset.get_custom_data_layer_by_name("left_connection")
+		var right_connection_id = tileset.get_custom_data_layer_by_name("right_connection")
+		var topright_connection_id = tileset.get_custom_data_layer_by_name("topright_connection")
+		var bottomright_connection_id = tileset.get_custom_data_layer_by_name("bottomright_connection")
+		var topleft_connection_id = tileset.get_custom_data_layer_by_name("topleft_connection")
+		var bottomleft_connection_id = tileset.get_custom_data_layer_by_name("bottomleft_connection")
+		for tile in count:
+			var vector = tiles.get_tile_id(tile)
+			self.vector.set(tile, vector)
+			var tiledata = tiles.get_tile_data(vector,0)
+			top_connection.set(tile, tiledata.get_custom_data_by_layer_id(top_connection_id))
+			bottom_connection.set(tile, tiledata.get_custom_data_by_layer_id(bottom_connection_id))
+			left_connection.set(tile, tiledata.get_custom_data_by_layer_id(left_connection_id))
+			right_connection.set(tile, tiledata.get_custom_data_by_layer_id(right_connection_id))
+			topright_connection.set(tile, tiledata.get_custom_data_by_layer_id(topright_connection_id))
+			bottomright_connection.set(tile, tiledata.get_custom_data_by_layer_id(bottomright_connection_id))
+			topleft_connection.set(tile, tiledata.get_custom_data_by_layer_id(topleft_connection_id))
+			bottomleft_connection.set(tile, tiledata.get_custom_data_by_layer_id(bottomleft_connection_id))
 
 class Tile:
 	var type 		:= TileType.UNDEFINED
@@ -73,26 +89,30 @@ class Tile:
 	var left_tile	:= TileType.UNDEFINED
 	var right_tile	:= TileType.UNDEFINED
 
-	func get_atlas_coords(tileset_data) -> Vector2i:
+	func get_atlas_coords(tileset_data : TilesetData) -> Vector2i:
 		var best = 0
-		var best_coords = Vector2(2,2)
+		var coords = Vector2(2,2)
 
 		for tile in tileset_data.count:
-			var coords = tileset_data.tiles.get_tile_id(tile)
 			var matches = 0
-			var tiledata = tileset_data.tiles.get_tile_data(coords,0)
-			var check_match = func(id, tile) -> int:
-				return 1 if tiledata.get_custom_data_by_layer_id(id).has(tile) else 0
-			matches += check_match.call(tileset_data.top_connection, top_tile)
-			matches += check_match.call(tileset_data.bottom_connection, bottom_tile)
-			matches += check_match.call(tileset_data.left_connection, left_tile)
-			matches += check_match.call(tileset_data.right_connection, right_tile)
-			matches += check_match.call(tileset_data.topright_connection, topright_tile)
-			matches += check_match.call(tileset_data.bottomright_connection, bottomright_tile)
-			matches += check_match.call(tileset_data.topleft_connection, topleft_tile)
-			matches += check_match.call(tileset_data.bottomleft_connection, bottomleft_tile)
+			if tileset_data.top_connection[tile].has(top_tile):
+				matches += 2
+			if tileset_data.bottom_connection[tile].has(bottom_tile):
+				matches += 2
+			if tileset_data.left_connection[tile].has(left_tile):
+				matches += 2
+			if tileset_data.right_connection[tile].has(right_tile):
+				matches += 2
+			if tileset_data.topright_connection[tile].has(topright_tile):
+				matches += 1
+			if tileset_data.bottomright_connection[tile].has(bottomright_tile):
+				matches += 1
+			if tileset_data.topleft_connection[tile].has(topleft_tile):
+				matches += 1
+			if tileset_data.bottomleft_connection[tile].has(bottomleft_tile):
+				matches += 1
 					
 			if matches > best:
 				best = matches
-				best_coords = coords
-		return best_coords
+				coords = tileset_data.vector[tile]
+		return coords

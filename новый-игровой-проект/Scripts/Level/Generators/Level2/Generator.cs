@@ -2,6 +2,7 @@ using DustyStudios.MathAVM;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 public partial class Generator : Node
 {
@@ -65,7 +66,6 @@ public partial class Generator : Node
                     tilemap[x + region.Bounds.Position.X][y + region.Bounds.Position.Y] = column[y];
             }
         }
-
         tileDrawer.Call("draw", tilemap, gameplay);
         IEnumerator<Vector2I> GetColors()
         {
