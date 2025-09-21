@@ -6,39 +6,104 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 	var tileset_data := TilesetData.new(tilemap.tile_set)
 	var has_right := len(tiles) - 1
 	var tree = tilemap.get_tree()
+	tilemap.collision_enabled = false
+	
+	var top : bool
+	var bottom : bool
+	var left : bool
+	var right : bool
+	var get_horizontal_median := func(x: int, y: int) -> TileType:
+		var center = tiles[x][y]
+		if not right or not left:
+			return center
+		var right_tile = tiles[x + 1][y]
+		if center == right_tile:
+			return center
+		var left_tile = tiles[x - 1][y]
+		
+		return left_tile if left_tile == center or left_tile == right_tile else center
+
 	for x in len(tiles):
 		var col = tiles[x]
 		var has_bottom := len(col) - 1
-		var left := x > 0
-		var right := x < has_right
+		
+		var get_vertical_median := func(y: int) -> TileType:
+			var center = col[y]
+			if not top or not bottom:
+				return center
+			var top_tile = col[y - 1]
+			if center == top_tile:
+				return center
+			var bottom_tile = col[y + 1]
+			return bottom_tile if bottom_tile == center or bottom_tile == top_tile else center
+		
+		left = x > 0
+		right = x < has_right
+		
 		for y in len(col):
 			var tile = Tile.new() #Удалять не надо, в будущем он будет использован для тайлов с отрисовкой в несколько проходов
+			var vertical_median = null
 			tile.type = col[y]
 			if tile.type == TileType.EMPTY or tile.type == TileType.UNDEFINED:
 				tilemap.erase_cell(Vector2i(x,y))
 			else:
-				var top := y > 0
-				var bottom := y < has_bottom
+				top = y > 0
+				bottom = y < has_bottom
 				if top:
 					tile.top_tile = define_BJ9Tb(col[y - 1])
+					if right:
+						tile.topright_tile = define_BJ9Tb(tiles[x + 1][y - 1])
+					else:
+						vertical_median = get_vertical_median.call(y)
+						tile.topright_tile = vertical_median
+					if left:
+						tile.topleft_tile = define_BJ9Tb(tiles[x - 1][y - 1])
+					else:
+						vertical_median = get_vertical_median.call(y)
+						tile.topleft_tile = vertical_median
+				else:
+					var median = define_BJ9Tb(get_horizontal_median.call(x, y))
+					tile.top_tile = median
+					tile.topleft_tile = median
+					tile.topright_tile = median
 				if bottom: 
 					tile.bottom_tile = define_BJ9Tb(col[y + 1])
+					if right:
+						tile.bottomright_tile = define_BJ9Tb(tiles[x + 1][y + 1])
+					else:
+						vertical_median = get_vertical_median.call(y)
+						tile.bottomright_tile = vertical_median
+					if left:
+						tile.bottomleft_tile = define_BJ9Tb(tiles[x - 1][y + 1])
+					else:
+						vertical_median = get_vertical_median.call(y)
+						tile.bottomleft_tile = vertical_median
+				else:
+					var median = define_BJ9Tb(get_horizontal_median.call(x, y))
+					tile.bottom_tile = median
+					tile.bottomright_tile = median
+					tile.bottomleft_tile = median
 				if left: 
 					tile.left_tile = define_BJ9Tb(tiles[x - 1][y])
+				else:
+					if vertical_median != null:
+						tile.left_tile = vertical_median
+					else:
+						tile.left_tile = define_BJ9Tb(get_vertical_median.call(y))
 				if right:
 					tile.right_tile = define_BJ9Tb(tiles[x + 1][y])
-				if top and right:
-					tile.topright_tile = define_BJ9Tb(tiles[x + 1][y - 1])
-				if bottom and right: 
-					tile.bottomright_tile = define_BJ9Tb(tiles[x + 1][y + 1])
-				if top and left:
-					tile.topleft_tile = define_BJ9Tb(tiles[x - 1][y - 1])
-				if bottom and left: 
-					tile.bottomleft_tile = define_BJ9Tb(tiles[x - 1][y + 1])
+				else:
+					if vertical_median != null:
+						tile.right_tile = vertical_median
+					else:
+						tile.right_tile = define_BJ9Tb(get_vertical_median.call(y))
 				tilemap.set_cell(Vector2i(x,y),0,tile.get_atlas_coords(tileset_data))
-				await tree.process_frame
+			await tree.process_frame
+	tilemap.collision_enabled = true
 func define_BJ9Tb(tile : TileType) -> TileType:
-	return TileType.EMPTY if tile == TileType.UNDEFINED else tile 
+	return TileType.EMPTY if tile == TileType.UNDEFINED else tile
+	
+	
 
 class TilesetData:
 	var top_connection : Dictionary[int, PackedByteArray] = {}
@@ -91,7 +156,7 @@ class Tile:
 
 	func get_atlas_coords(tileset_data : TilesetData) -> Vector2i:
 		var best = 0
-		var coords = Vector2(2,2)
+		var coords = [Vector2(2,2)]
 
 		for tile in tileset_data.count:
 			var matches = 0
@@ -114,5 +179,7 @@ class Tile:
 					
 			if matches > best:
 				best = matches
-				coords = tileset_data.vector[tile]
-		return coords
+				coords = [tileset_data.vector[tile]]
+			elif matches == best:
+				coords.append(tileset_data.vector[tile])
+		return coords.pick_random()
