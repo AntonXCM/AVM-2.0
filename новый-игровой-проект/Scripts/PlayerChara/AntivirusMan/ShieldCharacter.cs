@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class ShieldCharacter : Node2D, IHasRigidBody2D
@@ -9,11 +10,14 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
     {
         cosThrehold = Mathf.Cos(degThrehold);
     }
-    Vector2 normalDebug, shieldDebug;
+    Vector2 shieldDebug;
+    HashSet<Vector2> normalsDebug = [];
     public override void _Draw()
     {
-        DrawLine(Vector2.Zero, normalDebug * 22, Colors.OrangeRed, 2, true);
-        DrawLine(Vector2.Zero, shieldDebug * 22, Colors.LightBlue, 2, true);
+        foreach (var normal in normalsDebug)
+            DrawLine(Vector2.Zero, normal * 22, Colors.OrangeRed, 2);
+
+        DrawLine(Vector2.Zero, shieldDebug * 22, Colors.LightBlue, 2);
     }
 
 
@@ -26,22 +30,24 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
         shieldDirection = shieldDirection.Normalized();
 
         int count = Rb.GetSlideCollisionCount();
+        if(count > 0)
+            normalsDebug.Clear();
         for (int i = 0; i < count; i++)
-        {
-            var col = Rb.GetSlideCollision(i);
+            {
+                var collision = Rb.GetSlideCollision(i);
 
-            var normal = col.GetNormal();
-            if (-shieldDirection.Dot(normal) < cosThrehold)
-                continue;
-            normalDebug = normal;
-            shieldDebug = shieldDirection;
-            QueueRedraw();
-            if (col.GetCollider() is RigidBody2D rb)
-                rb.ApplyCentralImpulse(shieldDirection * bounceForce);
-            else
-                Rb.Velocity += -shieldDirection * selfBounce;
-            return;
-        }
+                var normal = collision.GetNormal();
+                normalsDebug.Add(normal);
+                if (-shieldDirection.Dot(normal) < cosThrehold)
+                    continue;
+                if (collision.GetCollider() is RigidBody2D rb)
+                    rb.ApplyImpulse(shieldDirection * bounceForce, collision.GetPosition());
+                else if(shieldDirection.Y != 0)
+                    Rb.Velocity += -shieldDirection * selfBounce;
+                break;
+            }
+        shieldDebug = shieldDirection;
+        QueueRedraw();
 
     }
 }

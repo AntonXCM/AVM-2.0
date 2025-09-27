@@ -13,9 +13,6 @@ public partial class AntivirusIndicatorUIFactory : AbstractSceneFactory
         {
             ["Energy"] = () => new StatIndicator(ammoStat, energyIndicatorScene)
         };
-
-        Tests.Tests.CutByTest();
-
         Create(overrides);
     }
 }

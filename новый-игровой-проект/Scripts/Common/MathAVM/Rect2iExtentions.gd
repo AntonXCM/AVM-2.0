@@ -23,14 +23,9 @@ static func cut_by(rect: Rect2i, avoid: Rect2i) -> Rect2i:
 			best = r
 	return best
 
-static func iter_points(rect: Rect2i):
-	var result: Array[Vector2i] = []
-	for x in range(rect.position.x, rect.end.x):
-		for y in range(rect.position.y, rect.end.y):
-			await Vector2i(x, y);
-
 static func split_vertically(rect: Rect2i, count: int) -> Array[Rect2i]:
-	var height : int = rect.size.y / count
+	@warning_ignore("integer_division")
+	var height = rect.size.y / count
 	var remainder = rect.size.y % count
 	var y = rect.position.y
 	var result: Array[Rect2i] = []
@@ -42,6 +37,7 @@ static func split_vertically(rect: Rect2i, count: int) -> Array[Rect2i]:
 	return result
 
 static func split_horizontally(rect: Rect2i, count: int) -> Array[Rect2i]:
+	@warning_ignore("integer_division")
 	var width : int = rect.size.x / count
 	var remainder = rect.size.x % count
 	var x = rect.position.x

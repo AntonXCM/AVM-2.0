@@ -25,14 +25,13 @@ public partial class JumpState : PhysicsState
 	}
 	void EnterAction()
 	{
-		GD.Print("Before"+Rb.Velocity);
-		if (Rb.Velocity.Y > 0) Rb.Velocity *= Vector2.Right;
+		if (Rb.Velocity.Y > 0)
+			Rb.Velocity *= Vector2.Right;
 		if (InputSystem.IsPressed("Space"))
 		{
 			Rb.Velocity += Vector2.Up * jumpStartPower;
 			startedWithSpace = true;
 		}
-		GD.Print("After"+Rb.Velocity);
 		constantForce = default;
 	}
 	public void PhysicsAction(double delta)

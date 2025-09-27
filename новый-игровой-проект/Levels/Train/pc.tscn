@@ -8,18 +8,18 @@ radius = 8.0
 height = 21.0
 
 [node name="PC" type="RigidBody2D" node_paths=PackedStringArray("ray")]
-position = Vector2(-338, -60)
 collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.847
 center_of_mass_mode = 1
 center_of_mass = Vector2(1, 5)
+can_sleep = false
 script = ExtResource("1_2a6u3")
 ray = NodePath("RayCast2D")
 rayLength = 0.3
 xDispersion = 2.5
-ySpeed = -0.4
-xSpeed = 0.07
+ySpeed = -25.0
+xSpeed = 4.0
 angularSpeed = 28.02
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

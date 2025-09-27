@@ -20,33 +20,35 @@ public partial class PcController : RigidBody2D
     {
         DistanceFactor = ray.IsColliding() ? Math.Abs(rayLength-(ray.Position - ray.GetCollisionPoint()).Length()) / rayLength : 0;
         float distaceFromXtarget = targetXPosition - Position.X;
+        float deltaf = (float)delta;
         switch (distaceFromXtarget)
         {
             case float a when a < -xSpeed:
-                MoveX(-xSpeed);
+                MoveX(deltaf, -xSpeed);
                 break;
             case float a when a > xSpeed:
-                MoveX(xSpeed);
+                MoveX(deltaf, xSpeed);
                 break;
             default:
                 SetXTarget();
                 break;
         }
-        KeepHeight();
-        AngularVelocity = MathA.Angle.MoveTowardsDiff(Rotation, 0, (float)delta * angularSpeed);
+        KeepHeight(deltaf);
+        AngularVelocity = MathA.Angle.MoveTowardsDiff(Rotation, 0, deltaf * angularSpeed);
     }
     void SetXTarget()
     {
         targetXPosition = startXPosition + (GD.Randf() - .5f) * xDispersion;
     }
-    public void KeepHeight()
+    public void KeepHeight(float delta)
     {
-        if (DistanceFactor == 0) return;
-        LinearVelocity += ray.TargetPosition.Rotated(ray.GlobalRotation).Normalized() * ySpeed * DistanceFactor;
+        if (DistanceFactor is 0) return;
+        if (LinearVelocity.Y > 0) LinearVelocity += Vector2.Up * delta;
+        LinearVelocity += ray.TargetPosition.Rotated(ray.GlobalRotation).Normalized() * ySpeed * DistanceFactor * delta;
     }
-    public void MoveX(float speed)
+    public void MoveX(float delta,float speed)
     {
-        if (DistanceFactor == 0) return;
-        LinearVelocity += Vector2.Right * speed * DistanceFactor;
+        if (DistanceFactor is 0) return;
+        LinearVelocity += Vector2.Right * speed * DistanceFactor * delta;
     }
 }

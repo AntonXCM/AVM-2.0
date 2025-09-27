@@ -39,7 +39,6 @@ script = ExtResource("1_a1sqt")
 x_velocity_cap = 240.0
 y_velocity_cap = 480.0
 gravity_scale = 2.0
-mass = 10.0
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("3_5h43p")
@@ -123,6 +122,8 @@ SceneProduct = ExtResource("18_uquex")
 
 [node name="Shield" type="Node2D" parent="."]
 z_index = 1380
+texture_filter = 1
 script = ExtResource("19_okehs")
 selfBounce = 200.0
+bounceForce = 100.0
 degThrehold = 30.0
