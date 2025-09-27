@@ -1,120 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://bg2uby7n3t70j"]
+[gd_scene load_steps=3 format=3 uid="uid://bg2uby7n3t70j"]
 
+[ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="1_5d4qk"]
 [ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_37wgn"]
 
-[node name="Interior" type="Sprite2D"]
-z_index = -10
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(464, 272, 560, 240)
+[node name="Interior" instance=ExtResource("1_5d4qk")]
 
-[node name="Windows" type="Node2D" parent="."]
-
-[node name="Window5" type="Sprite2D" parent="Windows"]
-position = Vector2(-24, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(500, 368, 32, 48)
-
-[node name="Window6" type="Sprite2D" parent="Windows"]
-position = Vector2(-24, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window7" type="Sprite2D" parent="Windows"]
-position = Vector2(-88, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(500, 368, 32, 48)
-
-[node name="Window17" type="Sprite2D" parent="Windows"]
-position = Vector2(-88, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(500, 368, 32, 48)
-
-[node name="Window8" type="Sprite2D" parent="Windows"]
-position = Vector2(-88, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window3" type="Sprite2D" parent="Windows"]
-position = Vector2(-152, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window4" type="Sprite2D" parent="Windows"]
-position = Vector2(-152, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window2" type="Sprite2D" parent="Windows"]
-position = Vector2(-216, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window9" type="Sprite2D" parent="Windows"]
-position = Vector2(232, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window10" type="Sprite2D" parent="Windows"]
-position = Vector2(232, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window11" type="Sprite2D" parent="Windows"]
-position = Vector2(168, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window12" type="Sprite2D" parent="Windows"]
-position = Vector2(168, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window13" type="Sprite2D" parent="Windows"]
-position = Vector2(104, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(500, 368, 32, 48)
-
-[node name="Window14" type="Sprite2D" parent="Windows"]
-position = Vector2(104, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window15" type="Sprite2D" parent="Windows"]
-position = Vector2(40, 64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(500, 368, 32, 48)
-
-[node name="Window16" type="Sprite2D" parent="Windows"]
-position = Vector2(40, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window" type="Sprite2D" parent="Windows"]
-position = Vector2(-216, -64)
-texture = ExtResource("1_37wgn")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Box1" type="Sprite2D" parent="."]
+[node name="Box1" type="Sprite2D" parent="." index="2"]
 z_index = 1
-position = Vector2(24, 71)
+position = Vector2(-5, 88)
 texture = ExtResource("1_37wgn")
 region_enabled = true
-region_rect = Rect2(256, 128, 256, 64)
+region_rect = Rect2(0, 416, 48, 32)
+
+[node name="Box2" type="Sprite2D" parent="." index="3"]
+z_index = 1
+position = Vector2(30, 87)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(0, 448, 16, 32)
+
+[node name="Box3" type="Sprite2D" parent="." index="4"]
+z_index = 1
+position = Vector2(2, 56)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(16, 448, 32, 32)
+
+[node name="Box4" type="Sprite2D" parent="." index="5"]
+z_index = 1
+position = Vector2(56, 95)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(48, 432, 32, 16)
+
+[node name="Box5" type="Sprite2D" parent="." index="6"]
+z_index = 1
+position = Vector2(65, 71)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(80, 432, 32, 32)
+
+[node name="Box6" type="Sprite2D" parent="." index="7"]
+z_index = 1
+position = Vector2(88, 96)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(80, 464, 32, 16)
+
+[node name="Box8" type="Sprite2D" parent="." index="8"]
+z_index = 1
+position = Vector2(-43, 88)
+texture = ExtResource("1_37wgn")
+region_enabled = true
+region_rect = Rect2(48, 448, 32, 32)

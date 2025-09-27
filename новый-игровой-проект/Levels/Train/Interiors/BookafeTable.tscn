@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccn3c7c122du4"]
+
+[ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_pfhmc"]
+
+[node name="Table" type="Sprite2D"]
+z_index = 1
+texture = ExtResource("1_pfhmc")
+region_enabled = true
+region_rect = Rect2(0, 336, 80, 32)

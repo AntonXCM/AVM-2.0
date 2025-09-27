@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=20 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
 [ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
@@ -15,6 +15,12 @@
 [ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="13_l0fbg"]
 [ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="15_mwgeh"]
 [ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="17_q6p4c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwgeh"]
+size = Vector2(590, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nsyrt"]
+size = Vector2(14, 168)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fhiw"]
 texture = ExtResource("4_3khji")
@@ -46,26 +52,44 @@ position = Vector2(-279, -40)
 script = ExtResource("3_5m7wl")
 PossibleChildren = Array[PackedScene]([ExtResource("2_2avv3"), ExtResource("6_i52w0"), ExtResource("7_i5f5r"), ExtResource("8_7wg6q"), ExtResource("9_7wg6q")])
 
-[node name="Floor" type="CollisionPolygon2D" parent="StaticBody2D"]
+[node name="Celling" type="CollisionPolygon2D" parent="StaticBody2D"]
+process_physics_priority = -1
 position = Vector2(0, -1)
-polygon = PackedVector2Array(-558, 66, -558, 80, 0, 80, 0, 66)
+polygon = PackedVector2Array(16, -168, 13, -170, 9, -171, 1, -172, -15, -173, -63, -174, -511, -174, -543, -173, -559, -172, -567, -171, -571, -170, -574, -168, -560, -160, 2, -160)
 
-[node name="Celling&walls" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(0, -1)
-polygon = PackedVector2Array(-14, 0, 0, 0, 0, -168, -3, -170, -7, -171, -15, -172, -31, -173, -63, -174, -495, -174, -527, -173, -543, -172, -551, -171, -555, -170, -558, -168, -558, 0, -544, 0, -544, -160, -14, -160)
+[node name="Floor" type="CollisionShape2D" parent="StaticBody2D"]
+process_physics_priority = 1
+position = Vector2(-279, 72)
+shape = SubResource("RectangleShape2D_mwgeh")
+
+[node name="Left Wall" type="CollisionShape2D" parent="StaticBody2D"]
+process_physics_priority = 1
+position = Vector2(-567, -85)
+shape = SubResource("RectangleShape2D_nsyrt")
+
+[node name="Right Wall" type="CollisionShape2D" parent="StaticBody2D"]
+process_physics_priority = 1
+position = Vector2(9, -85)
+shape = SubResource("RectangleShape2D_nsyrt")
 
 [node name="TestTileMap" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -1
 texture_filter = 3
-position = Vector2(-543, -160)
+position = Vector2(-559, -160)
 enabled = false
 tile_set = SubResource("TileSet_2avv3")
+rendering_quadrant_size = 7
+collision_enabled = false
+physics_quadrant_size = 1
 
 [node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -2
 texture_filter = 3
-position = Vector2(-543, -160)
+position = Vector2(-559, -160)
 tile_set = ExtResource("3_0n34t")
+rendering_quadrant_size = 7
+physics_quadrant_size = 7
+navigation_enabled = false
 
 [node name="Generator output" type="Node" parent="StaticBody2D" node_paths=PackedStringArray("debugLayer", "gameplayLayer")]
 script = ExtResource("5_5fhiw")
@@ -75,7 +99,7 @@ generatorPath = NodePath("../../Generator")
 
 [node name="Generator" type="Node" parent="."]
 script = ExtResource("6_2avv3")
-roomSize = Rect2i(0, 0, 33, 14)
+roomSize = Rect2i(0, 0, 35, 14)
 subdivisors = Array[Resource]([ExtResource("13_l0fbg")])
 shapeCreators = Array[Resource]([ExtResource("17_q6p4c")])
 tileDrawer = ExtResource("15_mwgeh")

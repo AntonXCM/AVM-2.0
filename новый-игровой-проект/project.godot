@@ -13,13 +13,14 @@ config_version=5
 config/name="Антивирусмэн"
 run/main_scene="uid://tg5el2hicmu"
 run/enable_alt_space_menu=true
-config/features=PackedStringArray("4.4", "C#", "Mobile")
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/transparent=true
 window/size/extend_to_title=true
+window/size/sharp_corners=true
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
@@ -41,8 +42,11 @@ folder_colors={
 
 [physics]
 
+2d/run_on_separate_thread=true
+2d/physics_engine="GodotPhysics2D"
 2d/default_gravity_vector=Vector2(0, 0.3)
 2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0
 
 [rendering]
 
@@ -56,4 +60,4 @@ textures/light_projectors/filter=0
 environment/defaults/default_clear_color=Color(0.4424, 0.46396, 0.56, 0)
 viewport/transparent_background=true
 2d/sdf/oversize=0
-2d/sdf/scale=2
+2d/sdf/scale=0

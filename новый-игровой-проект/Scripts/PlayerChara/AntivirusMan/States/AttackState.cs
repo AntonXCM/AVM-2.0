@@ -8,7 +8,6 @@ public partial class AttackState : IdleState, IRequireEnergy
 	[Export] AttackBase[] attacks;
 	IEnumerator<AttackBase> attacksE;
 	float attackTimer;
-	HashSet<string> keys;
 	[Export] EmptyState idleState;
 	bool canExitState = false;
 	public IEnergy Energy { get; set; }
@@ -36,24 +35,23 @@ public partial class AttackState : IdleState, IRequireEnergy
 
 	void EnterAction()
 	{
-		keys = stateMachine.GetKeys();
 		InitAttacksEnumerator();
 		attackTimer = attacksE.Current.Delay;
 	}
 
 	void ExitAction() => canExitState = false;
-	public override void Update(HashSet<string> keys)
+	public override void Update()
 	{
-		if (canExitState) base.Update(keys);
+		if (canExitState)
+			base.Update();
 	}
 	public override void _Process(double delta)
 	{
 		if (!IsPlaying) return;
 		attackTimer -= (float)delta;
 
-		keys = stateMachine.GetKeys();
 		if (attackTimer > 0) return;
-		else if (canExitState || !keys.Contains("Left")) stateMachine.SetState(idleState);
+		else if (canExitState || !InputSystem.IsPressed("Left")) stateMachine.SetState(idleState);
 		attacksE.Current.EndAttack();
 
 		if (!attacksE.MoveNext())
@@ -62,7 +60,6 @@ public partial class AttackState : IdleState, IRequireEnergy
 	}
 	private void AttackCurrent()
 	{
-		//if (Energy == null) return;
 		if (Energy.Value - attacksE.Current.AmmoCost < 0)
 		{
 			canExitState = true;
@@ -70,7 +67,6 @@ public partial class AttackState : IdleState, IRequireEnergy
 		}
 		Energy.Value -= attacksE.Current.AmmoCost;
 		attackTimer = attacksE.Current.Delay;
-		attacksE.Current.Keys = stateMachine.GetKeys();
 		attacksE.Current.PerformAttack();
 	}
 }

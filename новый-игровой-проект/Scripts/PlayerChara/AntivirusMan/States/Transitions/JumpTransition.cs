@@ -1,17 +1,14 @@
 using DustyStudios.AVM2.StateMachine;
 
-using Godot;
-using System;
-
 namespace DustyStudios.AVM2.PlayerChara;
 
 public partial class JumpTransition : Transition
 {
 	protected override void SetState(EmptyState state)
 	{
-		state.OnUpdate += k =>
+		state.OnUpdate += () =>
 		{
-			if(k.Contains("Space")) DoTransition();
+			if(InputSystem.IsPressed("Space")) DoTransition();
 		};
 
 		if(!(state is PhysicsState)) return;

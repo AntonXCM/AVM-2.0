@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://myv87mqaa4pd"]
+[gd_scene load_steps=22 format=3 uid="uid://myv87mqaa4pd"]
 
 [ext_resource type="Script" uid="uid://jib0njeg4nvf" path="res://Scripts/Common/StateMachine/StateMachine.cs" id="1_6fvfi"]
 [ext_resource type="Script" uid="uid://bh33jt5auibvn" path="res://Scripts/PlayerChara/AntivirusMan/physicsUpdate.gd" id="1_a1sqt"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://6rfavpmxvsgm" path="res://Scripts/PlayerChara/AntivirusIndicatorUIFactory.cs" id="16_002hn"]
 [ext_resource type="PackedScene" uid="uid://cb56m556k8t23" path="res://Levels/Train/Prefabs/UI/AtkCounterCell.tscn" id="17_5jkc2"]
 [ext_resource type="PackedScene" uid="uid://ctaqlmg5fgxg4" path="res://Levels/Train/Prefabs/UI/Indicators.tscn" id="18_uquex"]
+[ext_resource type="Script" uid="uid://bmluhw7kkypty" path="res://Scripts/PlayerChara/AntivirusMan/ShieldCharacter.cs" id="19_okehs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n726p"]
 size = Vector2(12, 30)
@@ -33,10 +34,12 @@ floor_block_on_wall = false
 floor_max_angle = 0.872665
 floor_snap_length = 3.0
 platform_on_leave = 2
-safe_margin = 1.0
+safe_margin = 0.333
 script = ExtResource("1_a1sqt")
 x_velocity_cap = 240.0
-y_velocity_cap = 240.0
+y_velocity_cap = 480.0
+gravity_scale = 2.0
+mass = 10.0
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("3_5h43p")
@@ -69,12 +72,11 @@ entranceStates = [NodePath("../../Idle")]
 script = ExtResource("5_gu8uy")
 idleState = NodePath("../Idle")
 speed = 15
-force = 42
-jumpStartPower = 50.0
-jumpLeftover = -5.08
-wallBouncyness = 4.205
-wallclimbing = 0.16
+force = 48
+jumpStartPower = 70.0
+jumpLeftover = -16575.0
 speedDecreace = 0.045
+wallClimbing = Vector2(200, -1)
 
 [node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Jump" node_paths=PackedStringArray("entranceStates")]
 script = ExtResource("8_5j2gi")
@@ -89,15 +91,13 @@ idleState = NodePath("../Jump")
 script = ExtResource("10_bil8w")
 entranceStates = [NodePath("../../Jump"), NodePath("../../Move"), NodePath("../../Idle")]
 
-[node name="Test" type="Node" parent="CollisionShape2D/StateMachine"]
-
 [node name="Animator" type="Node2D" parent="CollisionShape2D"]
 script = ExtResource("11_o45n1")
 
 [node name="Sprite" type="Sprite2D" parent="CollisionShape2D/Animator"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(-4, 0)
+position = Vector2(-3, 0)
 texture = SubResource("AtlasTexture_bxawv")
 
 [node name="RegularAttack" type="Node2D" parent="CollisionShape2D/Animator/Sprite" node_paths=PackedStringArray("parent")]
@@ -120,3 +120,7 @@ rechargeTime = 0.75
 script = ExtResource("16_002hn")
 energyIndicatorScene = ExtResource("17_5jkc2")
 SceneProduct = ExtResource("18_uquex")
+
+[node name="Shield" type="Node2D" parent="."]
+script = ExtResource("19_okehs")
+degThrehold = 30.0

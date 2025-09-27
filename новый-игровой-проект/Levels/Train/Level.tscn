@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=12 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
 [ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/ZoomedCamera.cs" id="7_ne20o"]
 [ext_resource type="PackedScene" uid="uid://chimdesiuh3q6" path="res://Levels/Train/pc.tscn" id="9_kt0gt"]
+[ext_resource type="Script" uid="uid://h6yoa4r5uush" path="res://Scripts/Common/InputSystem.cs" id="11_7i1l5"]
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 
@@ -81,6 +82,8 @@ pixelSize = 3.0
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
 position = Vector2(-409, -16)
+collision_layer = 2
+collision_mask = 3
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
 position = Vector2(-339, -72)
@@ -88,3 +91,7 @@ rayLength = 1.0
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
 position = Vector2(2590, -104)
+Spacing = Vector2(-616, 0)
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("11_7i1l5")

@@ -1,18 +1,16 @@
 using DustyStudios.AVM2.StateMachine;
-
 using Godot;
-
 using System;
-using System.Collections.Generic;
 
 namespace DustyStudios.AVM2.PlayerChara;
 public partial class JumpState : PhysicsState
 {
 	[Export] EmptyState idleState;
 	[Export] int speed, force;
-	[Export] float jumpStartPower, jumpLeftover, wallBouncyness, wallclimbing, speedDecreace;
-	bool startedWjthSpace;
-	Vector2 constantForce,jumpForceDecrease;
+	[Export] float jumpStartPower, jumpLeftover, speedDecreace;
+	[Export] Vector2 wallClimbing;
+	bool startedWithSpace;
+	Vector2 constantForce;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -24,39 +22,41 @@ public partial class JumpState : PhysicsState
 	void ExitAction()
 	{
 		Rb.Velocity *= Vector2.Right;
-		startedWjthSpace = false;
+		startedWithSpace = false;
 	}
 	void EnterAction()
 	{
-		if(stateMachine.GetKeys().Contains("Space"))
+		if (InputSystem.IsPressed("Space"))
 		{
 			Rb.Velocity += Vector2.Up * jumpStartPower;
-			startedWjthSpace = true;
+			startedWithSpace = true;
 		}
-		jumpForceDecrease = Rb.GetGravity();
+		constantForce = default;
 	}
 	public void PhysicsAction(double delta)
 	{
 		if(constantForce.Y < 0)
-			constantForce += (float)delta * jumpForceDecrease;
-		Rb.Velocity = new((Rb.Velocity.X + constantForce.X) * (float)Mathf.Pow( speedDecreace,delta),Rb.Velocity.Y + constantForce.Y);
-		if(Rb.IsOnFloor()) stateMachine.SetState(idleState);
-		else if(Rb.IsOnWall() && stateMachine.GetKeys().Contains("Space"))
+			constantForce += (float)delta * Rb.GetGravity();
+		Rb.Velocity = new((Rb.Velocity.X + constantForce.X) * (float)Mathf.Pow(speedDecreace,delta),Rb.Velocity.Y + constantForce.Y);
+		if(Rb.IsOnFloor())
+			stateMachine.SetState(idleState);
+		else if(Rb.IsOnWall() && InputSystem.IsPressed("Space"))
 		{
-			var bounce = Rb.GetWallNormal()*wallBouncyness*Mathf.Abs(Rb.Velocity.X)+Vector2.Up*wallclimbing*Mathf.Abs(Rb.Velocity.Y*Rb.Velocity.X);
+			var bounce = new Vector2(Rb.GetWallNormal().X, Rb.Velocity.Length()) * wallClimbing;
+
             Rb.Velocity += bounce;
 			constantForce *= Vector2.Down;
 		}
 	}
 
-	void UpdateAction(HashSet<string> keys)
+	void UpdateAction()
 	{
-		constantForce.X = (keys.Contains("A") ^ keys.Contains("D")) ? (keys.Contains("A") ? -speed : speed) : 0;
-		constantForce.Y = keys.Contains("Space") ? (Rb.IsOnFloor() ? (-force) : constantForce.Y) : Mathf.Max(constantForce.Y,0);
-		if(!keys.Contains("Space")&&startedWjthSpace&&false)
+		constantForce.X = (InputSystem.IsPressed("A") ^ InputSystem.IsPressed("D")) ? (InputSystem.IsPressed("A") ? -speed : speed) : 0;
+		constantForce.Y = InputSystem.IsPressed("Space") ? (Rb.IsOnFloor() ? (-force) : constantForce.Y) : Mathf.Max(constantForce.Y,0);
+		if(!InputSystem.IsPressed("Space") && startedWithSpace)
 			Rb.Velocity = new(Rb.Velocity.X, Mathf.Min(Rb.Velocity.Y, CalculateJumpLeftover(Rb.Velocity.Y)));
 
 
-		float CalculateJumpLeftover(float vel) => startedWjthSpace ? (Mathf.Exp(-vel * vel) - Mathf.Max(vel,0)) * jumpLeftover : vel;
+		float CalculateJumpLeftover(float vel) => startedWithSpace ? (Mathf.Exp(-vel * vel) - Mathf.Max(vel,0)) * jumpLeftover : vel;
 	}
 }

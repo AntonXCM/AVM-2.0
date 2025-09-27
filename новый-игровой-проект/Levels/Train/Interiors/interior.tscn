@@ -1,105 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://okadcqf1olnf"]
+[gd_scene load_steps=3 format=3 uid="uid://okadcqf1olnf"]
 
 [ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_lq11g"]
+[ext_resource type="PackedScene" uid="uid://cwaua2xodmgg5" path="res://Levels/Train/Interiors/Window.tscn" id="2_i7get"]
 
 [node name="Interior" type="Sprite2D"]
 z_index = -1
 texture = ExtResource("1_lq11g")
 region_enabled = true
-region_rect = Rect2(464, 272, 560, 240)
+region_rect = Rect2(432, 272, 592, 240)
 
-[node name="Window5" type="Sprite2D" parent="."]
-position = Vector2(-24, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
+[node name="UP Windows" type="Node2D" parent="."]
 
-[node name="Window6" type="Sprite2D" parent="."]
-position = Vector2(-24, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window7" type="Sprite2D" parent="."]
-position = Vector2(-88, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window8" type="Sprite2D" parent="."]
-position = Vector2(-88, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window3" type="Sprite2D" parent="."]
-position = Vector2(-152, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window4" type="Sprite2D" parent="."]
-position = Vector2(-152, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window2" type="Sprite2D" parent="."]
-position = Vector2(-216, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window9" type="Sprite2D" parent="."]
-position = Vector2(232, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window10" type="Sprite2D" parent="."]
-position = Vector2(232, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window11" type="Sprite2D" parent="."]
-position = Vector2(168, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window12" type="Sprite2D" parent="."]
-position = Vector2(168, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window13" type="Sprite2D" parent="."]
-position = Vector2(104, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window14" type="Sprite2D" parent="."]
-position = Vector2(104, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window15" type="Sprite2D" parent="."]
-position = Vector2(40, 64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window16" type="Sprite2D" parent="."]
-position = Vector2(40, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
-
-[node name="Window" type="Sprite2D" parent="."]
+[node name="Window1" parent="UP Windows" instance=ExtResource("2_i7get")]
 position = Vector2(-216, -64)
-texture = ExtResource("1_lq11g")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
+
+[node name="Window2" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-152, -64)
+
+[node name="Window3" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-88, -64)
+
+[node name="Window4" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-24, -64)
+
+[node name="Window5" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(40, -64)
+
+[node name="Window6" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(104, -64)
+
+[node name="Window7" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(168, -64)
+
+[node name="Window8" parent="UP Windows" instance=ExtResource("2_i7get")]
+position = Vector2(232, -64)
+
+[node name="DOWN Windows" type="Node2D" parent="."]
+
+[node name="Window1" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-216, 64)
+
+[node name="Window2" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-152, 64)
+
+[node name="Window3" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-88, 64)
+
+[node name="Window4" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(-24, 64)
+
+[node name="Window5" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(40, 64)
+
+[node name="Window6" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(104, 64)
+
+[node name="Window7" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(168, 64)
+
+[node name="Window8" parent="DOWN Windows" instance=ExtResource("2_i7get")]
+position = Vector2(232, 64)

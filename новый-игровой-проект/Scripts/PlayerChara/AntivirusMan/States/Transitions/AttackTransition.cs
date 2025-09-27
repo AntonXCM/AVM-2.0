@@ -5,10 +5,9 @@ public partial class AttackTransition : Transition
 {
 	protected override void SetState(EmptyState state)
 	{
-		state.OnUpdate += k =>
+		state.OnUpdate += () =>
 		{
-            IEnergy energy = (targetState as AttackState).Energy;
-            if (k.Contains("Left") && energy.Value > 0)
+            if (InputSystem.IsPressed("Left") && (targetState as AttackState).Energy.Value > 0)
 				DoTransition();
 		};
 	}

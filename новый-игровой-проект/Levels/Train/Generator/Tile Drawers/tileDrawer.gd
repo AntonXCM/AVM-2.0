@@ -131,9 +131,9 @@ class TilesetData:
 		var topleft_connection_id = tileset.get_custom_data_layer_by_name("topleft_connection")
 		var bottomleft_connection_id = tileset.get_custom_data_layer_by_name("bottomleft_connection")
 		for tile in count:
-			var vector = tiles.get_tile_id(tile)
-			self.vector.set(tile, vector)
-			var tiledata = tiles.get_tile_data(vector,0)
+			var tile_vector = tiles.get_tile_id(tile)
+			vector.set(tile, tile_vector)
+			var tiledata = tiles.get_tile_data(tile_vector,0)
 			top_connection.set(tile, tiledata.get_custom_data_by_layer_id(top_connection_id))
 			bottom_connection.set(tile, tiledata.get_custom_data_by_layer_id(bottom_connection_id))
 			left_connection.set(tile, tiledata.get_custom_data_by_layer_id(left_connection_id))
