@@ -29,9 +29,9 @@ shader = ExtResource("3_8xl60")
 shader_parameter/light_pos = Vector2(0.5, 0.465)
 shader_parameter/suntexture = SubResource("ViewportTexture_8xl60")
 shader_parameter/forgroundtexture = SubResource("ViewportTexture_gs6ya")
-shader_parameter/decay = 0.78000003705
+shader_parameter/decay = 0.62400002964
 shader_parameter/exposure = 0.10000000475
-shader_parameter/density = 1.25
+shader_parameter/density = 1.0
 shader_parameter/samples = 20
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etk17"]
