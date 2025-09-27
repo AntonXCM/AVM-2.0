@@ -8,7 +8,6 @@ public partial class JumpState : PhysicsState
 	[Export] EmptyState idleState;
 	[Export] int speed, force;
 	[Export] float jumpStartPower, jumpLeftover, speedDecreace;
-	[Export] Vector2 wallClimbing;
 	bool startedWithSpace;
 	Vector2 constantForce;
 	public override void _Ready()
@@ -26,11 +25,14 @@ public partial class JumpState : PhysicsState
 	}
 	void EnterAction()
 	{
+		GD.Print("Before"+Rb.Velocity);
+		if (Rb.Velocity.Y > 0) Rb.Velocity *= Vector2.Right;
 		if (InputSystem.IsPressed("Space"))
 		{
 			Rb.Velocity += Vector2.Up * jumpStartPower;
 			startedWithSpace = true;
 		}
+		GD.Print("After"+Rb.Velocity);
 		constantForce = default;
 	}
 	public void PhysicsAction(double delta)
@@ -40,20 +42,14 @@ public partial class JumpState : PhysicsState
 		Rb.Velocity = new((Rb.Velocity.X + constantForce.X) * (float)Mathf.Pow(speedDecreace,delta),Rb.Velocity.Y + constantForce.Y);
 		if(Rb.IsOnFloor())
 			stateMachine.SetState(idleState);
-		else if(Rb.IsOnWall() && InputSystem.IsPressed("Space"))
-		{
-			var bounce = new Vector2(Rb.GetWallNormal().X, Rb.Velocity.Length()) * wallClimbing;
-
-            Rb.Velocity += bounce;
-			constantForce *= Vector2.Down;
-		}
 	}
 
 	void UpdateAction()
 	{
+		if (!startedWithSpace) return;
 		constantForce.X = (InputSystem.IsPressed("A") ^ InputSystem.IsPressed("D")) ? (InputSystem.IsPressed("A") ? -speed : speed) : 0;
 		constantForce.Y = InputSystem.IsPressed("Space") ? (Rb.IsOnFloor() ? (-force) : constantForce.Y) : Mathf.Max(constantForce.Y,0);
-		if(!InputSystem.IsPressed("Space") && startedWithSpace)
+		if(!InputSystem.IsPressed("Space"))
 			Rb.Velocity = new(Rb.Velocity.X, Mathf.Min(Rb.Velocity.Y, CalculateJumpLeftover(Rb.Velocity.Y)));
 
 

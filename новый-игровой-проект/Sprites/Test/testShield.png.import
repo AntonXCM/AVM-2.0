@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doc5dm1cv5c5k"
-path="res://.godot/imported/Sun.png-63dc9c56ec100461fb1f79272e7a30b5.ctex"
+uid="uid://btoj7wpnkggag"
+path="res://.godot/imported/testShield.png-d6fadb4c4c2244470c95703df8e81e9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/Sun.png"
-dest_files=["res://.godot/imported/Sun.png-63dc9c56ec100461fb1f79272e7a30b5.ctex"]
+source_file="res://Sprites/Test/testShield.png"
+dest_files=["res://.godot/imported/testShield.png-d6fadb4c4c2244470c95703df8e81e9d.ctex"]
 
 [params]
 

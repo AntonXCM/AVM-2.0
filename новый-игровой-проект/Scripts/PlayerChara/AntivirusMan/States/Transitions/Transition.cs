@@ -13,8 +13,5 @@ public abstract partial class Transition : Node
 			SetState(state);
 	}
 	abstract protected void SetState(EmptyState state);
-	public void DoTransition()
-	{
-		stateMachine.SetState(targetState);
-	}
+    public void DoTransition() => stateMachine.SetState(targetState);
 }

@@ -8,7 +8,7 @@ public partial class JumpTransition : Transition
 	{
 		state.OnUpdate += () =>
 		{
-			if(InputSystem.IsPressed("Space")) DoTransition();
+			if(InputSystem.IsPressed("Space") && !InputSystem.IsPressed("S")) DoTransition();
 		};
 
 		if(!(state is PhysicsState)) return;

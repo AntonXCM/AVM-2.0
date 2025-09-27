@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=13 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://h6yoa4r5uush" path="res://Scripts/Common/InputSystem.cs" id="11_7i1l5"]
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i1l5"]
+size = Vector2(155, 66)
 
 [node name="TrainScene" type="Node2D"]
 texture_filter = 1
@@ -71,7 +74,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 2048, 64)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-455, -105)
+position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
@@ -81,7 +84,7 @@ targetHeight = 800.0
 pixelSize = 3.0
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
-position = Vector2(-409, -16)
+position = Vector2(-409, -72)
 collision_layer = 2
 collision_mask = 3
 
@@ -95,3 +98,14 @@ Spacing = Vector2(-616, 0)
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("11_7i1l5")
+
+[node name="Rails" type="Sprite2D" parent="."]
+position = Vector2(-413, -301)
+scale = Vector2(36.160004, 1)
+texture = ExtResource("4_jk3e0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Rails"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rails/StaticBody2D"]
+position = Vector2(-3.499999, 1)
+shape = SubResource("RectangleShape2D_7i1l5")
