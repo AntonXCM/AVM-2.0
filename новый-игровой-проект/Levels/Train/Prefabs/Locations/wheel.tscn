@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbwkhdgh0vwp4"]
+
+[ext_resource type="Texture2D" uid="uid://77eu8cxwkekf" path="res://Sprites/Levels/Train/Background/wheel.png" id="1_c16lu"]
+[ext_resource type="Script" uid="uid://cjom8ovp20key" path="res://Levels/Train/Prefabs/Locations/wheel.gd" id="2_b75t3"]
+
+[node name="Wheel" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_c16lu")
+script = ExtResource("2_b75t3")
+speed = 1200.0

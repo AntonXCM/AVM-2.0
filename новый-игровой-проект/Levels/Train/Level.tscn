@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=24 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
+[ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
 [ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/Gradient.png" id="2_nupcv"]
 [ext_resource type="Shader" uid="uid://cfxdq53ynuwrs" path="res://Levels/Train/TrainLevelBg.gdshader" id="3_8xl60"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" uid="uid://btpu3oasykskw" path="res://Levels/Train/background.gd" id="3_ut1n0"]
 [ext_resource type="Script" uid="uid://jv54net6806q" path="res://Levels/Train/BackgroundRenderer.gd" id="4_etk17"]
 [ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
+[ext_resource type="Script" uid="uid://bh7uh2spp01t" path="res://Scripts/Level/Background/MovingParalax.cs" id="4_rsy8m"]
 [ext_resource type="Texture2D" uid="uid://d2j8vnvtby685" path="res://Sprites/Levels/Train/Background/PowerLine.png" id="5_f7yi0"]
 [ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/ZoomedCamera.cs" id="7_ne20o"]
 [ext_resource type="Script" uid="uid://bpqtwqyr1nrtb" path="res://Levels/Train/sun.gd" id="8_gs6ya"]
@@ -18,10 +20,10 @@
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gs6ya"]
-viewport_path = NodePath("Camera2D/TextureRect3/Forground")
+viewport_path = NodePath("Camera2D/BackgroundRender/Forground")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8xl60"]
-viewport_path = NodePath("Camera2D/TextureRect3/Sun")
+viewport_path = NodePath("Camera2D/BackgroundRender/Sun")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_etk17"]
 resource_local_to_scene = true
@@ -29,13 +31,12 @@ shader = ExtResource("3_8xl60")
 shader_parameter/light_pos = Vector2(0.5, 0.465)
 shader_parameter/suntexture = SubResource("ViewportTexture_8xl60")
 shader_parameter/forgroundtexture = SubResource("ViewportTexture_gs6ya")
-shader_parameter/decay = 0.62400002964
+shader_parameter/decay = 0.7
 shader_parameter/exposure = 0.10000000475
-shader_parameter/density = 1.0
-shader_parameter/samples = 20
+shader_parameter/density = 0.063
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etk17"]
-viewport_path = NodePath("Camera2D/TextureRect3/Sun")
+viewport_path = NodePath("Camera2D/BackgroundRender/Sun")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i1l5"]
 size = Vector2(155, 66)
@@ -45,7 +46,7 @@ texture_filter = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-409, -88)
-scale = Vector2(0.5, 0.5)
+zoom = Vector2(3, 3)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
@@ -54,40 +55,74 @@ script = ExtResource("18_sny0v")
 targetHeight = 800.0
 pixelSize = 3.0
 
-[node name="TextureRect3" type="TextureRect" parent="Camera2D"]
+[node name="Gradient2" type="Parallax2D" parent="Camera2D"]
+z_index = -1000
+texture_filter = 1
+scroll_scale = Vector2(0.003, 1)
+repeat_size = Vector2(256, 0)
+repeat_times = 2
+script = ExtResource("4_rsy8m")
+
+[node name="Sprite" type="Sprite2D" parent="Camera2D/Gradient2"]
+texture_repeat = 2
+position = Vector2(900, -196)
+texture = ExtResource("2_nupcv")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1000, 256)
+
+[node name="Rails" type="Parallax2D" parent="Camera2D"]
+z_as_relative = false
+texture_filter = 1
+scroll_scale = Vector2(1.5, 1.1)
+repeat_size = Vector2(288, 0)
+repeat_times = 6
+script = ExtResource("4_rsy8m")
+
+[node name="Spriite" type="Sprite2D" parent="Camera2D/Rails"]
+z_index = 4096
+z_as_relative = false
+texture_repeat = 2
+position = Vector2(600, 122)
+texture = ExtResource("4_jk3e0")
+region_rect = Rect2(0, 0, 2048, 64)
+
+[node name="BackgroundRender" type="TextureRect" parent="Camera2D"]
+show_behind_parent = true
 z_index = -997
+z_as_relative = false
 texture_filter = 1
 material = SubResource("ShaderMaterial_etk17")
 offset_left = -1152.0
 offset_top = -648.0
-offset_right = 45.0
-offset_bottom = -36.0
+offset_right = 53.35498
+offset_bottom = -31.0
 texture = SubResource("ViewportTexture_etk17")
 script = ExtResource("4_etk17")
 
-[node name="Sun" type="SubViewport" parent="Camera2D/TextureRect3" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Sun" type="SubViewport" parent="Camera2D/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(1197, 612)
+size = Vector2i(400, 205)
 size_2d_override_stretch = true
 script = ExtResource("3_ut1n0")
 camera = NodePath("../..")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Camera2D/TextureRect3/Sun"]
+[node name="InsideCamera" type="Camera2D" parent="Camera2D/BackgroundRender/Sun"]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D/TextureRect3/Sun"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D/BackgroundRender/Sun"]
 
-[node name="Sun" type="ParallaxLayer" parent="Camera2D/TextureRect3/Sun/ParallaxBackground"]
+[node name="Sun" type="ParallaxLayer" parent="Camera2D/BackgroundRender/Sun/ParallaxBackground"]
 texture_filter = 1
 script = ExtResource("1_yf6p5")
-speed = Vector2(0, -1)
+speed = Vector2(0, -0.5)
 
-[node name="Spriite" type="Sprite2D" parent="Camera2D/TextureRect3/Sun/ParallaxBackground/Sun" node_paths=PackedStringArray("camera")]
+[node name="Spriite" type="Sprite2D" parent="Camera2D/BackgroundRender/Sun/ParallaxBackground/Sun" node_paths=PackedStringArray("camera")]
 position = Vector2(-406, -30)
 texture = ExtResource("3_hpjpt")
 region_rect = Rect2(0, 0, 960, 64)
@@ -96,80 +131,45 @@ mater = SubResource("ShaderMaterial_etk17")
 camera = NodePath("../../../InsideCamera")
 speed = 0.37
 
-[node name="Forground" type="SubViewport" parent="Camera2D/TextureRect3" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Forground" type="SubViewport" parent="Camera2D/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 process_mode = 3
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(1197, 612)
+size = Vector2i(400, 205)
 size_2d_override_stretch = true
-render_target_update_mode = 4
+render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
 camera = NodePath("../..")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Camera2D/TextureRect3/Forground"]
+[node name="InsideCamera" type="Camera2D" parent="Camera2D/BackgroundRender/Forground"]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D/TextureRect3/Forground"]
-
-[node name="Props" type="ParallaxLayer" parent="Camera2D/TextureRect3/Forground/ParallaxBackground"]
+[node name="Power" type="Parallax2D" parent="Camera2D/BackgroundRender/Forground"]
+z_index = 1
 texture_filter = 1
-motion_mirroring = Vector2(2196, 0)
-script = ExtResource("1_yf6p5")
-speed = Vector2(-200, 0)
+repeat_size = Vector2(660, 0)
+script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Camera2D/TextureRect3/Forground/ParallaxBackground/Props"]
+[node name="Sprite" type="Sprite2D" parent="Camera2D/BackgroundRender/Forground/Power"]
 texture_repeat = 2
-position = Vector2(0, 236.48648)
-texture = ExtResource("3_ix047")
-region_rect = Rect2(0, 0, 1000, 256)
-
-[node name="Power" type="ParallaxLayer" parent="Camera2D/TextureRect3/Forground/ParallaxBackground"]
-texture_filter = 1
-motion_mirroring = Vector2(789, 0)
-script = ExtResource("1_yf6p5")
-speed = Vector2(-450, 0)
-
-[node name="Sprite" type="Sprite2D" parent="Camera2D/TextureRect3/Forground/ParallaxBackground/Power"]
-texture_repeat = 2
-position = Vector2(-1, -114)
+position = Vector2(-1, -111)
 texture = ExtResource("5_f7yi0")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Rails" type="ParallaxLayer" parent="Camera2D/TextureRect3/Forground/ParallaxBackground"]
+[node name="Props" type="Parallax2D" parent="Camera2D/BackgroundRender/Forground"]
 texture_filter = 1
-position = Vector2(0, 21)
-motion_mirroring = Vector2(384, 0)
-script = ExtResource("1_yf6p5")
-speed = Vector2(-600, 0)
+scroll_scale = Vector2(0.334, 1)
+repeat_size = Vector2(2496, 0)
+script = ExtResource("4_rsy8m")
 
-[node name="Spriite" type="Sprite2D" parent="Camera2D/TextureRect3/Forground/ParallaxBackground/Rails"]
+[node name="Sprite" type="Sprite2D" parent="Camera2D/BackgroundRender/Forground/Props"]
 texture_repeat = 2
-position = Vector2(0, 49)
-texture = ExtResource("4_jk3e0")
-region_enabled = true
-region_rect = Rect2(0, 0, 2048, 64)
-
-[node name="Gradient" type="ParallaxBackground" parent="Camera2D"]
-
-[node name="Gradient" type="ParallaxLayer" parent="Camera2D/Gradient"]
-z_index = -1000
-texture_filter = 1
-position = Vector2(247, -85)
-motion_scale = Vector2(0, 1)
-motion_mirroring = Vector2(8, 0)
-script = ExtResource("1_yf6p5")
-speed = Vector2(2, 0)
-
-[node name="Sprite" type="Sprite2D" parent="Camera2D/Gradient/Gradient"]
-texture_repeat = 2
-position = Vector2(-9, -196)
-texture = ExtResource("2_nupcv")
-centered = false
-region_enabled = true
+position = Vector2(0, 236.48648)
+texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
@@ -178,11 +178,11 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-339, -72)
+position = Vector2(-212, -20)
 rayLength = 1.0
+ySpeed = -35.0
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
-visible = false
 position = Vector2(2590, -104)
 Spacing = Vector2(-616, 0)
 
@@ -199,3 +199,8 @@ texture = ExtResource("4_jk3e0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rails/StaticBody2D"]
 position = Vector2(-3.499999, 1)
 shape = SubResource("RectangleShape2D_7i1l5")
+
+[node name="Level" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_hglua")
+Speed = Vector2(-450, 0)

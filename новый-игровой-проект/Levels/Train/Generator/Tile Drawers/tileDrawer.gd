@@ -10,11 +10,12 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 	
 	var top : bool
 	var bottom : bool
-	var left : bool
 	var right : bool
+	var left_col = null
+	var current_col = []
 	var get_horizontal_median := func(x: int, y: int) -> TileType:
 		var center = tiles[x][y]
-		if not right or not left:
+		if not right or left_col == null:
 			return center
 		var right_tile = tiles[x + 1][y]
 		if center == right_tile:
@@ -22,9 +23,8 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 		var left_tile = tiles[x - 1][y]
 		
 		return left_tile if left_tile == center or left_tile == right_tile else center
-
 	for x in len(tiles):
-		var col = tiles[x]
+		var col : Array = tiles[x]
 		var has_bottom := len(col) - 1
 		
 		var get_vertical_median := func(y: int) -> TileType:
@@ -36,10 +36,8 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 				return center
 			var bottom_tile = col[y + 1]
 			return bottom_tile if bottom_tile == center or bottom_tile == top_tile else center
-		
-		left = x > 0
+			
 		right = x < has_right
-		
 		for y in len(col):
 			var tile = Tile.new() #Удалять не надо, в будущем он будет использован для тайлов с отрисовкой в несколько проходов
 			var vertical_median = null
@@ -56,7 +54,7 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.topright_tile = vertical_median
-					if left:
+					if left_col != null:
 						tile.topleft_tile = define_BJ9Tb(tiles[x - 1][y - 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
@@ -73,7 +71,7 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.bottomright_tile = vertical_median
-					if left:
+					if left_col != null:
 						tile.bottomleft_tile = define_BJ9Tb(tiles[x - 1][y + 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
@@ -83,7 +81,7 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 					tile.bottom_tile = median
 					tile.bottomright_tile = median
 					tile.bottomleft_tile = median
-				if left: 
+				if left_col != null: 
 					tile.left_tile = define_BJ9Tb(tiles[x - 1][y])
 				else:
 					if vertical_median != null:
@@ -98,12 +96,11 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 					else:
 						tile.right_tile = define_BJ9Tb(get_vertical_median.call(y))
 				tilemap.set_cell(Vector2i(x,y),0,tile.get_atlas_coords(tileset_data))
-			await tree.process_frame
+			left_col = current_col
+			await tree.physics_frame
 	tilemap.collision_enabled = true
 func define_BJ9Tb(tile : TileType) -> TileType:
 	return TileType.EMPTY if tile == TileType.UNDEFINED else tile
-	
-	
 
 class TilesetData:
 	var top_connection : Dictionary[int, PackedByteArray] = {}
@@ -145,13 +142,13 @@ class TilesetData:
 
 class Tile:
 	var type 		:= TileType.UNDEFINED
-	var top_tile	:= TileType.UNDEFINED
+	var top_tile	= TileType.UNDEFINED
 	var bottom_tile	:= TileType.UNDEFINED
 	var topright_tile		:= TileType.UNDEFINED
 	var bottomright_tile	:= TileType.UNDEFINED
-	var topleft_tile	:= TileType.UNDEFINED
-	var bottomleft_tile	:= TileType.UNDEFINED
-	var left_tile	:= TileType.UNDEFINED
+	var topleft_tile	= TileType.UNDEFINED
+	var bottomleft_tile	= TileType.UNDEFINED
+	var left_tile	= TileType.UNDEFINED
 	var right_tile	:= TileType.UNDEFINED
 
 	func get_atlas_coords(tileset_data : TilesetData) -> Vector2i:
@@ -182,4 +179,4 @@ class Tile:
 				coords = [tileset_data.vector[tile]]
 			elif matches == best:
 				coords.append(tileset_data.vector[tile])
-		return coords.pick_random()
+		return coords[0]
