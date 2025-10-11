@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=25 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
+[ext_resource type="Script" uid="uid://55xtqu0eh8hw" path="res://Levels/Train/MouseMove.cs" id="1_rsy8m"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
 [ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/Gradient.png" id="2_nupcv"]
 [ext_resource type="Shader" uid="uid://cfxdq53ynuwrs" path="res://Levels/Train/TrainLevelBg.gdshader" id="3_8xl60"]
@@ -20,10 +21,10 @@
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gs6ya"]
-viewport_path = NodePath("Camera2D/BackgroundRender/Forground")
+viewport_path = NodePath("Background/BackgroundRender/Forground")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8xl60"]
-viewport_path = NodePath("Camera2D/BackgroundRender/Sun")
+viewport_path = NodePath("Background/BackgroundRender/Sun")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_etk17"]
 resource_local_to_scene = true
@@ -36,7 +37,7 @@ shader_parameter/exposure = 0.10000000475
 shader_parameter/density = 0.063
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etk17"]
-viewport_path = NodePath("Camera2D/BackgroundRender/Sun")
+viewport_path = NodePath("Background/BackgroundRender/Sun")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7i1l5"]
 size = Vector2(155, 66)
@@ -44,18 +45,10 @@ size = Vector2(155, 66)
 [node name="TrainScene" type="Node2D"]
 texture_filter = 1
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
 position = Vector2(-409, -88)
-zoom = Vector2(3, 3)
-position_smoothing_speed = 2.0
-script = ExtResource("7_ne20o")
 
-[node name="Zoom calculator" type="Node" parent="Camera2D"]
-script = ExtResource("18_sny0v")
-targetHeight = 800.0
-pixelSize = 3.0
-
-[node name="Gradient2" type="Parallax2D" parent="Camera2D"]
+[node name="Gradient2" type="Parallax2D" parent="Background"]
 z_index = -1000
 texture_filter = 1
 scroll_scale = Vector2(0.003, 1)
@@ -63,7 +56,7 @@ repeat_size = Vector2(256, 0)
 repeat_times = 2
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Camera2D/Gradient2"]
+[node name="Sprite" type="Sprite2D" parent="Background/Gradient2"]
 texture_repeat = 2
 position = Vector2(900, -196)
 texture = ExtResource("2_nupcv")
@@ -71,59 +64,46 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Rails" type="Parallax2D" parent="Camera2D"]
-z_as_relative = false
-texture_filter = 1
-scroll_scale = Vector2(1.5, 1.1)
-repeat_size = Vector2(288, 0)
-repeat_times = 6
-script = ExtResource("4_rsy8m")
-
-[node name="Spriite" type="Sprite2D" parent="Camera2D/Rails"]
-z_index = 4096
-z_as_relative = false
-texture_repeat = 2
-position = Vector2(600, 122)
-texture = ExtResource("4_jk3e0")
-region_rect = Rect2(0, 0, 2048, 64)
-
-[node name="BackgroundRender" type="TextureRect" parent="Camera2D"]
+[node name="BackgroundRender" type="TextureRect" parent="Background" node_paths=PackedStringArray("camera")]
 show_behind_parent = true
 z_index = -997
 z_as_relative = false
 texture_filter = 1
 material = SubResource("ShaderMaterial_etk17")
-offset_left = -1152.0
-offset_top = -648.0
-offset_right = 53.35498
-offset_bottom = -31.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("ViewportTexture_etk17")
+expand_mode = 1
 script = ExtResource("4_etk17")
+camera = NodePath("../../Camera/Camera2D")
 
-[node name="Sun" type="SubViewport" parent="Camera2D/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Sun" type="SubViewport" parent="Background/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(400, 205)
-size_2d_override_stretch = true
+size = Vector2i(386, 205)
 script = ExtResource("3_ut1n0")
-camera = NodePath("../..")
+camera = NodePath("../../../Camera/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Camera2D/BackgroundRender/Sun"]
+[node name="InsideCamera" type="Camera2D" parent="Background/BackgroundRender/Sun"]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D/BackgroundRender/Sun"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background/BackgroundRender/Sun"]
 
-[node name="Sun" type="ParallaxLayer" parent="Camera2D/BackgroundRender/Sun/ParallaxBackground"]
+[node name="Sun" type="ParallaxLayer" parent="Background/BackgroundRender/Sun/ParallaxBackground"]
 texture_filter = 1
+motion_scale = Vector2(0.1, 0.25)
 script = ExtResource("1_yf6p5")
 speed = Vector2(0, -0.5)
 
-[node name="Spriite" type="Sprite2D" parent="Camera2D/BackgroundRender/Sun/ParallaxBackground/Sun" node_paths=PackedStringArray("camera")]
-position = Vector2(-406, -30)
+[node name="Spriite" type="Sprite2D" parent="Background/BackgroundRender/Sun/ParallaxBackground/Sun" node_paths=PackedStringArray("camera")]
+position = Vector2(300, 150)
 texture = ExtResource("3_hpjpt")
 region_rect = Rect2(0, 0, 960, 64)
 script = ExtResource("8_gs6ya")
@@ -131,58 +111,99 @@ mater = SubResource("ShaderMaterial_etk17")
 camera = NodePath("../../../InsideCamera")
 speed = 0.37
 
-[node name="Forground" type="SubViewport" parent="Camera2D/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Forground" type="SubViewport" parent="Background/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 process_mode = 3
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(400, 205)
+size = Vector2i(386, 205)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
-camera = NodePath("../..")
+camera = NodePath("../../../Camera/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Camera2D/BackgroundRender/Forground"]
+[node name="InsideCamera" type="Camera2D" parent="Background/BackgroundRender/Forground"]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="Power" type="Parallax2D" parent="Camera2D/BackgroundRender/Forground"]
-z_index = 1
-texture_filter = 1
-repeat_size = Vector2(660, 0)
+[node name="Node2D" type="Node2D" parent="Background/BackgroundRender/Forground"]
+texture_filter = 2
+
+[node name="Rails" type="Parallax2D" parent="Background/BackgroundRender/Forground/Node2D"]
+z_index = 2
+z_as_relative = false
+scroll_scale = Vector2(1.5, 1)
+repeat_size = Vector2(288, 0)
+repeat_times = 10
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Camera2D/BackgroundRender/Forground/Power"]
+[node name="Spriite" type="Sprite2D" parent="Background/BackgroundRender/Forground/Node2D/Rails"]
+z_index = 4096
+z_as_relative = false
 texture_repeat = 2
-position = Vector2(-1, -111)
+position = Vector2(850, 74)
+texture = ExtResource("4_jk3e0")
+region_rect = Rect2(0, 0, 2048, 64)
+
+[node name="Power" type="Parallax2D" parent="Background/BackgroundRender/Forground/Node2D"]
+z_index = 1
+scroll_scale = Vector2(1, 1.1)
+repeat_size = Vector2(660, 0)
+repeat_times = 5
+script = ExtResource("4_rsy8m")
+
+[node name="Sprite" type="Sprite2D" parent="Background/BackgroundRender/Forground/Node2D/Power"]
+texture_repeat = 2
+position = Vector2(0, -127)
 texture = ExtResource("5_f7yi0")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Props" type="Parallax2D" parent="Camera2D/BackgroundRender/Forground"]
-texture_filter = 1
+[node name="Props" type="Parallax2D" parent="Background/BackgroundRender/Forground/Node2D"]
 scroll_scale = Vector2(0.334, 1)
 repeat_size = Vector2(2496, 0)
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Camera2D/BackgroundRender/Forground/Props"]
+[node name="Sprite" type="Sprite2D" parent="Background/BackgroundRender/Forground/Node2D/Props"]
 texture_repeat = 2
-position = Vector2(0, 236.48648)
+position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
+[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("1_rsy8m")
+camera = NodePath("Camera2D")
+scaleSpeed = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="Camera"]
+position = Vector2(-409, -88)
+zoom = Vector2(3, 3)
+position_smoothing_speed = 2.0
+script = ExtResource("7_ne20o")
+
+[node name="Zoom calculator" type="Node" parent="Camera/Camera2D"]
+script = ExtResource("18_sny0v")
+targetHeight = 800.0
+pixelSize = 3.0
+
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
+process_mode = 4
+visible = false
 position = Vector2(-409, -72)
 collision_layer = 2
 collision_mask = 3
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
+process_mode = 4
+visible = false
 position = Vector2(-212, -20)
 rayLength = 1.0
 ySpeed = -35.0
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
+process_mode = 4
+visible = false
 position = Vector2(2590, -104)
 Spacing = Vector2(-616, 0)
 
@@ -190,6 +211,7 @@ Spacing = Vector2(-616, 0)
 script = ExtResource("11_7i1l5")
 
 [node name="Rails" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-413, -301)
 scale = Vector2(36.160004, 1)
 texture = ExtResource("4_jk3e0")
@@ -203,4 +225,4 @@ shape = SubResource("RectangleShape2D_7i1l5")
 [node name="Level" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_hglua")
-Speed = Vector2(-450, 0)
+Speed = Vector2(5, 0)

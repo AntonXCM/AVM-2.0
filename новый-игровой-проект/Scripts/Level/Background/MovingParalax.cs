@@ -22,6 +22,6 @@ public partial class MovingParalax : Parallax2D
                 offset.Y = y;
         }
 
-        ScrollOffset = (Vector2I)offset;
+        ScrollOffset = offset;
     }
 }

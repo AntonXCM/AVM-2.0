@@ -19,7 +19,13 @@ void fragment() {
         illum *= decay;
     }
 
-	vec4 forground = texture(forgroundtexture, UV);
-	vec4 color = mix(texture(suntexture, UV), forground, forground.a);
-    COLOR = color + godrays * exposure * color.a;
+	vec4 forgroundcolor = texture(forgroundtexture, UV);
+	vec4 suncolor = texture(suntexture, UV);
+	float forgroundAinv = 1.0 - forgroundcolor.a;
+	float alpha = forgroundcolor.a + suncolor.a * forgroundAinv;
+	vec4 color = vec4(
+		(forgroundcolor.rgb + suncolor.rgb * forgroundAinv) / alpha,
+		alpha);
+
+    COLOR = color + godrays * exposure * alpha;
 }

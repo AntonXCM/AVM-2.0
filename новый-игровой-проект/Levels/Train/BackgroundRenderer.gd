@@ -1,9 +1,6 @@
 extends TextureRect
-var camera : Camera2D
-
-func _init() -> void:
-	camera = get_parent()
-	
+@export var camera : Camera2D
+@export var round_thing = 0.5
 func _process(_delta: float) -> void:
-	size = texture.get_size() 
-	position = size * -0.5
+	size = texture.get_size()
+	global_position = - size / 2 + camera.global_position.floor()

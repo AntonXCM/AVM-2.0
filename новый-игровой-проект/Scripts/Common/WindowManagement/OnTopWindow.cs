@@ -10,8 +10,24 @@ public partial class OnTopWindow : Window
 	[Export] int animationTime = 300;
 	IntPtr Handle => new(DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle, GetWindowId()));
 	bool opened = true;
-	public override void _Notification(int what)
+
+	public override void _Ready()
 	{
+		if (!WindowManagerAPI.ForceNative) return;
+		Hide();
+		ForceNative = true;
+		Show();
+		defaultSize = Size;
+		// Resize();
+		// ZoomCalculator.OnZoomChanged += Resize;
+		Position = new Vector2I(0, WindowManagerAPI.CaptionHeight);
+		mainWindow = GetTree().Root;
+		mainWindow.FocusExited += ChangeVisibility;
+	}
+
+    public override void _Notification(int what)
+	{
+		if (!WindowManagerAPI.ForceNative) return;
 		switch(what)
 		{
 			case (int)NotificationApplicationFocusIn:
@@ -22,38 +38,29 @@ public partial class OnTopWindow : Window
 			break;
 		}
 	}
-
-	public override void _Ready()
-	{
-		defaultSize = Size;
-		// Resize();
-		// ZoomCalculator.OnZoomChanged += Resize;
-		Position = new Vector2I(0, WinuserWrapper.GetSystemMetrics(4));
-		mainWindow = GetTree().Root;
-		mainWindow.FocusExited += ChangeVisibility;
-	}
 	void ChangeVisibility()
 	{
 		if(mainWindow.Mode == ModeEnum.Minimized) HideAnim();
 		else if(mainWindow.HasFocus()) ShowAnim();
 	}
 	// void Resize() => Size = (Vector2I)(defaultSize * ZoomCalculator.ZoomVector);
-	async void HideAnim(bool check = true)
+	async void HideAnim()
 	{
-		if(check && !opened) return;
+		if(!opened) return;
 		opened = false;
 		Borderless = false;
-		WinuserWrapper.AnimateWindow(Handle, animationTime, WinuserWrapper.AnimationFlag.Hide | WinuserWrapper.AnimationFlag.Center | WinuserWrapper.AnimationFlag.Blend);
+		
+		WindowManagerAPI.HideWindow(Handle, animationTime);
 		await Task.Delay(animationTime);
-		if(opened) ShowAnim(false);
+		if(opened) ShowAnim();
 	}
-	async void ShowAnim(bool check = true)
+	async void ShowAnim()
 	{
-		if(check && opened) return;
+		if(opened) return;
 		opened = true;
-		WinuserWrapper.AnimateWindow(Handle, animationTime, WinuserWrapper.AnimationFlag.Activate | WinuserWrapper.AnimationFlag.Center | WinuserWrapper.AnimationFlag.Blend);
+		WindowManagerAPI.ShowWindow(Handle, animationTime);
 		await Task.Delay(animationTime);
 		Borderless = true;
-		if(!opened) HideAnim(false);
+		if(!opened) HideAnim();
 	}
 }

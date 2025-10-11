@@ -21,7 +21,6 @@ config/icon="res://icon.svg"
 window/size/transparent=true
 window/size/extend_to_title=true
 window/size/sharp_corners=true
-window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
 window/per_pixel_transparency/allowed=true
@@ -40,6 +39,12 @@ folder_colors={
 "res://Sprites/": "yellow"
 }
 
+[importer_defaults]
+
+texture={
+&"roughness/mode": 1
+}
+
 [physics]
 
 2d/run_on_separate_thread=true
@@ -52,6 +57,8 @@ folder_colors={
 
 textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
+textures/lossless_compression/force_png=true
+textures/default_filters/use_nearest_mipmap_filter=true
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 anti_aliasing/screen_space_roughness_limiter/amount=0.01
 anti_aliasing/screen_space_roughness_limiter/limit=0.01

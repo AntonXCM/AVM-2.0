@@ -7,4 +7,4 @@ extends SubViewport
 func _process(_d):
 	var viewport_size = camera.get_viewport_rect().size / camera.zoom
 	size = viewport_size
-	insidecamera.position = camera.position
+	insidecamera.global_position = camera.global_position.floor()

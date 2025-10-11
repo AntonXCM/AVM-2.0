@@ -19,7 +19,7 @@ atlas = SubResource("CompressedTexture2D_kk0cb")
 region = Rect2(0, 28, 37, 1)
 
 [node name="Window" type="Window"]
-auto_translate_mode = 1
+process_mode = 3
 disable_3d = true
 transparent_bg = true
 oversampling_override = 1.0
