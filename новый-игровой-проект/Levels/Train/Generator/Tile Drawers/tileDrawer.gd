@@ -40,6 +40,7 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 		right = x < has_right
 		for y in len(col):
 			var tile = Tile.new() #Удалять не надо, в будущем он будет использован для тайлов с отрисовкой в несколько проходов
+			current_col.append(tile)
 			var vertical_median = null
 			tile.type = col[y]
 			if tile.type == TileType.EMPTY or tile.type == TileType.UNDEFINED:
@@ -48,58 +49,58 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 				top = y > 0
 				bottom = y < has_bottom
 				if top:
-					tile.top_tile = define_BJ9Tb(col[y - 1])
+					tile.top_tile = define(col[y - 1])
 					if right:
-						tile.topright_tile = define_BJ9Tb(tiles[x + 1][y - 1])
+						tile.topright_tile = define(tiles[x + 1][y - 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.topright_tile = vertical_median
 					if left_col != null:
-						tile.topleft_tile = define_BJ9Tb(tiles[x - 1][y - 1])
+						tile.topleft_tile = define(tiles[x - 1][y - 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.topleft_tile = vertical_median
 				else:
-					var median = define_BJ9Tb(get_horizontal_median.call(x, y))
+					var median = define(get_horizontal_median.call(x, y))
 					tile.top_tile = median
 					tile.topleft_tile = median
 					tile.topright_tile = median
 				if bottom: 
-					tile.bottom_tile = define_BJ9Tb(col[y + 1])
+					tile.bottom_tile = define(col[y + 1])
 					if right:
-						tile.bottomright_tile = define_BJ9Tb(tiles[x + 1][y + 1])
+						tile.bottomright_tile = define(tiles[x + 1][y + 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.bottomright_tile = vertical_median
 					if left_col != null:
-						tile.bottomleft_tile = define_BJ9Tb(tiles[x - 1][y + 1])
+						tile.bottomleft_tile = define(tiles[x - 1][y + 1])
 					else:
 						vertical_median = get_vertical_median.call(y)
 						tile.bottomleft_tile = vertical_median
 				else:
-					var median = define_BJ9Tb(get_horizontal_median.call(x, y))
+					var median = define(get_horizontal_median.call(x, y))
 					tile.bottom_tile = median
 					tile.bottomright_tile = median
 					tile.bottomleft_tile = median
 				if left_col != null: 
-					tile.left_tile = define_BJ9Tb(tiles[x - 1][y])
+					tile.left_tile = define(tiles[x - 1][y])
 				else:
 					if vertical_median != null:
 						tile.left_tile = vertical_median
 					else:
-						tile.left_tile = define_BJ9Tb(get_vertical_median.call(y))
+						tile.left_tile = define(get_vertical_median.call(y))
 				if right:
-					tile.right_tile = define_BJ9Tb(tiles[x + 1][y])
+					tile.right_tile = define(tiles[x + 1][y])
 				else:
 					if vertical_median != null:
 						tile.right_tile = vertical_median
 					else:
-						tile.right_tile = define_BJ9Tb(get_vertical_median.call(y))
+						tile.right_tile = define(get_vertical_median.call(y))
 				tilemap.set_cell(Vector2i(x,y),0,tile.get_atlas_coords(tileset_data))
 			left_col = current_col
 			await tree.physics_frame
 	tilemap.collision_enabled = true
-func define_BJ9Tb(tile : TileType) -> TileType:
+func define(tile : TileType) -> TileType:
 	return TileType.EMPTY if tile == TileType.UNDEFINED else tile
 
 class TilesetData:

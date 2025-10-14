@@ -5,7 +5,7 @@ public static class NodeExtentions
 {
 	public static bool TryGetComponentInParent<T>(this Node node, out T component)
 	{
-		if (node == null)
+		if (node is null)
 		{
 			component = default;
 			return false;
@@ -20,7 +20,7 @@ public static class NodeExtentions
 
 	public static T GetComponentInParents<T>(this Node node)
 	{
-		if (node == null)
+		if (node is null)
 			return default;
 		if(node is T result)
 			return result;

@@ -5,6 +5,5 @@ extends SubViewport
 @export var insidecamera : Camera2D
 
 func _process(_d):
-	var viewport_size = camera.get_viewport_rect().size / camera.zoom
-	size = viewport_size
-	insidecamera.global_position = camera.global_position.floor()
+	size = (camera.get_viewport_rect().size / camera.zoom).ceil()
+	insidecamera.global_position = camera.global_position

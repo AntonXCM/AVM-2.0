@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-
 using Godot;
 
 public partial class OnTopWindow : Window

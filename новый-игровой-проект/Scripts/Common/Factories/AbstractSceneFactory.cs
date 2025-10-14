@@ -12,7 +12,7 @@ public partial class AbstractSceneFactory : Node
         Node instance = SceneProduct.Instantiate();
 
         if (additions != null)
-            instance.GetChildrenDictRecursive().ProcessOverlappingEntries(additions, (c, f) => c.AddChild(f));
+            instance.GetChildrenDictRecursive().ProcessOverlapps(additions, (c, f) => c.AddChild(f));
 
         AddChild(instance);
         return instance;

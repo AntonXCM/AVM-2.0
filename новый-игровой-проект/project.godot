@@ -39,6 +39,11 @@ folder_colors={
 "res://Sprites/": "yellow"
 }
 
+[gui]
+
+common/snap_controls_to_pixels=false
+theme/default_font_antialiasing=2
+
 [importer_defaults]
 
 texture={
@@ -57,6 +62,7 @@ texture={
 
 textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/lossless_compression/force_png=true
 textures/default_filters/use_nearest_mipmap_filter=true
 anti_aliasing/screen_space_roughness_limiter/enabled=false

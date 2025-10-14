@@ -28,7 +28,7 @@ public partial class StatIndicator : Node
 		{
 			case (int)NotificationParented:
 				var parent = GetParent();
-				if (parent == null) return;
+				if (parent is null) return;
 				foreach (var child in indicators)
 					child.Reparent(parent);
 				break;
