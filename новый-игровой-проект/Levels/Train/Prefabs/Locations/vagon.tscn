@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=24 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
 [ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
@@ -13,8 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/Train/Interiors/interiorArmenians.tscn" id="8_7wg6q"]
 [ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/Train/Interiors/interiorPointer.tscn" id="9_7wg6q"]
 [ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="13_l0fbg"]
+[ext_resource type="Resource" uid="uid://ddi4x6o1x5ara" path="res://Levels/Train/Generator/Shape Creators/FullRectangleCreator.tres" id="15_4br0u"]
 [ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="15_mwgeh"]
 [ext_resource type="PackedScene" uid="uid://dbwkhdgh0vwp4" path="res://Levels/Train/Prefabs/Locations/wheel.tscn" id="16_nsyrt"]
+[ext_resource type="Resource" uid="uid://dkbhkcogs8bn5" path="res://Levels/Train/Generator/Shape Creators/ColumnsCreator.tres" id="16_q6p4c"]
+[ext_resource type="Resource" uid="uid://rjll1rc1rqxe" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.tres" id="17_b8w5e"]
 [ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="17_q6p4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwgeh"]
@@ -102,7 +105,7 @@ generatorPath = NodePath("../../Generator")
 script = ExtResource("6_2avv3")
 roomSize = Rect2i(0, 0, 35, 14)
 subdivisors = Array[Resource]([ExtResource("13_l0fbg")])
-shapeCreators = Array[Resource]([ExtResource("17_q6p4c")])
+shapeCreators = Array[Resource]([ExtResource("17_q6p4c"), ExtResource("15_4br0u"), ExtResource("16_q6p4c"), ExtResource("17_b8w5e")])
 tileDrawer = ExtResource("15_mwgeh")
 
 [node name="Wheel" parent="." instance=ExtResource("16_nsyrt")]

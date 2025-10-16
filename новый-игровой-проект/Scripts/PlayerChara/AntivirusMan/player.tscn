@@ -125,5 +125,4 @@ z_index = 1380
 texture_filter = 1
 script = ExtResource("19_okehs")
 selfBounce = 200.0
-bounceForce = 100.0
 degThrehold = 30.0

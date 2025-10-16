@@ -211,35 +211,31 @@ targetHeight = 800.0
 pixelSize = 3.0
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
-process_mode = 4
-visible = false
 position = Vector2(-409, -72)
 collision_layer = 2
 collision_mask = 3
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
-process_mode = 4
-visible = false
-position = Vector2(-212, -20)
-rayLength = 1.0
-ySpeed = -35.0
+position = Vector2(-216, -16)
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
-process_mode = 4
-visible = false
-position = Vector2(2590, -104)
-Spacing = Vector2(-616, 0)
+position = Vector2(2654, -104)
+Spacing = Vector2(-648, 0)
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("11_7i1l5")
 
 [node name="Rails" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-413, -301)
 scale = Vector2(36.160004, 1)
 texture = ExtResource("4_jk3e0")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rails"]
+collision_layer = 3
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rails/StaticBody2D"]
+position = Vector2(-7, 342)
+shape = SubResource("RectangleShape2D_7i1l5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rails/StaticBody2D"]
 position = Vector2(-3.499999, 1)
@@ -248,7 +244,7 @@ shape = SubResource("RectangleShape2D_7i1l5")
 [node name="Level" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_hglua")
-Speed = Vector2(1, 0)
+Speed = Vector2(-450, 0)
 
 [node name="TestBall" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_357aj")

@@ -10,7 +10,7 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
     {
         cosThrehold = Mathf.Cos(degThrehold);
     }
-    Vector2 shieldDebug;
+    Vector2 shieldDebug, forceDebug;
     HashSet<Vector2> normalsDebug = [];
     public override void _Draw()
     {
@@ -18,6 +18,7 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
             DrawLine(Vector2.Zero, normal * 22, Colors.OrangeRed, 2);
 
         DrawLine(Vector2.Zero, shieldDebug * 22, Colors.LightBlue, 2);
+        DrawLine(Vector2.Zero, forceDebug / 10, Colors.LimeGreen, 2);
     }
 
 
@@ -33,19 +34,23 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
         if(count > 0)
             normalsDebug.Clear();
         for (int i = 0; i < count; i++)
-            {
-                var collision = Rb.GetSlideCollision(i);
+        {
+            var collision = Rb.GetSlideCollision(i);
 
-                var normal = collision.GetNormal();
-                normalsDebug.Add(normal);
-                if (-shieldDirection.Dot(normal) < cosThrehold)
-                    continue;
-                if (collision.GetCollider() is RigidBody2D rb)
-                    rb.ApplyImpulse(shieldDirection * bounceForce, collision.GetPosition());
-                else if(shieldDirection.Y != 0)
-                    Rb.Velocity += -shieldDirection * selfBounce;
-                break;
+            var normal = collision.GetNormal();
+            normalsDebug.Add(normal);
+            if (-shieldDirection.Dot(normal) < cosThrehold)
+                continue;
+            if (collision.GetCollider() is RigidBody2D rb)
+            {
+                forceDebug = shieldDirection * bounceForce;
+                rb.ApplyImpulse(shieldDirection * bounceForce, collision.GetPosition());
             }
+            else if(shieldDirection.Y != 0)
+                forceDebug = -shieldDirection * selfBounce;   
+            Rb.Velocity += -shieldDirection * selfBounce;
+            break;
+        }
         shieldDebug = shieldDirection;
         QueueRedraw();
 
