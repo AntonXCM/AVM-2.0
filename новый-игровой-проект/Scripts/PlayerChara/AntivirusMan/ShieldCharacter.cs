@@ -45,10 +45,13 @@ public partial class ShieldCharacter : Node2D, IHasRigidBody2D
             {
                 forceDebug = shieldDirection * bounceForce;
                 rb.ApplyImpulse(shieldDirection * bounceForce, collision.GetPosition());
+                Rb.Velocity += -shieldDirection * selfBounce;
             }
             else if(shieldDirection.Y != 0)
+            {
                 forceDebug = -shieldDirection * selfBounce;   
-            Rb.Velocity += -shieldDirection * selfBounce;
+                Rb.Velocity += -shieldDirection * selfBounce;
+            }
             break;
         }
         shieldDebug = shieldDirection;

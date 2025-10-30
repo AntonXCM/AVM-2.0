@@ -6,6 +6,7 @@
 [node name="Interior" instance=ExtResource("1_ll8ve")]
 
 [node name="Painting" type="Sprite2D" parent="." index="2"]
+use_parent_material = true
 texture = ExtResource("1_qiwh7")
 region_enabled = true
 region_rect = Rect2(112, 224, 64, 48)

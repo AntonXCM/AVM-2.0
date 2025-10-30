@@ -1,6 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=25 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
+[ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="1_q6p4c"]
 [ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
 [ext_resource type="Script" uid="uid://conn2vmr1uaqh" path="res://Scripts/Level/Generators/Generic/ComplexGenerable.cs" id="2_q0e82"]
 [ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="3_0n34t"]
@@ -42,16 +43,19 @@ texture = ExtResource("4_3khji")
 sources/0 = SubResource("TileSetAtlasSource_5fhiw")
 
 [node name="Vagon" type="Sprite2D"]
+material = ExtResource("1_q6p4c")
 texture = ExtResource("1_euxhe")
 offset = Vector2(0, -1)
 script = ExtResource("2_q0e82")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+use_parent_material = true
 position = Vector2(279, 47)
 collision_layer = 3
 
 [node name="BackgroundSpawner" type="Node2D" parent="StaticBody2D"]
 z_index = -10
+use_parent_material = true
 position = Vector2(-279, -40)
 script = ExtResource("3_5m7wl")
 PossibleChildren = Array[PackedScene]([ExtResource("2_2avv3"), ExtResource("6_i52w0"), ExtResource("7_i5f5r"), ExtResource("8_7wg6q"), ExtResource("9_7wg6q")])
@@ -79,6 +83,7 @@ shape = SubResource("RectangleShape2D_nsyrt")
 [node name="TestTileMap" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -1
 texture_filter = 3
+use_parent_material = true
 position = Vector2(-559, -160)
 enabled = false
 tile_set = SubResource("TileSet_2avv3")
@@ -89,6 +94,7 @@ physics_quadrant_size = 1
 [node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -2
 texture_filter = 3
+use_parent_material = true
 position = Vector2(-559, -160)
 tile_set = ExtResource("3_0n34t")
 rendering_quadrant_size = 7

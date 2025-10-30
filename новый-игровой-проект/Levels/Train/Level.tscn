@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=38 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
@@ -20,8 +20,12 @@
 [ext_resource type="Shader" uid="uid://vvr0n6g6jeua" path="res://Shaders/LinearHNearestV.gdshader" id="10_kjs2i"]
 [ext_resource type="Script" uid="uid://h6yoa4r5uush" path="res://Scripts/Common/InputSystem.cs" id="11_7i1l5"]
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
+[ext_resource type="Script" uid="uid://bmf5aopxyvbym" path="res://Levels/Train/CameraBehavior.cs" id="14_357aj"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 [ext_resource type="Texture2D" uid="uid://bngqstaa701np" path="res://Sprites/Test/testBall.png" id="22_5k851"]
+[ext_resource type="Texture2D" uid="uid://cnvyhtd1gijck" path="res://Sprites/Test/fire-1034853_960_720-1248634451.jpg" id="22_25non"]
+[ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="25_hcv3t"]
+[ext_resource type="Texture2D" uid="uid://b0dy8n1mdq6gi" path="res://Sprites/Test/testBallsHouse.png" id="25_qbvol"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gs6ya"]
 viewport_path = NodePath("Background/Container/BackgroundRender/Forground")
@@ -48,8 +52,19 @@ viewport_path = NodePath("Background/Container/BackgroundRender/Sun")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5k851"]
 shader = ExtResource("10_kjs2i")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i1l5"]
-size = Vector2(155, 66)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5k851"]
+size = Vector2(276, 580)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25non"]
+size = Vector2(972, 389)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qbvol"]
+size = Vector2(972, 580)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_357aj"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5k851"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_357aj"]
 shader = ExtResource("10_kjs2i")
@@ -63,18 +78,18 @@ position = Vector2(-409, -88)
 [node name="Gradient2" type="Parallax2D" parent="Background"]
 z_index = -1000
 texture_filter = 1
-scroll_scale = Vector2(0.003, 1)
-repeat_size = Vector2(256, 0)
-repeat_times = 2
+scroll_scale = Vector2(0.003, 0.2)
+repeat_size = Vector2(512, 0)
+repeat_times = 6
 script = ExtResource("4_rsy8m")
 
 [node name="Sprite" type="Sprite2D" parent="Background/Gradient2"]
-texture_repeat = 2
-position = Vector2(900, -196)
+texture_repeat = 3
+position = Vector2(900, -200)
 texture = ExtResource("2_nupcv")
 centered = false
 region_enabled = true
-region_rect = Rect2(0, 0, 1000, 256)
+region_rect = Rect2(0, 0, 512, 768)
 
 [node name="Container" type="Control" parent="Background"]
 layout_mode = 3
@@ -97,16 +112,16 @@ texture = SubResource("ViewportTexture_etk17")
 expand_mode = 1
 stretch_mode = 2
 script = ExtResource("4_etk17")
-camera = NodePath("../../../Camera/Camera2D")
+camera = NodePath("../../../Camera/DebugDrag/Camera2D")
 
 [node name="Sun" type="SubViewport" parent="Background/Container/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(392, 206)
+size = Vector2i(587, 265)
 script = ExtResource("3_ut1n0")
-camera = NodePath("../../../../Camera/Camera2D")
+camera = NodePath("../../../../Camera/DebugDrag/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
 [node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Sun"]
@@ -136,11 +151,11 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(392, 206)
+size = Vector2i(587, 265)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
-camera = NodePath("../../../../Camera/Camera2D")
+camera = NodePath("../../../../Camera/DebugDrag/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
 [node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Forground"]
@@ -194,52 +209,88 @@ position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("Following", "StaticScenes")]
+position = Vector2(-409, -88)
+script = ExtResource("14_357aj")
+Following = NodePath("../Body")
+DeadZone = Vector2(0, 64)
+StaticScenes = [NodePath("../StaticBody2D2/CollisionShape2D6"), NodePath("../StaticBody2D2/CollisionShape2D7"), NodePath("../StaticBody2D2/CollisionShape2D8")]
+Speed = 8.0
+
+[node name="DebugDrag" type="Node2D" parent="Camera" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_rsy8m")
 camera = NodePath("Camera2D")
 scaleSpeed = 0.5
 
-[node name="Camera2D" type="Camera2D" parent="Camera"]
-position = Vector2(-409, -88)
-zoom = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="Camera/DebugDrag"]
+process_mode = 3
+zoom = Vector2(2, 2)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
-[node name="Zoom calculator" type="Node" parent="Camera/Camera2D"]
+[node name="Zoom calculator" type="Node" parent="Camera/DebugDrag/Camera2D"]
 script = ExtResource("18_sny0v")
 targetHeight = 800.0
 pixelSize = 3.0
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
 position = Vector2(-409, -72)
-collision_layer = 2
-collision_mask = 3
+collision_layer = 4
+collision_mask = 5
+floor_constant_speed = true
+floor_snap_length = 1.0
 
 [node name="PC" parent="." instance=ExtResource("9_kt0gt")]
 position = Vector2(-216, -16)
 
-[node name="Train" parent="." instance=ExtResource("11_m2n1c")]
-position = Vector2(2654, -104)
-Spacing = Vector2(-648, 0)
-
 [node name="Node" type="Node" parent="."]
 script = ExtResource("11_7i1l5")
 
-[node name="Rails" type="Sprite2D" parent="."]
-position = Vector2(-413, -301)
-scale = Vector2(36.160004, 1)
-texture = ExtResource("4_jk3e0")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Rails"]
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-409, -88)
 collision_layer = 3
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rails/StaticBody2D"]
-position = Vector2(-7, 342)
-shape = SubResource("RectangleShape2D_7i1l5")
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D2"]
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_5k851")
+disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rails/StaticBody2D"]
-position = Vector2(-3.499999, 1)
-shape = SubResource("RectangleShape2D_7i1l5")
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-1365, -7.6293945e-06)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_25non")
+disabled = true
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1827, -3)
+rotation = -1.5707964
+shape = SubResource("RectangleShape2D_qbvol")
+disabled = true
+
+[node name="Train" parent="." instance=ExtResource("11_m2n1c")]
+position = Vector2(1702, -104)
+MaxCapacity = 6
+Speed = Vector2(-80, 0)
+Spacing = Vector2(-648, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-1084.5, -301)
+collision_layer = 16777215
+collision_mask = 0
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-877.5, 213)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_357aj")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-83, 311)
+shape = SubResource("WorldBoundaryShape2D_5k851")
+
+[node name="Fire10348539607201248634451" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-1356.5, 196)
+scale = Vector2(-1, 1)
+texture = ExtResource("22_25non")
 
 [node name="Level" type="Node" parent="."]
 unique_name_in_owner = true
@@ -250,3 +301,9 @@ Speed = Vector2(-450, 0)
 material = SubResource("ShaderMaterial_357aj")
 position = Vector2(21.625, -530)
 texture = ExtResource("22_5k851")
+
+[node name="TestBallsHouse" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = ExtResource("25_hcv3t")
+position = Vector2(75, -553)
+texture = ExtResource("25_qbvol")

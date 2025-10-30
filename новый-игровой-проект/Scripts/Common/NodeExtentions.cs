@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 public static class NodeExtentions
 {
-	public static bool TryGetComponentInParent<T>(this Node node, out T component)
+	public static bool TryGetGrandparent<T>(this Node node, out T component)
 	{
 		if (node is null)
 		{
@@ -15,16 +15,16 @@ public static class NodeExtentions
 			component = result;
 			return true;
 		}
-		else return node.GetParent().TryGetComponentInParent(out component);
+		else return node.GetParent().TryGetGrandparent(out component);
 	}
 
-	public static T GetComponentInParents<T>(this Node node)
+	public static T GetGrandparent<T>(this Node node)
 	{
 		if (node is null)
 			return default;
 		if(node is T result)
 			return result;
-		else return node.GetParent().GetComponentInParents<T>();
+		else return node.GetParent().GetGrandparent<T>();
 	}
 
 	public static IEnumerable<Node> GetChildrenRecursive(this Node node)

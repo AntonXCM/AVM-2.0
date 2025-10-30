@@ -22,6 +22,9 @@ public partial class MouseMove : Node2D
                     else
                         dragging = false;
                     break;
+                case MouseButton.Right:
+                    Position = default;
+                    break;
                 case MouseButton.WheelUp:
                     if(camera.Zoom.X < 5)
                         camera.Zoom += Vector2.One * scaleSpeed;

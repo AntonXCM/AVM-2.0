@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_xqfnl"]
 
 [node name="Window" type="Sprite2D"]
+use_parent_material = true
 texture = ExtResource("1_xqfnl")
 region_enabled = true
 region_rect = Rect2(0, 368, 32, 48)

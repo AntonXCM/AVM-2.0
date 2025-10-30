@@ -5,11 +5,13 @@
 
 [node name="Interior" type="Sprite2D"]
 z_index = -1
+use_parent_material = true
 texture = ExtResource("1_lq11g")
 region_enabled = true
 region_rect = Rect2(432, 272, 592, 240)
 
 [node name="UP Windows" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="Window1" parent="UP Windows" instance=ExtResource("2_i7get")]
 position = Vector2(-216, -64)
@@ -36,6 +38,7 @@ position = Vector2(168, -64)
 position = Vector2(232, -64)
 
 [node name="DOWN Windows" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="Window1" parent="DOWN Windows" instance=ExtResource("2_i7get")]
 position = Vector2(-216, 64)

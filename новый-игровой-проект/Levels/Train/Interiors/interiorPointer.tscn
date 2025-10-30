@@ -7,6 +7,7 @@
 
 [node name="Box2" type="Sprite2D" parent="UP Windows" index="8"]
 z_index = 1
+use_parent_material = true
 texture = ExtResource("1_dkfel")
 region_enabled = true
 region_rect = Rect2(32, 224, 48, 32)

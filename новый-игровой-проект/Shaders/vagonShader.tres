@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://8b2hohx15d7e"]
+
+[ext_resource type="Shader" uid="uid://d01f4us4h0xdb" path="res://Levels/Train/Prefabs/Locations/vagonGeneration.gdshader" id="1_60xnf"]
+
+[resource]
+shader = ExtResource("1_60xnf")
+shader_parameter/speed = 0.7
+shader_parameter/amount = 1.0
+shader_parameter/assembleFreq1 = 4.0
+shader_parameter/assembleFreq2 = 5.0

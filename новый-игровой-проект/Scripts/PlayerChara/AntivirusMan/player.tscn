@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://myv87mqaa4pd"]
 
 [ext_resource type="Script" uid="uid://jib0njeg4nvf" path="res://Scripts/Common/StateMachine/StateMachine.cs" id="1_6fvfi"]
-[ext_resource type="Script" uid="uid://bh33jt5auibvn" path="res://Scripts/PlayerChara/AntivirusMan/physicsUpdate.gd" id="1_a1sqt"]
+[ext_resource type="Script" uid="uid://fp7wsym3qde0" path="res://Scripts/PlayerChara/AntivirusMan/CharacterPhysics.cs" id="1_okehs"]
 [ext_resource type="Script" uid="uid://b06wvn8kwordo" path="res://Scripts/PlayerChara/AntivirusMan/States/IdleState.cs" id="2_widxs"]
 [ext_resource type="Script" uid="uid://bkqe7gfocabna" path="res://Scripts/ComponentFinders/RigidBodySetter.cs" id="3_5h43p"]
 [ext_resource type="Texture2D" uid="uid://28pcw4x1nhtu" path="res://Sprites/PlayerChara/AntivirusMan/AntivirusManDefault.png" id="3_cwdl7"]
@@ -33,12 +33,12 @@ slide_on_ceiling = false
 floor_block_on_wall = false
 floor_max_angle = 0.872665
 floor_snap_length = 0.0
-platform_on_leave = 2
 safe_margin = 0.333
-script = ExtResource("1_a1sqt")
-x_velocity_cap = 240.0
-y_velocity_cap = 480.0
-gravity_scale = 2.0
+script = ExtResource("1_okehs")
+XVelocityCap = 240.0
+YVelocityCap = 480.0
+GravityScale = 2.0
+FloorVelocityFactor = 0.5
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("3_5h43p")
@@ -60,7 +60,7 @@ entranceStates = [NodePath("../../Move")]
 
 [node name="Move" type="Node" parent="CollisionShape2D/StateMachine"]
 script = ExtResource("3_ul4v7")
-speed = 100.0
+speed = 120.0
 velocityChange = 1600.0
 
 [node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Move" node_paths=PackedStringArray("entranceStates")]
@@ -71,11 +71,11 @@ entranceStates = [NodePath("../../Idle")]
 [node name="Jump" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("idleState")]
 script = ExtResource("5_gu8uy")
 idleState = NodePath("../Idle")
-speed = 15
+speed = 30
 force = 48
 jumpStartPower = 70.0
 jumpLeftover = -16575.0
-speedDecreace = 0.045
+speedDecreace = 0.1
 
 [node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Jump" node_paths=PackedStringArray("entranceStates")]
 script = ExtResource("8_5j2gi")
@@ -124,5 +124,5 @@ SceneProduct = ExtResource("18_uquex")
 z_index = 1380
 texture_filter = 1
 script = ExtResource("19_okehs")
-selfBounce = 200.0
+selfBounce = 220.0
 degThrehold = 30.0

@@ -5,6 +5,7 @@
 
 [node name="Wheel" type="Sprite2D"]
 z_index = -1
+use_parent_material = true
 texture = ExtResource("1_c16lu")
 script = ExtResource("2_b75t3")
 speed = 1200.0
