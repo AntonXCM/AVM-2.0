@@ -1,25 +1,17 @@
-[gd_scene load_steps=25 format=3 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=17 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
-[ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="1_q6p4c"]
 [ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
 [ext_resource type="Script" uid="uid://conn2vmr1uaqh" path="res://Scripts/Level/Generators/Generic/ComplexGenerable.cs" id="2_q0e82"]
 [ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="3_0n34t"]
 [ext_resource type="Script" uid="uid://bfxhp3w5idjhk" path="res://Scripts/Level/Generators/Generic/RandomChildInstantitator.cs" id="3_5m7wl"]
 [ext_resource type="Texture2D" uid="uid://bmqyvtvx3h425" path="res://Sprites/Test/testTiles.png" id="4_3khji"]
 [ext_resource type="Script" uid="uid://desktypkq8eru" path="res://Scripts/Level/Generators/Level2/GeneratorOutput.cs" id="5_5fhiw"]
-[ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="6_2avv3"]
 [ext_resource type="PackedScene" uid="uid://k5retu3lwvfv" path="res://Levels/Train/Interiors/interiorKitketPainting.tscn" id="6_i52w0"]
 [ext_resource type="PackedScene" uid="uid://c310nxga0r0gs" path="res://Levels/Train/Interiors/interiorBookafe.tscn" id="7_i5f5r"]
 [ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/Train/Interiors/interiorArmenians.tscn" id="8_7wg6q"]
 [ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/Train/Interiors/interiorPointer.tscn" id="9_7wg6q"]
-[ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="13_l0fbg"]
-[ext_resource type="Resource" uid="uid://ddi4x6o1x5ara" path="res://Levels/Train/Generator/Shape Creators/FullRectangleCreator.tres" id="15_4br0u"]
-[ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="15_mwgeh"]
 [ext_resource type="PackedScene" uid="uid://dbwkhdgh0vwp4" path="res://Levels/Train/Prefabs/Locations/wheel.tscn" id="16_nsyrt"]
-[ext_resource type="Resource" uid="uid://dkbhkcogs8bn5" path="res://Levels/Train/Generator/Shape Creators/ColumnsCreator.tres" id="16_q6p4c"]
-[ext_resource type="Resource" uid="uid://rjll1rc1rqxe" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.tres" id="17_b8w5e"]
-[ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="17_q6p4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwgeh"]
 size = Vector2(590, 14)
@@ -43,7 +35,6 @@ texture = ExtResource("4_3khji")
 sources/0 = SubResource("TileSetAtlasSource_5fhiw")
 
 [node name="Vagon" type="Sprite2D"]
-material = ExtResource("1_q6p4c")
 texture = ExtResource("1_euxhe")
 offset = Vector2(0, -1)
 script = ExtResource("2_q0e82")
@@ -94,7 +85,6 @@ physics_quadrant_size = 1
 [node name="TileMapLayer" type="TileMapLayer" parent="StaticBody2D"]
 z_index = -2
 texture_filter = 3
-use_parent_material = true
 position = Vector2(-559, -160)
 tile_set = ExtResource("3_0n34t")
 rendering_quadrant_size = 7
@@ -105,14 +95,7 @@ navigation_enabled = false
 script = ExtResource("5_5fhiw")
 debugLayer = NodePath("../TestTileMap")
 gameplayLayer = NodePath("../TileMapLayer")
-generatorPath = NodePath("../../Generator")
-
-[node name="Generator" type="Node" parent="."]
-script = ExtResource("6_2avv3")
-roomSize = Rect2i(0, 0, 35, 14)
-subdivisors = Array[Resource]([ExtResource("13_l0fbg")])
-shapeCreators = Array[Resource]([ExtResource("17_q6p4c"), ExtResource("15_4br0u"), ExtResource("16_q6p4c"), ExtResource("17_b8w5e")])
-tileDrawer = ExtResource("15_mwgeh")
+generatorPath = NodePath("../../../../Generator")
 
 [node name="Wheel" parent="." instance=ExtResource("16_nsyrt")]
 position = Vector2(-280, 130)

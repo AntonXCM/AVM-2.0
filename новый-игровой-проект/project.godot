@@ -47,6 +47,7 @@ theme/default_font_antialiasing=2
 [importer_defaults]
 
 texture={
+&"process/premult_alpha": true,
 &"roughness/mode": 1
 }
 

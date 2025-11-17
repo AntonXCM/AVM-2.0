@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=51 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
@@ -21,11 +21,21 @@
 [ext_resource type="Script" uid="uid://h6yoa4r5uush" path="res://Scripts/Common/InputSystem.cs" id="11_7i1l5"]
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
 [ext_resource type="Script" uid="uid://bmf5aopxyvbym" path="res://Levels/Train/CameraBehavior.cs" id="14_357aj"]
+[ext_resource type="Texture2D" uid="uid://dk6ebtghn0jbg" path="res://Sprites/Levels/Train/Background/PropsOffsetMap.png" id="14_rnif4"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 [ext_resource type="Texture2D" uid="uid://bngqstaa701np" path="res://Sprites/Test/testBall.png" id="22_5k851"]
 [ext_resource type="Texture2D" uid="uid://cnvyhtd1gijck" path="res://Sprites/Test/fire-1034853_960_720-1248634451.jpg" id="22_25non"]
+[ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="23_jr686"]
+[ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="24_jhk61"]
 [ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="25_hcv3t"]
+[ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="25_hqukm"]
 [ext_resource type="Texture2D" uid="uid://b0dy8n1mdq6gi" path="res://Sprites/Test/testBallsHouse.png" id="25_qbvol"]
+[ext_resource type="Resource" uid="uid://ddi4x6o1x5ara" path="res://Levels/Train/Generator/Shape Creators/FullRectangleCreator.tres" id="26_6r5em"]
+[ext_resource type="Resource" uid="uid://dkbhkcogs8bn5" path="res://Levels/Train/Generator/Shape Creators/ColumnsCreator.tres" id="27_kwywi"]
+[ext_resource type="Shader" uid="uid://c4dk037jd8aop" path="res://Shaders/PartialParalax.gdshader" id="27_r7nm4"]
+[ext_resource type="Resource" uid="uid://rjll1rc1rqxe" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.tres" id="28_bci0e"]
+[ext_resource type="Texture2D" uid="uid://bc2hxg32kyymn" path="res://Sprites/Test/testSquaresHouse.png" id="28_rnif4"]
+[ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="29_b2xy8"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gs6ya"]
 viewport_path = NodePath("Background/Container/BackgroundRender/Forground")
@@ -52,6 +62,13 @@ viewport_path = NodePath("Background/Container/BackgroundRender/Sun")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5k851"]
 shader = ExtResource("10_kjs2i")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7nm4"]
+shader = ExtResource("27_r7nm4")
+shader_parameter/power = Vector2(20, 0)
+shader_parameter/powerA = Vector2(3, 0)
+shader_parameter/snapMap = ExtResource("14_rnif4")
+shader_parameter/alphaColor = Color(0.92941177, 0.67058825, 0.3137255, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5k851"]
 size = Vector2(276, 580)
 
@@ -68,6 +85,16 @@ normal = Vector2(0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_357aj"]
 shader = ExtResource("10_kjs2i")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rnif4"]
+size = Vector2(3, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1n2m"]
+shader = ExtResource("27_r7nm4")
+shader_parameter/power = Vector2(50, 0)
+shader_parameter/powerA = Vector2(2, 0)
+shader_parameter/snapMap = SubResource("PlaceholderTexture2D_rnif4")
+shader_parameter/alphaColor = Color(0, 0, 0, 1)
 
 [node name="TrainScene" type="Node2D"]
 texture_filter = 1
@@ -119,7 +146,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(587, 265)
+size = Vector2i(587, 309)
 script = ExtResource("3_ut1n0")
 camera = NodePath("../../../../Camera/DebugDrag/Camera2D")
 insidecamera = NodePath("InsideCamera")
@@ -151,7 +178,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(587, 265)
+size = Vector2i(587, 309)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
@@ -204,7 +231,9 @@ repeat_size = Vector2(2496, 0)
 script = ExtResource("4_rsy8m")
 
 [node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Props"]
-use_parent_material = true
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_r7nm4")
 position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
@@ -234,7 +263,7 @@ targetHeight = 800.0
 pixelSize = 3.0
 
 [node name="Body" parent="." instance=ExtResource("1_3f304")]
-position = Vector2(-409, -72)
+position = Vector2(-392, -109)
 collision_layer = 4
 collision_mask = 5
 floor_constant_speed = true
@@ -266,6 +295,14 @@ position = Vector2(1827, -3)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_qbvol")
 disabled = true
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("23_jr686")
+roomSize = Rect2i(0, 0, 35, 14)
+subdivisors = Array[Resource]([ExtResource("24_jhk61")])
+shapeCreators = Array[Resource]([ExtResource("25_hqukm"), ExtResource("26_6r5em"), ExtResource("27_kwywi"), ExtResource("28_bci0e")])
+tileDrawer = ExtResource("29_b2xy8")
+generationMaterial = ExtResource("25_hcv3t")
 
 [node name="Train" parent="." instance=ExtResource("11_m2n1c")]
 position = Vector2(1702, -104)
@@ -299,7 +336,7 @@ Speed = Vector2(-450, 0)
 
 [node name="TestBall" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_357aj")
-position = Vector2(21.625, -530)
+position = Vector2(118, -529)
 texture = ExtResource("22_5k851")
 
 [node name="TestBallsHouse" type="Sprite2D" parent="."]
@@ -307,3 +344,9 @@ texture_repeat = 2
 material = ExtResource("25_hcv3t")
 position = Vector2(75, -553)
 texture = ExtResource("25_qbvol")
+
+[node name="TestSquaresHouse" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_x1n2m")
+position = Vector2(197, -552)
+texture = ExtResource("28_rnif4")

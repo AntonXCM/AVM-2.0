@@ -1,8 +1,9 @@
 extends UseTileType
 
 class_name TileDrawer
-
-func draw(tiles : Array, tilemap : TileMapLayer):
+signal draw_finished(id)
+signal draw_process(id, percentage : float)
+func draw(tiles : Array, tilemap : TileMapLayer, id : String):
 	var tileset_data := TilesetData.new(tilemap.tile_set)
 	var has_right := len(tiles) - 1
 	var tree = tilemap.get_tree()
@@ -99,7 +100,9 @@ func draw(tiles : Array, tilemap : TileMapLayer):
 				tilemap.set_cell(Vector2i(x,y),0,tile.get_atlas_coords(tileset_data))
 			left_col = current_col
 			await tree.physics_frame
+		draw_process.emit(id, float(float(x) / len(tiles)))
 	tilemap.collision_enabled = true
+	draw_finished.emit(id)
 func define(tile : TileType) -> TileType:
 	return TileType.EMPTY if tile == TileType.UNDEFINED else tile
 

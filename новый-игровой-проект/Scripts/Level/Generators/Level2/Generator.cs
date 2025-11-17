@@ -8,8 +8,9 @@ public partial class Generator : Node
     [Export] Rect2I roomSize;
     [Export] Resource[] subdivisors, shapeCreators;
     [Export] Resource tileDrawer;
+    [Export] ShaderMaterial generationMaterial;
     RandomPickFactory<Resource> subdivisorFactory, shapeCreatorFactory;
-
+    
     private void Init()
     {
         subdivisorFactory = new([.. subdivisors]);
@@ -28,9 +29,6 @@ public partial class Generator : Node
             start = FindStart(subdivision),
             end = FindEnd(subdivision);
         var path = FindPath(start, r => r == end, subdivision);
-
-        // foreach (var rect in subdivision)
-        //     DebugDrawRegion(rect, debug, colorEnum);
 
         path.Peek().IsEnd = true;
         while (path.Count > 1)
@@ -65,7 +63,27 @@ public partial class Generator : Node
                     tilemap[x + region.Bounds.Position.X][y + region.Bounds.Position.Y] = column[y];
             }
         }
-        tileDrawer.Call("draw", tilemap, gameplay);
+        gameplay.Material = generationMaterial;
+        string callbackID = GetNiceID.Current;
+        GetNiceID.MoveNext();
+        tileDrawer.Call("draw", tilemap, gameplay, callbackID);
+        var changeMaterialBack = Callable.From<string>(ChangeMaterialBack);
+        var showProcess = Callable.From<string, float>(ShowProcess);
+        tileDrawer.Connect("draw_finished", changeMaterialBack);
+        tileDrawer.Connect("draw_process", showProcess);
+        void ChangeMaterialBack(string id)
+        {
+            if (id != callbackID) return;
+            gameplay.Material = null;
+            tileDrawer.Disconnect("draw_finished",changeMaterialBack);
+            tileDrawer.Disconnect("draw_process",showProcess);
+        }
+        void ShowProcess(string id, float percentage)
+        {
+            if (id != callbackID) return;
+            generationMaterial.SetShaderParameter("process", 1-percentage);
+        }
+
         IEnumerator<Vector2I> GetColors()
         {
         Start:
@@ -80,6 +98,27 @@ public partial class Generator : Node
             yield return new(2, 2);
             goto Start;
         }
+    }
+    static IEnumerator<string> GetNiceID = EnumNiceID();
+    static IEnumerator<string> EnumNiceID()
+    {
+    Start:
+        yield return "Gena";
+        yield return "Krokodil";
+        yield return "Evgen";
+        yield return "Jena";
+        yield return "*3Ha";
+        yield return "Pulukarov";
+        yield return "Cheburashka";
+        yield return "Genshtab";
+        yield return "Cobblestone";
+        yield return "Generator";
+        yield return "Genius";
+        yield return "Enshtain";
+        yield return "Gento";
+        yield return "Linux";
+        yield return "GMO";
+        goto Start;
     }
     private static void DrawRectOutline(Rect2I rect, TileMapLayer tileMap, IEnumerator<Vector2I> colorEnum)
     {
