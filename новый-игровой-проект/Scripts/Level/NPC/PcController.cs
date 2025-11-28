@@ -3,7 +3,6 @@ using Godot;
 
 public partial class PcController : RigidBody2D
 {
-    [Export] Font font;
     [Export] RayCast2D ray;
     [Export] float xDispersion, xSpeed = 0.1f, angularSpeed = 10, ySpeed = 0.4f;
     float startXPosition, targetXPosition, rayLength;
@@ -16,15 +15,9 @@ public partial class PcController : RigidBody2D
 
         rayLength = ray.TargetPosition.Length();
     }
-    public override void _Draw()
-    {
-        DrawString(font, default, MathA.NumberToString(DistanceFactor / rayLength));
-    }
-
     public override void _PhysicsProcess(double delta)
     {
         DistanceFactor = ray.IsColliding() ? rayLength - (ray.GlobalPosition - ray.GetCollisionPoint()).Length() : 0;
-        QueueRedraw();
         float distaceFromXtarget = targetXPosition - Position.X;
         float deltaf = (float)delta;
         switch (distaceFromXtarget)
@@ -48,7 +41,7 @@ public partial class PcController : RigidBody2D
         if (DistanceFactor is 0) return;
         LinearVelocity += ray.TargetPosition.Rotated(ray.GlobalRotation).Normalized() * ySpeed * DistanceFactor * delta;
     }
-    public void MoveX(float delta,float speed)
+    public void MoveX(float delta, float speed)
     {
         if (DistanceFactor is 0) return;
         LinearVelocity += Vector2.Right * speed * DistanceFactor * delta;

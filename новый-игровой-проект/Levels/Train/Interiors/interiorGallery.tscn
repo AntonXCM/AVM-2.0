@@ -1,0 +1,108 @@
+[gd_scene load_steps=24 format=3 uid="uid://dwc2k8250fyda"]
+
+[ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_w0ii6"]
+[ext_resource type="Script" uid="uid://b2y53081rnqhp" path="res://Scripts/Level/Generators/Level2/GalleryGenerator.cs" id="2_0hupg"]
+[ext_resource type="Script" uid="uid://dxubb3tmn22o8" path="res://Scripts/Level/Generators/Level2/GalleryPainting.cs" id="2_l8n5s"]
+[ext_resource type="PackedScene" uid="uid://bypwp16rloonw" path="res://Levels/Train/Interiors/Paintings/2x3.tscn" id="3_rajb1"]
+[ext_resource type="PackedScene" uid="uid://ch1xe42ay8ywr" path="res://Levels/Train/Interiors/Paintings/2x2.tscn" id="4_idls2"]
+[ext_resource type="PackedScene" uid="uid://bpr5m580wn2m5" path="res://Levels/Train/Interiors/Paintings/2x4.tscn" id="7_7f1g8"]
+[ext_resource type="PackedScene" uid="uid://dut3doi1q6l0a" path="res://Levels/Train/Interiors/Paintings/3x2.tscn" id="8_1pr5q"]
+[ext_resource type="PackedScene" uid="uid://bhq415j3jm64d" path="res://Levels/Train/Interiors/Paintings/3x3.tscn" id="9_fmss1"]
+[ext_resource type="PackedScene" uid="uid://xe0vf7s7rr63" path="res://Levels/Train/Interiors/Paintings/3x5.tscn" id="10_fmss1"]
+[ext_resource type="PackedScene" uid="uid://c8fq3relvopc5" path="res://Levels/Train/Interiors/Paintings/3x4.tscn" id="10_kdt1h"]
+[ext_resource type="PackedScene" uid="uid://68s612kl8pk5" path="res://Levels/Train/Interiors/Paintings/4x2.tscn" id="11_kdt1h"]
+[ext_resource type="PackedScene" uid="uid://bmnsftk5h4ye" path="res://Levels/Train/Interiors/Paintings/4x3.tscn" id="12_c06h2"]
+[ext_resource type="PackedScene" uid="uid://h2buxhj20r8j" path="res://Levels/Train/Interiors/Paintings/4x4.tscn" id="13_gv04b"]
+
+[sub_resource type="Resource" id="Resource_cyx2p"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("4_idls2")
+Size = Vector2(2, 2)
+Count = 5
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_c06h2"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("3_rajb1")
+Size = Vector2(2, 3)
+Count = 5
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_gv04b"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("7_7f1g8")
+Size = Vector2(2, 4)
+Count = 1
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_q446j"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("8_1pr5q")
+Size = Vector2(3, 2)
+Count = 2
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_iyd3y"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("9_fmss1")
+Size = Vector2(3, 3)
+Count = 2
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_22tga"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("10_kdt1h")
+Size = Vector2(3, 4)
+Count = 1
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_hiaey"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("10_fmss1")
+Size = Vector2(3, 5)
+Count = 1
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_a1x4i"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("11_kdt1h")
+Size = Vector2(4, 2)
+Count = 1
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_gv1qd"]
+resource_local_to_scene = true
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("12_c06h2")
+Size = Vector2(4, 3)
+Count = 1
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[sub_resource type="Resource" id="Resource_jnhux"]
+script = ExtResource("2_l8n5s")
+Scene = ExtResource("13_gv04b")
+Size = Vector2(4, 4)
+Count = 2
+metadata/_custom_type_script = "uid://dxubb3tmn22o8"
+
+[node name="Interior" type="Sprite2D"]
+z_index = -1
+use_parent_material = true
+texture = ExtResource("1_w0ii6")
+region_enabled = true
+region_rect = Rect2(432, 16, 592, 240)
+
+[node name="Gallery" type="Node2D" parent="."]
+position = Vector2(-272, -112)
+script = ExtResource("2_0hupg")
+wallRect = Vector2(34, 13)
+gapRange = Vector2(1, 2)
+paintings = Array[Resource]([SubResource("Resource_cyx2p"), SubResource("Resource_c06h2"), SubResource("Resource_gv04b"), SubResource("Resource_q446j"), SubResource("Resource_iyd3y"), SubResource("Resource_22tga"), SubResource("Resource_hiaey"), SubResource("Resource_a1x4i"), SubResource("Resource_gv1qd"), SubResource("Resource_jnhux")])

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using DustyStudios.AVM2.StateMachine;
 
 namespace DustyStudios.AVM2.PlayerChara;
@@ -6,14 +7,21 @@ public partial class MoveState : PhysicsState
 {
 	Vector2 targetVelocity;
 	[Export] float speed, velocityChange;
+	[Export] AudioStreamPlayer2D walkSound;
+	[Export] AudioStream defaultSound;
+	[Export] Dictionary<string, AudioStream> audios;
 	public override void _Ready()
 	{
 		base._Ready();
-		//Вызывается при обновлении списка нажатых кнопок
+		OnEnter += () => walkSound.Play();
 		OnUpdate += UpdateAction;
 		OnPhysics += PhysicsAction;
+		OnExit += walkSound.Stop;
 	}
-    public void PhysicsAction(double delta) => Rb.Velocity = Rb.Velocity.MoveToward(targetVelocity, (float)delta * velocityChange);
-
-    void UpdateAction() => targetVelocity = InputSystem.GetHoryzontalVelocity(speed).Rotated(-Rb.GetFloorAngle()); // GetHoryzontalVelocity - Даёт нажатые кнопки A и D как X в Vector2 //После этого вектор вращается относительно пола
+	public void PhysicsAction(double delta)
+	{
+		Rb.Velocity = Rb.Velocity.MoveToward(targetVelocity, (float)delta * velocityChange);
+		walkSound.PitchScale = Rb.Velocity.Length() / speed;
+	}
+	void UpdateAction() => targetVelocity = InputSystem.GetHoryzontalVelocity(speed).Rotated(-Rb.GetFloorAngle());
 }

@@ -22,12 +22,9 @@ public partial class Chain : Node2D, IHasVelocity
 			AddLink();
 		isGenerable = links.Peek() is IGenerable;
 	}
-    public override void _Process(double delta)
-	{
-		MoveChain(Speed * (float)delta);
-	}
+    public override void _Process(double delta) => MoveChain(Speed * (float)delta);
 
-	private void MoveChain(Vector2 offset)
+    private void MoveChain(Vector2 offset)
 	{
 		float minLength = links.Peek().Position.LengthSquared();
 		foreach(var link in links)

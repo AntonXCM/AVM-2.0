@@ -1,6 +1,6 @@
 using DustyStudios.AVM2.StateMachine;
 using Godot;
-using System;
+using Godot.Collections;
 
 namespace DustyStudios.AVM2.PlayerChara;
 public partial class JumpState : PhysicsState
@@ -8,6 +8,9 @@ public partial class JumpState : PhysicsState
 	[Export] EmptyState idleState;
 	[Export] int speed, force;
 	[Export] float jumpStartPower, jumpLeftover, speedDecreace;
+	[Export] AudioStreamPlayer2D landSound;
+	[Export] AudioStream defaultSound;
+	[Export] Dictionary<string, AudioStream> audios;
 	bool startedWithSpace;
 	Vector2 constantForce;
 	public override void _Ready()
@@ -22,6 +25,7 @@ public partial class JumpState : PhysicsState
 	{
 		Rb.Velocity *= Vector2.Right;
 		startedWithSpace = false;
+		landSound.Play();
 	}
 	void EnterAction()
 	{

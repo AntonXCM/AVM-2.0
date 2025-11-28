@@ -1,16 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://c0oltcd30ejc4"]
+[gd_scene load_steps=22 format=3 uid="uid://c0oltcd30ejc4"]
 
 [ext_resource type="Texture2D" uid="uid://d0ss6gilcy0ms" path="res://Sprites/Levels/Train/Tilemap/vagon.png" id="1_euxhe"]
-[ext_resource type="PackedScene" uid="uid://okadcqf1olnf" path="res://Levels/Train/Interiors/interior.tscn" id="2_2avv3"]
 [ext_resource type="Script" uid="uid://conn2vmr1uaqh" path="res://Scripts/Level/Generators/Generic/ComplexGenerable.cs" id="2_q0e82"]
 [ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="3_0n34t"]
 [ext_resource type="Script" uid="uid://bfxhp3w5idjhk" path="res://Scripts/Level/Generators/Generic/RandomChildInstantitator.cs" id="3_5m7wl"]
 [ext_resource type="Texture2D" uid="uid://bmqyvtvx3h425" path="res://Sprites/Test/testTiles.png" id="4_3khji"]
+[ext_resource type="PackedScene" uid="uid://dwc2k8250fyda" path="res://Levels/Train/Interiors/interiorGallery.tscn" id="4_hlb6f"]
 [ext_resource type="Script" uid="uid://desktypkq8eru" path="res://Scripts/Level/Generators/Level2/GeneratorOutput.cs" id="5_5fhiw"]
-[ext_resource type="PackedScene" uid="uid://k5retu3lwvfv" path="res://Levels/Train/Interiors/interiorKitketPainting.tscn" id="6_i52w0"]
-[ext_resource type="PackedScene" uid="uid://c310nxga0r0gs" path="res://Levels/Train/Interiors/interiorBookafe.tscn" id="7_i5f5r"]
-[ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/Train/Interiors/interiorArmenians.tscn" id="8_7wg6q"]
-[ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/Train/Interiors/interiorPointer.tscn" id="9_7wg6q"]
+[ext_resource type="PackedScene" uid="uid://bg2uby7n3t70j" path="res://Levels/Train/Interiors/interiorBoxes.tscn" id="5_knq2h"]
+[ext_resource type="PackedScene" uid="uid://dumucu63veswk" path="res://Levels/Train/Interiors/interiorPointer.tscn" id="6_l0fbg"]
+[ext_resource type="PackedScene" uid="uid://cneqm4ef50wnt" path="res://Levels/Train/Interiors/interiorArmenians.tscn" id="7_uwxun"]
+[ext_resource type="PackedScene" uid="uid://c310nxga0r0gs" path="res://Levels/Train/Interiors/interiorBookafe.tscn" id="8_mwgeh"]
 [ext_resource type="PackedScene" uid="uid://dbwkhdgh0vwp4" path="res://Levels/Train/Prefabs/Locations/wheel.tscn" id="16_nsyrt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwgeh"]
@@ -34,6 +34,53 @@ texture = ExtResource("4_3khji")
 [sub_resource type="TileSet" id="TileSet_2avv3"]
 sources/0 = SubResource("TileSetAtlasSource_5fhiw")
 
+[sub_resource type="Curve" id="Curve_knq2h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99393934, 0), -3.1331968, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l0fbg"]
+curve = SubResource("Curve_knq2h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_knq2h"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 85, 0)
+inherit_velocity_ratio = 1.0
+spread = 10.0
+initial_velocity_min = 80.0
+initial_velocity_max = 240.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_l0fbg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l0fbg"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 32, 0)
+inherit_velocity_ratio = 1.0
+spread = 10.0
+initial_velocity_min = 80.0
+initial_velocity_max = 240.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_l0fbg")
+color = Color(0.78431374, 0.3137255, 0.5254902, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uwxun"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(0, 8, 0)
+inherit_velocity_ratio = 1.0
+spread = 10.0
+initial_velocity_min = 80.0
+initial_velocity_max = 240.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_l0fbg")
+color = Color(0.57254905, 0.6313726, 0.7254902, 1)
+
 [node name="Vagon" type="Sprite2D"]
 texture = ExtResource("1_euxhe")
 offset = Vector2(0, -1)
@@ -49,7 +96,7 @@ z_index = -10
 use_parent_material = true
 position = Vector2(-279, -40)
 script = ExtResource("3_5m7wl")
-PossibleChildren = Array[PackedScene]([ExtResource("2_2avv3"), ExtResource("6_i52w0"), ExtResource("7_i5f5r"), ExtResource("8_7wg6q"), ExtResource("9_7wg6q")])
+PossibleChildren = Array[PackedScene]([ExtResource("4_hlb6f"), ExtResource("5_knq2h"), ExtResource("6_l0fbg"), ExtResource("7_uwxun"), ExtResource("8_mwgeh")])
 
 [node name="Celling" type="CollisionPolygon2D" parent="StaticBody2D"]
 process_physics_priority = -1
@@ -120,3 +167,31 @@ position = Vector2(232, 130)
 
 [node name="Wheel8" parent="." instance=ExtResource("16_nsyrt")]
 position = Vector2(280, 130)
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Particles"]
+z_index = -20
+position = Vector2(296, -38)
+amount = 64
+lifetime = 0.75
+randomness = 0.08
+visibility_rect = Rect2(0, -85, 180, 170)
+process_material = SubResource("ParticleProcessMaterial_knq2h")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Particles"]
+z_index = -20
+position = Vector2(296, 78)
+amount = 32
+lifetime = 0.75
+randomness = 0.08
+visibility_rect = Rect2(0, -32, 180, 64)
+process_material = SubResource("ParticleProcessMaterial_l0fbg")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="Particles"]
+z_index = -20
+position = Vector2(295, 120)
+lifetime = 0.75
+randomness = 0.08
+visibility_rect = Rect2(0, -85, 180, 170)
+process_material = SubResource("ParticleProcessMaterial_uwxun")

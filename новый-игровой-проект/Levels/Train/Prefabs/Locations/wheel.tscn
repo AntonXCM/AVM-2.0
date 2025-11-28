@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbwkhdgh0vwp4"]
+[gd_scene load_steps=4 format=3 uid="uid://dbwkhdgh0vwp4"]
 
 [ext_resource type="Texture2D" uid="uid://77eu8cxwkekf" path="res://Sprites/Levels/Train/Background/wheel.png" id="1_c16lu"]
-[ext_resource type="Script" uid="uid://cjom8ovp20key" path="res://Levels/Train/Prefabs/Locations/wheel.gd" id="2_b75t3"]
+[ext_resource type="Shader" uid="uid://bpidl4f00hai0" path="res://Shaders/pixelPerfect.gdshader" id="1_y4ohn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0coek"]
+shader = ExtResource("1_y4ohn")
+shader_parameter/speed = -12.0
+shader_parameter/texturePixelScaling = 10.0
+shader_parameter/blurSize = 0.03
 
 [node name="Wheel" type="Sprite2D"]
 z_index = -1
-use_parent_material = true
+texture_repeat = 1
+material = SubResource("ShaderMaterial_0coek")
+scale = Vector2(0.105, 0.105)
 texture = ExtResource("1_c16lu")
-script = ExtResource("2_b75t3")
-speed = 1200.0

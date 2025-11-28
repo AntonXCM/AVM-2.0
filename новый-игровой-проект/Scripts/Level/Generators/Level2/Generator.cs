@@ -19,6 +19,7 @@ public partial class Generator : Node
     public void Generate(TileMapLayer debug, TileMapLayer gameplay)
     {
         debug.Clear();
+        gameplay.Clear();
         if (subdivisorFactory is null) Init();
         Resource subdivisor = subdivisorFactory.Get();
         var colorEnum = GetColors();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://myv87mqaa4pd"]
+[gd_scene load_steps=24 format=3 uid="uid://myv87mqaa4pd"]
 
 [ext_resource type="Script" uid="uid://jib0njeg4nvf" path="res://Scripts/Common/StateMachine/StateMachine.cs" id="1_6fvfi"]
 [ext_resource type="Script" uid="uid://fp7wsym3qde0" path="res://Scripts/PlayerChara/AntivirusMan/CharacterPhysics.cs" id="1_okehs"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://cb56m556k8t23" path="res://Levels/Train/Prefabs/UI/AtkCounterCell.tscn" id="17_5jkc2"]
 [ext_resource type="PackedScene" uid="uid://ctaqlmg5fgxg4" path="res://Levels/Train/Prefabs/UI/Indicators.tscn" id="18_uquex"]
 [ext_resource type="Script" uid="uid://bmluhw7kkypty" path="res://Scripts/PlayerChara/AntivirusMan/ShieldCharacter.cs" id="19_okehs"]
+[ext_resource type="AudioStream" uid="uid://cuv0vrkqgwsrw" path="res://Sounds/AVM/Walk/metal.mp3" id="20_twkk4"]
+[ext_resource type="AudioStream" uid="uid://bn3ojfas54v4d" path="res://Sounds/AVM/Land/metal.mp3" id="21_hoo06"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n726p"]
 size = Vector2(12, 30)
@@ -58,17 +60,19 @@ friction = 999
 script = ExtResource("5_fcauc")
 entranceStates = [NodePath("../../Move")]
 
-[node name="Move" type="Node" parent="CollisionShape2D/StateMachine"]
+[node name="Move" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("walkSound")]
 script = ExtResource("3_ul4v7")
 speed = 120.0
 velocityChange = 1600.0
+walkSound = NodePath("../../../Walk")
+defaultSound = ExtResource("20_twkk4")
 
 [node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Move" node_paths=PackedStringArray("entranceStates")]
 script = ExtResource("5_fcauc")
 isEnter = true
 entranceStates = [NodePath("../../Idle")]
 
-[node name="Jump" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("idleState")]
+[node name="Jump" type="Node" parent="CollisionShape2D/StateMachine" node_paths=PackedStringArray("idleState", "landSound")]
 script = ExtResource("5_gu8uy")
 idleState = NodePath("../Idle")
 speed = 30
@@ -76,6 +80,7 @@ force = 48
 jumpStartPower = 70.0
 jumpLeftover = -16575.0
 speedDecreace = 0.1
+landSound = NodePath("../../../Land")
 
 [node name="Transition" type="Node" parent="CollisionShape2D/StateMachine/Jump" node_paths=PackedStringArray("entranceStates")]
 script = ExtResource("8_5j2gi")
@@ -126,3 +131,11 @@ texture_filter = 1
 script = ExtResource("19_okehs")
 selfBounce = 220.0
 degThrehold = 30.0
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_twkk4")
+volume_db = 10.6497
+parameters/looping = true
+
+[node name="Land" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("21_hoo06")

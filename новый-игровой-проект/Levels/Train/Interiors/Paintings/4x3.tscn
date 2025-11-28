@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmnsftk5h4ye"]
+
+[ext_resource type="Texture2D" uid="uid://cttstduiciltj" path="res://Sprites/Levels/Train/Background/Interior/Paintings-4x3.png" id="1_hc4fk"]
+[ext_resource type="Script" uid="uid://wgpt8fvnxeal" path="res://Scripts/Level/Generators/Generic/Background/RandomChopper.cs" id="2_kw135"]
+
+[node name="Painting" type="Sprite2D"]
+use_parent_material = true
+texture = ExtResource("1_hc4fk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 48)
+script = ExtResource("2_kw135")
+sprites = 1

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bahp87xp413fx" path="res://Scripts/Level/NPC/PcController.cs" id="1_2a6u3"]
 [ext_resource type="Texture2D" uid="uid://csc1vtncleat8" path="res://Sprites/Levels/Train/Characters/PC.png" id="2_ei8q6"]
-[ext_resource type="FontFile" uid="uid://dei7jgwdrvpxh" path="res://Monaspace Radon Var.ttf" id="2_t3dfy"]
+[ext_resource type="Script" uid="uid://bkyk0p0lfnrhc" path="res://Scripts/Level/NPC/MailmanAnimation.cs" id="3_t3dfy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b2i63"]
 radius = 8.0
@@ -16,7 +16,6 @@ center_of_mass_mode = 1
 center_of_mass = Vector2(1, 5)
 can_sleep = false
 script = ExtResource("1_2a6u3")
-font = ExtResource("2_t3dfy")
 ray = NodePath("RayCast2D")
 xDispersion = 2.5
 xSpeed = 2.0
@@ -32,6 +31,9 @@ show_behind_parent = true
 texture = ExtResource("2_ei8q6")
 hframes = 6
 vframes = 3
+script = ExtResource("3_t3dfy")
+Sensitivity = 1.5
+AutoSpeed = 3.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-9, 9)

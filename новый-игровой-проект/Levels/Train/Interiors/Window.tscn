@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwaua2xodmgg5"]
+[gd_scene load_steps=6 format=3 uid="uid://cwaua2xodmgg5"]
 
-[ext_resource type="Texture2D" uid="uid://bd88ml6nytvip" path="res://Sprites/Levels/Train/Background/TrainInterioes.png" id="1_xqfnl"]
+[ext_resource type="Shader" uid="uid://btbmionqvttuc" path="res://Shaders/BlendAdd.gdshader" id="1_im1nc"]
+[ext_resource type="Texture2D" uid="uid://o0c52o1hbyq7" path="res://Sprites/Levels/Train/Background/Interior/Windows.png" id="1_xqfnl"]
+[ext_resource type="Texture2D" uid="uid://grb0p2h24w1s" path="res://Sprites/Levels/Train/Background/Interior/WindowMask.png" id="2_kd1ni"]
+[ext_resource type="Script" uid="uid://bpb5q62lv6boy" path="res://Scripts/Level/Generators/Level2/WindowGraphics.cs" id="4_kd1ni"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kd1ni"]
+shader = ExtResource("1_im1nc")
+shader_parameter/flares = ExtResource("1_xqfnl")
+shader_parameter/flares_chop = Vector2(0.0833, 1)
 
 [node name="Window" type="Sprite2D"]
-use_parent_material = true
-texture = ExtResource("1_xqfnl")
-region_enabled = true
-region_rect = Rect2(0, 368, 32, 48)
+material = SubResource("ShaderMaterial_kd1ni")
+texture = ExtResource("2_kd1ni")
+region_rect = Rect2(0, 0, 32, 48)
+script = ExtResource("4_kd1ni")
+maxOffset = 0.9167

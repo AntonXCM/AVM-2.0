@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bypwp16rloonw"]
+
+[ext_resource type="PackedScene" uid="uid://bmnsftk5h4ye" path="res://Levels/Train/Interiors/Paintings/4x3.tscn" id="1_qw5s0"]
+[ext_resource type="Texture2D" uid="uid://os4pag2sx2xi" path="res://Sprites/Levels/Train/Background/Interior/Paintings-2x3.png" id="2_hvhmc"]
+
+[node name="Painting" instance=ExtResource("1_qw5s0")]
+texture = ExtResource("2_hvhmc")
+region_rect = Rect2(0, 0, 32, 48)
+sprites = 5
