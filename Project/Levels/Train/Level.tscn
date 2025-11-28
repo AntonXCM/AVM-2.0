@@ -1,16 +1,16 @@
-[gd_scene load_steps=55 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=54 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
-[ext_resource type="Script" uid="uid://55xtqu0eh8hw" path="res://Levels/Train/MouseMove.cs" id="1_rsy8m"]
+[ext_resource type="Script" uid="uid://55xtqu0eh8hw" path="res://Scripts/Camera/MouseMove.cs" id="1_rsy8m"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
 [ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/Gradient.png" id="2_nupcv"]
-[ext_resource type="Shader" uid="uid://cfxdq53ynuwrs" path="res://Levels/Train/TrainLevelBg.gdshader" id="3_8xl60"]
+[ext_resource type="Shader" uid="uid://cfxdq53ynuwrs" path="res://Shaders/TrainLevelBg.gdshader" id="3_8xl60"]
 [ext_resource type="Texture2D" uid="uid://doc5dm1cv5c5k" path="res://Sprites/Levels/Train/Background/Sun.png" id="3_hpjpt"]
 [ext_resource type="Texture2D" uid="uid://0240dtsepks6" path="res://Sprites/Levels/Train/Background/Props.png" id="3_ix047"]
-[ext_resource type="Script" uid="uid://btpu3oasykskw" path="res://Levels/Train/background.gd" id="3_ut1n0"]
+[ext_resource type="Script" uid="uid://btpu3oasykskw" path="res://Scripts/Level/Background/background.gd" id="3_ut1n0"]
 [ext_resource type="Texture2D" uid="uid://d3xfutjrcuurh" path="res://Shaders/coolnoise.png" id="4_3dyku"]
-[ext_resource type="Script" uid="uid://jv54net6806q" path="res://Levels/Train/BackgroundRenderer.gd" id="4_etk17"]
+[ext_resource type="Script" uid="uid://jv54net6806q" path="res://Scripts/Level/Background/BackgroundRenderer.gd" id="4_etk17"]
 [ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
 [ext_resource type="Script" uid="uid://bh7uh2spp01t" path="res://Scripts/Level/Background/MovingParalax.cs" id="4_rsy8m"]
 [ext_resource type="Texture2D" uid="uid://d2j8vnvtby685" path="res://Sprites/Levels/Train/Background/PowerLine.png" id="5_f7yi0"]
@@ -22,8 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
 [ext_resource type="Texture2D" uid="uid://wkmwjvs5e3u" path="res://Sprites/Levels/Train/Background/railGlint.png" id="12_hqukm"]
 [ext_resource type="Script" uid="uid://dlhe0g7gotrcv" path="res://Scripts/Level/Background/RailGlint.cs" id="13_6r5em"]
-[ext_resource type="Script" uid="uid://bmf5aopxyvbym" path="res://Levels/Train/CameraBehavior.cs" id="14_357aj"]
-[ext_resource type="Texture2D" uid="uid://dk6ebtghn0jbg" path="res://Sprites/Levels/Train/Background/PropsOffsetMap.png" id="14_rnif4"]
+[ext_resource type="Script" uid="uid://bmf5aopxyvbym" path="res://Scripts/Camera/CameraBehavior.cs" id="14_357aj"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 [ext_resource type="Texture2D" uid="uid://bngqstaa701np" path="res://Sprites/Test/testBall.png" id="22_5k851"]
 [ext_resource type="AudioStream" uid="uid://blycwsyb8q3xv" path="res://Ы.mp3" id="22_6r5em"]
@@ -68,12 +67,8 @@ shader = ExtResource("10_kjs2i")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hqukm"]
 blend_mode = 1
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7nm4"]
-shader = ExtResource("27_r7nm4")
-shader_parameter/power = Vector2(20, 0)
-shader_parameter/powerA = Vector2(3, 0)
-shader_parameter/snapMap = ExtResource("14_rnif4")
-shader_parameter/alphaColor = Color(0.92941177, 0.67058825, 0.3137255, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqukm"]
+shader = ExtResource("10_kjs2i")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5k851"]
 size = Vector2(276, 580)
@@ -251,25 +246,23 @@ script = ExtResource("4_rsy8m")
 
 [node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Props"]
 z_index = -1
-texture_filter = 2
 texture_repeat = 2
-material = SubResource("ShaderMaterial_r7nm4")
+material = SubResource("ShaderMaterial_hqukm")
 position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("Following", "StaticScenes")]
+[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("Following")]
 position = Vector2(-409, -88)
 script = ExtResource("14_357aj")
-Following = NodePath("../Body")
 DeadZone = Vector2(0, 64)
-StaticScenes = [NodePath("../StaticBody2D2/CollisionShape2D6"), NodePath("../StaticBody2D2/CollisionShape2D7"), NodePath("../StaticBody2D2/CollisionShape2D8")]
 Speed = 8.0
+Following = NodePath("../Body")
 
 [node name="DebugDrag" type="Node2D" parent="Camera" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_rsy8m")
-camera = NodePath("Camera2D")
 scaleSpeed = 0.5
+camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Camera/DebugDrag"]
 process_mode = 3

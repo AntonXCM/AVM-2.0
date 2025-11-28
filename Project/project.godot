@@ -14,7 +14,7 @@ config/name="Антивирусмэн"
 run/main_scene="uid://tg5el2hicmu"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.5", "C#", "Mobile")
-config/icon="res://icon.svg"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
