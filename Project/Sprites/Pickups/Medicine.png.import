@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://wkmwjvs5e3u"
-path="res://.godot/imported/railGlint.png-ab1160abbaeaec93a93a6bd6cc47a3bb.ctex"
+uid="uid://bceeh2ubk8su7"
+path="res://.godot/imported/Medicine.png-16706b90598291008b94a7d32cdb4627.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/railGlint.png"
-dest_files=["res://.godot/imported/railGlint.png-ab1160abbaeaec93a93a6bd6cc47a3bb.ctex"]
+source_file="res://Sprites/Pickups/Medicine.png"
+dest_files=["res://.godot/imported/Medicine.png-16706b90598291008b94a7d32cdb4627.ctex"]
 
 [params]
 

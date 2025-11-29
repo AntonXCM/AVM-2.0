@@ -8,7 +8,7 @@ public partial class AntivirusIndicatorUIFactory : AbstractSceneFactory
     [Export] public PackedScene energyIndicatorScene;
     public override void _Ready()
     {
-        IEnergy ammoStat = (IEnergy)GetNode("../Energy");
+        IEnergy ammoStat = GetNode<IEnergy>("../Energy");
         Dictionary<string, Func<Node>> overrides = new()
         {
             ["Energy"] = () => new StatIndicator(ammoStat, energyIndicatorScene)

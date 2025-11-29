@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7wb4htb8lc2k"
-path="res://.godot/imported/Paintings-4x2.png-b7b1f675cd24b859ea6aa8f3d0babeb5.ctex"
+uid="uid://wkmwjvs5e3u"
+path="res://.godot/imported/railGlint.png-9357aa9be45383d475bb35c9179a0381.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/Interior/Paintings-4x2.png"
-dest_files=["res://.godot/imported/Paintings-4x2.png-b7b1f675cd24b859ea6aa8f3d0babeb5.ctex"]
+source_file="res://Sprites/Levels/Train/Background/ParalaxThings/railGlint.png"
+dest_files=["res://.godot/imported/railGlint.png-9357aa9be45383d475bb35c9179a0381.ctex"]
 
 [params]
 

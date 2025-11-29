@@ -5,11 +5,18 @@ public partial class StateMachine : Node
 {
 	IState current;
 	[Export] EmptyState initialState;
+	[Export] InputSystem inputSystem;
 	public override void _Ready()
 	{
 		SetState(initialState);
-		InputSystem.OnInput += Input;
+		inputSystem.OnInput += Input;
 	}
+    protected override void Dispose(bool disposing)
+    {
+		base.Dispose(disposing);
+		inputSystem.OnInput -= Input;
+    }
+
     public void SetState(IState newState)
 	{
 		current?.Exit();

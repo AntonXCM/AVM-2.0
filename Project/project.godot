@@ -51,12 +51,16 @@ texture={
 &"roughness/mode": 1
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="PC"
+
 [physics]
 
 2d/run_on_separate_thread=true
 2d/physics_engine="GodotPhysics2D"
 2d/default_gravity_vector=Vector2(0, 0.3)
-2d/default_linear_damp=0.0
 2d/default_angular_damp=0.0
 
 [rendering]

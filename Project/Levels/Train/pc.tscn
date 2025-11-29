@@ -1,29 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://chimdesiuh3q6"]
+[gd_scene load_steps=7 format=3 uid="uid://chimdesiuh3q6"]
 
 [ext_resource type="Script" uid="uid://bahp87xp413fx" path="res://Scripts/Level/NPC/PcController.cs" id="1_2a6u3"]
 [ext_resource type="Texture2D" uid="uid://csc1vtncleat8" path="res://Sprites/Levels/Train/Characters/PC.png" id="2_ei8q6"]
 [ext_resource type="Script" uid="uid://bkyk0p0lfnrhc" path="res://Scripts/Level/NPC/MailmanAnimation.cs" id="3_t3dfy"]
+[ext_resource type="Script" uid="uid://0a6mgy4uqsnn" path="res://Scripts/Level/Interactive/Drag.cs" id="4_8wujq"]
+[ext_resource type="Script" uid="uid://r0y8rgnxxcgv" path="res://Scripts/PlayerChara/AntivirusMan/Respawn.cs" id="5_k3q61"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b2i63"]
 radius = 8.0
-height = 21.0
+height = 23.0
 
 [node name="PC" type="RigidBody2D" node_paths=PackedStringArray("ray")]
 collision_layer = 2
 collision_mask = 2
+input_pickable = true
 gravity_scale = 0.847
-center_of_mass_mode = 1
-center_of_mass = Vector2(1, 5)
-can_sleep = false
 script = ExtResource("1_2a6u3")
+AIEnabled = true
 ray = NodePath("RayCast2D")
 xDispersion = 2.5
-xSpeed = 2.0
+xSpeed = 4.0
 angularSpeed = 28.02
 ySpeed = -19.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
+position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_b2i63")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -32,11 +33,22 @@ texture = ExtResource("2_ei8q6")
 hframes = 6
 vframes = 3
 script = ExtResource("3_t3dfy")
-Sensitivity = 1.5
+Sensitivity = 2.5
 AutoSpeed = 3.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-9, 9)
 target_position = Vector2(0, 32)
-collision_mask = 2
+collision_mask = 10
 hit_from_inside = true
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("pickCollision")]
+script = ExtResource("4_8wujq")
+energyDecaySpeed = 8888.0
+scrollSpeed = 0.3927
+linearInertia = 0.3
+rotationInertia = 0.2
+pickCollision = NodePath("..")
+
+[node name="Respawn" type="Node" parent="."]
+script = ExtResource("5_k3q61")

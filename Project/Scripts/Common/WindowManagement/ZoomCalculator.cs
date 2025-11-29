@@ -11,9 +11,7 @@ public partial class ZoomCalculator : Node
 	Viewport viewport;
 	public override void _Ready()
 	{
-		viewport = this.GetGrandparent<SubViewport>();
-		if (viewport is null)
-			viewport = GetWindow();
+		viewport = this.TryGetGrandparent<SubViewport>(out var parentViewport) ? parentViewport : GetWindow();
 		viewport.SizeChanged += UpdateZoom;
 		UpdateZoom();
 	}

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doc5dm1cv5c5k"
-path="res://.godot/imported/Sun.png-63dc9c56ec100461fb1f79272e7a30b5.ctex"
+uid="uid://d2j8vnvtby685"
+path="res://.godot/imported/PowerLine.png-aad015bf2bb139e09e46c290f4c04efc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/Sun.png"
-dest_files=["res://.godot/imported/Sun.png-63dc9c56ec100461fb1f79272e7a30b5.ctex"]
+source_file="res://Sprites/Levels/Train/Background/ParalaxThings/PowerLine.png"
+dest_files=["res://.godot/imported/PowerLine.png-aad015bf2bb139e09e46c290f4c04efc.ctex"]
 
 [params]
 

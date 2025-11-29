@@ -3,28 +3,45 @@ using System;
 using System.Collections.Generic;
 public static class NodeExtentions
 {
-	public static bool TryGetGrandparent<T>(this Node node, out T component)
+	public static bool TryGetGrandparent<T>(this Node node, out T grandparent) where T : class
 	{
 		if (node is null)
 		{
-			component = default;
+			grandparent = null;
 			return false;
 		}
 		if (node is T result)
 		{
-			component = result;
+			grandparent = result;
 			return true;
 		}
-		else return node.GetParent().TryGetGrandparent(out component);
+		else return node.GetParent().TryGetGrandparent(out grandparent);
 	}
-
-	public static T GetGrandparent<T>(this Node node)
+	public static bool TryGetGrandchild<T>(this Node node, out T grandchild) where T : class
+	{
+		foreach (Node child in node.GetChildrenRecursive())
+			if (child is T resulT)
+			{
+				grandchild = resulT;
+				return true;
+			}
+		grandchild = null;
+		return false;
+	}
+	public static T GetGrandparent<T>(this Node node) where T : class
 	{
 		if (node is null)
-			return default;
+			throw new KeyNotFoundException($"Не нашёл дедв типа {typeof(T).Name} у *смотри стек вызовов* 🖕");
 		if(node is T result)
 			return result;
 		else return node.GetParent().GetGrandparent<T>();
+	}
+	public static T GetGrandchild<T>(this Node node) where T : class
+	{
+		foreach (Node child in node.GetChildrenRecursive())
+			if (child is T resulT)
+				return resulT;
+		throw new KeyNotFoundException($"Не нашёл внука типа {typeof(T).Name} у {node.Name} 🖕");
 	}
 
 	public static IEnumerable<Node> GetChildrenRecursive(this Node node)

@@ -3,14 +3,14 @@ using DustyStudios.AVM2.StateMachine;
 using Godot;
 
 namespace DustyStudios.AVM2.PlayerChara;
-public partial class AttackState : IdleState, IRequireEnergy
+public partial class AttackState : IdleState
 {
 	[Export] AttackBase[] attacks;
 	IEnumerator<AttackBase> attacksE;
 	float attackTimer;
 	[Export] EmptyState idleState;
+	[Export] InputSystem inputSystem;
 	bool canExitState = false;
-	public IEnergy Energy { get; set; }
 	public override void _Ready()
 	{
 		base._Ready();
@@ -51,7 +51,7 @@ public partial class AttackState : IdleState, IRequireEnergy
 		attackTimer -= (float)delta;
 
 		if (attackTimer > 0) return;
-		else if (canExitState || !InputSystem.IsPressed("Left")) stateMachine.SetState(idleState);
+		else if (canExitState || !inputSystem.IsPressed("Left")) stateMachine.SetState(idleState);
 		attacksE.Current.EndAttack();
 
 		if (!attacksE.MoveNext())
@@ -60,12 +60,12 @@ public partial class AttackState : IdleState, IRequireEnergy
 	}
 	private void AttackCurrent()
 	{
-		if (Energy.Value - attacksE.Current.AmmoCost < 0)
+		if (GlobalStats.Energy.Value - attacksE.Current.AmmoCost < 0)
 		{
 			canExitState = true;
 			return;
 		}
-		Energy.Value -= attacksE.Current.AmmoCost;
+		GlobalStats.Energy.Value -= attacksE.Current.AmmoCost;
 		attackTimer = attacksE.Current.Delay;
 		attacksE.Current.PerformAttack();
 	}

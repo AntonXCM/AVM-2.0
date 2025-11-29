@@ -6,11 +6,12 @@ namespace DustyStudios.AVM2.PlayerChara;
 public partial class MoveTransition : Transition
 {
 	[Export] bool isEnter;
+	[Export] InputSystem inputSystem;
 	protected override void SetState(EmptyState state)
 	{
 		state.OnUpdate += () =>
 		{
-			if (InputSystem.HasHoryzontal() == isEnter) DoTransition(); 
+			if (inputSystem.HasHoryzontal() == isEnter) DoTransition(); 
 		};
 	}
 }

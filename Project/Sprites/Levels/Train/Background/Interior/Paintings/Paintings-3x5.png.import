@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jbcwugg8jq65"
-path="res://.godot/imported/Paintings-3x2.png-0f9fedfb20496d41ebd8cb1237e338c6.ctex"
+uid="uid://j51mm4cdtvcs"
+path="res://.godot/imported/Paintings-3x5.png-e82553e2d2934573b46d8caf27338397.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/Interior/Paintings-3x2.png"
-dest_files=["res://.godot/imported/Paintings-3x2.png-0f9fedfb20496d41ebd8cb1237e338c6.ctex"]
+source_file="res://Sprites/Levels/Train/Background/Interior/Paintings/Paintings-3x5.png"
+dest_files=["res://.godot/imported/Paintings-3x5.png-e82553e2d2934573b46d8caf27338397.ctex"]
 
 [params]
 

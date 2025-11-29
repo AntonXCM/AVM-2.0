@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxtbsmas7sva0"
-path="res://.godot/imported/Rails.png-e9443383417037cf4e5e5f756fd51549.ctex"
+uid="uid://0240dtsepks6"
+path="res://.godot/imported/Props.png-956a967ea552360010e14c29e402b2e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Background/Rails.png"
-dest_files=["res://.godot/imported/Rails.png-e9443383417037cf4e5e5f756fd51549.ctex"]
+source_file="res://Sprites/Levels/Train/Background/ParalaxThings/Props.png"
+dest_files=["res://.godot/imported/Props.png-956a967ea552360010e14c29e402b2e2.ctex"]
 
 [params]
 

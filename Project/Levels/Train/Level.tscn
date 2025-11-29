@@ -1,43 +1,41 @@
-[gd_scene load_steps=54 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=47 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
 [ext_resource type="Script" uid="uid://55xtqu0eh8hw" path="res://Scripts/Camera/MouseMove.cs" id="1_rsy8m"]
 [ext_resource type="Script" uid="uid://b7kc3fljevt4l" path="res://Levels/movingBackround.gd" id="1_yf6p5"]
-[ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/Gradient.png" id="2_nupcv"]
+[ext_resource type="Texture2D" uid="uid://dswa40vmb8wth" path="res://Sprites/Levels/Train/Background/ParalaxThings/Gradient.png" id="2_nupcv"]
 [ext_resource type="Shader" uid="uid://cfxdq53ynuwrs" path="res://Shaders/TrainLevelBg.gdshader" id="3_8xl60"]
-[ext_resource type="Texture2D" uid="uid://doc5dm1cv5c5k" path="res://Sprites/Levels/Train/Background/Sun.png" id="3_hpjpt"]
-[ext_resource type="Texture2D" uid="uid://0240dtsepks6" path="res://Sprites/Levels/Train/Background/Props.png" id="3_ix047"]
+[ext_resource type="Texture2D" uid="uid://doc5dm1cv5c5k" path="res://Sprites/Levels/Train/Background/ParalaxThings/Sun.png" id="3_hpjpt"]
+[ext_resource type="Texture2D" uid="uid://0240dtsepks6" path="res://Sprites/Levels/Train/Background/ParalaxThings/Props.png" id="3_ix047"]
 [ext_resource type="Script" uid="uid://btpu3oasykskw" path="res://Scripts/Level/Background/background.gd" id="3_ut1n0"]
 [ext_resource type="Texture2D" uid="uid://d3xfutjrcuurh" path="res://Shaders/coolnoise.png" id="4_3dyku"]
 [ext_resource type="Script" uid="uid://jv54net6806q" path="res://Scripts/Level/Background/BackgroundRenderer.gd" id="4_etk17"]
-[ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/Rails.png" id="4_jk3e0"]
+[ext_resource type="Texture2D" uid="uid://cxtbsmas7sva0" path="res://Sprites/Levels/Train/Background/ParalaxThings/Rails.png" id="4_jk3e0"]
 [ext_resource type="Script" uid="uid://bh7uh2spp01t" path="res://Scripts/Level/Background/MovingParalax.cs" id="4_rsy8m"]
-[ext_resource type="Texture2D" uid="uid://d2j8vnvtby685" path="res://Sprites/Levels/Train/Background/PowerLine.png" id="5_f7yi0"]
+[ext_resource type="Texture2D" uid="uid://d2j8vnvtby685" path="res://Sprites/Levels/Train/Background/ParalaxThings/PowerLine.png" id="5_f7yi0"]
 [ext_resource type="Script" uid="uid://b7y0708v5al4x" path="res://Scripts/Common/WindowManagement/ZoomedCamera.cs" id="7_ne20o"]
 [ext_resource type="Script" uid="uid://bpqtwqyr1nrtb" path="res://Levels/Train/sun.gd" id="8_gs6ya"]
 [ext_resource type="PackedScene" uid="uid://chimdesiuh3q6" path="res://Levels/Train/pc.tscn" id="9_kt0gt"]
 [ext_resource type="Shader" uid="uid://vvr0n6g6jeua" path="res://Shaders/LinearHNearestV.gdshader" id="10_kjs2i"]
-[ext_resource type="Script" uid="uid://h6yoa4r5uush" path="res://Scripts/Common/InputSystem.cs" id="11_7i1l5"]
 [ext_resource type="PackedScene" uid="uid://k0pxkffckcdo" path="res://Levels/Train/Prefabs/train.tscn" id="11_m2n1c"]
-[ext_resource type="Texture2D" uid="uid://wkmwjvs5e3u" path="res://Sprites/Levels/Train/Background/railGlint.png" id="12_hqukm"]
+[ext_resource type="Texture2D" uid="uid://wkmwjvs5e3u" path="res://Sprites/Levels/Train/Background/ParalaxThings/railGlint.png" id="12_hqukm"]
 [ext_resource type="Script" uid="uid://dlhe0g7gotrcv" path="res://Scripts/Level/Background/RailGlint.cs" id="13_6r5em"]
 [ext_resource type="Script" uid="uid://bmf5aopxyvbym" path="res://Scripts/Camera/CameraBehavior.cs" id="14_357aj"]
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
-[ext_resource type="Texture2D" uid="uid://bngqstaa701np" path="res://Sprites/Test/testBall.png" id="22_5k851"]
 [ext_resource type="AudioStream" uid="uid://blycwsyb8q3xv" path="res://Ы.mp3" id="22_6r5em"]
 [ext_resource type="Texture2D" uid="uid://cnvyhtd1gijck" path="res://Sprites/Test/fire-1034853_960_720-1248634451.jpg" id="22_25non"]
 [ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="23_jr686"]
 [ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="24_jhk61"]
 [ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="25_hcv3t"]
 [ext_resource type="Resource" uid="uid://dv18wc6mje7mj" path="res://Levels/Train/Generator/Shape Creators/RectangleCreator.tres" id="25_hqukm"]
-[ext_resource type="Texture2D" uid="uid://b0dy8n1mdq6gi" path="res://Sprites/Test/testBallsHouse.png" id="25_qbvol"]
 [ext_resource type="Resource" uid="uid://ddi4x6o1x5ara" path="res://Levels/Train/Generator/Shape Creators/FullRectangleCreator.tres" id="26_6r5em"]
 [ext_resource type="Resource" uid="uid://dkbhkcogs8bn5" path="res://Levels/Train/Generator/Shape Creators/ColumnsCreator.tres" id="27_kwywi"]
-[ext_resource type="Shader" uid="uid://c4dk037jd8aop" path="res://Shaders/PartialParalax.gdshader" id="27_r7nm4"]
 [ext_resource type="Resource" uid="uid://rjll1rc1rqxe" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.tres" id="28_bci0e"]
-[ext_resource type="Texture2D" uid="uid://bc2hxg32kyymn" path="res://Sprites/Test/testSquaresHouse.png" id="28_rnif4"]
 [ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="29_b2xy8"]
+[ext_resource type="Script" uid="uid://d1mb1lxaj307p" path="res://Scripts/Level/Interactive/TeleportHazard.cs" id="33_6r5em"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5k851"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_gs6ya"]
 viewport_path = NodePath("Background/Container/BackgroundRender/Forground")
@@ -82,23 +80,28 @@ size = Vector2(972, 580)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_357aj"]
 normal = Vector2(0, 1)
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5k851"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_357aj"]
-shader = ExtResource("10_kjs2i")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rnif4"]
-size = Vector2(3, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1n2m"]
-shader = ExtResource("27_r7nm4")
-shader_parameter/power = Vector2(50, 0)
-shader_parameter/powerA = Vector2(2, 0)
-shader_parameter/snapMap = SubResource("PlaceholderTexture2D_rnif4")
-shader_parameter/alphaColor = Color(0, 0, 0, 1)
-
 [node name="TrainScene" type="Node2D"]
 texture_filter = 1
+
+[node name="Player" parent="." instance=ExtResource("1_3f304")]
+position = Vector2(-258, -17)
+collision_layer = 4
+collision_mask = 5
+floor_constant_speed = true
+floor_snap_length = 1.0
+
+[node name="PC" type="Node2D" parent="."]
+position = Vector2(-216, -14)
+
+[node name="Body" parent="PC" instance=ExtResource("9_kt0gt")]
+
+[node name="Ground" type="StaticBody2D" parent="PC"]
+position = Vector2(0, 40)
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="PC/Ground"]
+shape = SubResource("WorldBoundaryShape2D_5k851")
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(-409, -88)
@@ -140,16 +143,16 @@ texture = SubResource("ViewportTexture_etk17")
 expand_mode = 1
 stretch_mode = 2
 script = ExtResource("4_etk17")
-camera = NodePath("../../../Camera/DebugDrag/Camera2D")
+camera = NodePath("../../../Camera/Behavior/Camera2D")
 
 [node name="Sun" type="SubViewport" parent="Background/Container/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(587, 309)
+size = Vector2i(558, 305)
 script = ExtResource("3_ut1n0")
-camera = NodePath("../../../../Camera/DebugDrag/Camera2D")
+camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
 [node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Sun"]
@@ -179,11 +182,11 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(587, 309)
+size = Vector2i(558, 305)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
-camera = NodePath("../../../../Camera/DebugDrag/Camera2D")
+camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
 [node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Forground"]
@@ -252,70 +255,69 @@ position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Camera" type="Node2D" parent="." node_paths=PackedStringArray("Following")]
+[node name="Camera" type="Node2D" parent="."]
+
+[node name="Behavior" type="Node2D" parent="Camera" node_paths=PackedStringArray("Following", "StaticScenes")]
 position = Vector2(-409, -88)
 script = ExtResource("14_357aj")
+Following = NodePath("../../Player")
 DeadZone = Vector2(0, 64)
+StaticScenes = [NodePath("../ObservationPoints/CollisionShape2D6"), NodePath("../ObservationPoints/CollisionShape2D7"), NodePath("../ObservationPoints/CollisionShape2D8")]
 Speed = 8.0
-Following = NodePath("../Body")
 
-[node name="DebugDrag" type="Node2D" parent="Camera" node_paths=PackedStringArray("camera")]
-script = ExtResource("1_rsy8m")
-scaleSpeed = 0.5
-camera = NodePath("Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="Camera/DebugDrag"]
+[node name="Camera2D" type="Camera2D" parent="Camera/Behavior"]
 process_mode = 3
 zoom = Vector2(2, 2)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
-[node name="Zoom calculator" type="Node" parent="Camera/DebugDrag/Camera2D"]
+[node name="Zoom calculator" type="Node" parent="Camera/Behavior/Camera2D"]
 script = ExtResource("18_sny0v")
 targetHeight = 800.0
 pixelSize = 3.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera/DebugDrag/Camera2D"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera/Behavior/Camera2D"]
 stream = ExtResource("22_6r5em")
 volume_db = -10.845
 autoplay = true
 parameters/looping = true
 
-[node name="Body" parent="." instance=ExtResource("1_3f304")]
-position = Vector2(-392, -109)
-collision_layer = 4
-collision_mask = 5
-floor_constant_speed = true
-floor_snap_length = 1.0
+[node name="DebugDrag" type="Node2D" parent="Camera/Behavior"]
+process_mode = 4
+physics_interpolation_mode = 2
+visible = false
+script = ExtResource("1_rsy8m")
 
-[node name="PC" parent="." instance=ExtResource("9_kt0gt")]
-position = Vector2(-216, -16)
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("11_7i1l5")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="ObservationPoints" type="StaticBody2D" parent="Camera"]
 position = Vector2(-409, -88)
 collision_layer = 3
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Camera/ObservationPoints"]
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_5k851")
 disabled = true
 
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Camera/ObservationPoints"]
 position = Vector2(-1365, -7.6293945e-06)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_25non")
 disabled = true
 
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Camera/ObservationPoints"]
 position = Vector2(1827, -3)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_qbvol")
 disabled = true
 
-[node name="Generator" type="Node" parent="."]
+[node name="Train" type="Node2D" parent="."]
+
+[node name="Chain" parent="Train" instance=ExtResource("11_m2n1c")]
+position = Vector2(1702, -104)
+MaxCapacity = 6
+Speed = Vector2(-80, 0)
+Spacing = Vector2(-648, 0)
+
+[node name="Generator" type="Node" parent="Train"]
 script = ExtResource("23_jr686")
 roomSize = Rect2i(0, 0, 35, 14)
 subdivisors = Array[Resource]([ExtResource("24_jhk61")])
@@ -323,29 +325,29 @@ shapeCreators = Array[Resource]([ExtResource("25_hqukm"), ExtResource("26_6r5em"
 tileDrawer = ExtResource("29_b2xy8")
 generationMaterial = ExtResource("25_hcv3t")
 
-[node name="Train" parent="." instance=ExtResource("11_m2n1c")]
-position = Vector2(1702, -104)
-MaxCapacity = 6
-Speed = Vector2(-80, 0)
-Spacing = Vector2(-648, 0)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Hazards" type="Area2D" parent="."]
 position = Vector2(-1084.5, -301)
-collision_layer = 16777215
-collision_mask = 0
+collision_layer = 7
+collision_mask = 7
+input_pickable = false
+gravity_point_center = Vector2(0, -1)
+gravity_direction = Vector2(0, -1)
+linear_damp = 100.0
+script = ExtResource("33_6r5em")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Hazards"]
 position = Vector2(-877.5, 213)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_357aj")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-83, 311)
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hazards"]
+position = Vector2(825.5, 343)
 shape = SubResource("WorldBoundaryShape2D_5k851")
 
-[node name="Fire10348539607201248634451" type="Sprite2D" parent="StaticBody2D"]
+[node name="Fire10348539607201248634451" type="Sprite2D" parent="Hazards"]
 position = Vector2(-1356.5, 196)
-scale = Vector2(-1, 1)
+rotation = -3.1415927
+scale = Vector2(1, -1)
 texture = ExtResource("22_25non")
 
 [node name="Level" type="Node" parent="."]
@@ -353,19 +355,4 @@ unique_name_in_owner = true
 script = ExtResource("1_hglua")
 Speed = Vector2(-450, 0)
 
-[node name="TestBall" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_357aj")
-position = Vector2(118, -529)
-texture = ExtResource("22_5k851")
-
-[node name="TestBallsHouse" type="Sprite2D" parent="."]
-texture_repeat = 2
-material = ExtResource("25_hcv3t")
-position = Vector2(75, -553)
-texture = ExtResource("25_qbvol")
-
-[node name="TestSquaresHouse" type="Sprite2D" parent="."]
-texture_repeat = 2
-material = SubResource("ShaderMaterial_x1n2m")
-position = Vector2(197, -552)
-texture = ExtResource("28_rnif4")
+[node name="Node" type="Node" parent="."]

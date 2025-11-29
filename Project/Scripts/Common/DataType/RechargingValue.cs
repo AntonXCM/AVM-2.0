@@ -1,5 +1,4 @@
-using System;
-using System.Threading.Tasks;
+using Godot;
 
 public class RechargingValue
 {
@@ -16,13 +15,13 @@ public class RechargingValue
 			float oldValue = val;
 			val = Bounds.Clamp(value);
 			ValueChanged?.Invoke(oldValue,val);
-			_ = Reload();
+			Reload();
 		}
 	}
 
 	public float RechargeStep = 1, RechargeTime = 1;
 
-	public delegate Task ReloadInstruction(float time);
+	public delegate SignalAwaiter ReloadInstruction(float time);
 	protected ReloadInstruction reloadDelegate;
 	public RechargingValue(ValueBounds bounds,ref float value,float rechargeTime,float rechargeStep,ReloadInstruction reload)
 	{
@@ -33,7 +32,7 @@ public class RechargingValue
 		reloadDelegate = reload;
 	}
 
-	private async Task Reload()
+	private async void Reload()
 	{
 		if(!isOnReload && Bounds.IsInBounds(Value) && RechargeStep > 0)
 		{

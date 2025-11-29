@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw2jd42cix2ra"
-path="res://.godot/imported/vagonlight.png-8b14486733ecc8546434119ef319d7e6.ctex"
+uid="uid://36lloc5hmci"
+path="res://.godot/imported/Paintings-2x2.png-59010bf8607aa68cceaaa24221bd16d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Levels/Train/Tilemap/vagonlight.png"
-dest_files=["res://.godot/imported/vagonlight.png-8b14486733ecc8546434119ef319d7e6.ctex"]
+source_file="res://Sprites/Levels/Train/Background/Interior/Paintings/Paintings-2x2.png"
+dest_files=["res://.godot/imported/Paintings-2x2.png-59010bf8607aa68cceaaa24221bd16d2.ctex"]
 
 [params]
 

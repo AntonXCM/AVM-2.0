@@ -11,6 +11,7 @@ public partial class JumpState : PhysicsState
 	[Export] AudioStreamPlayer2D landSound;
 	[Export] AudioStream defaultSound;
 	[Export] Dictionary<string, AudioStream> audios;
+	[Export] InputSystem inputSystem;
 	bool startedWithSpace;
 	Vector2 constantForce;
 	public override void _Ready()
@@ -31,7 +32,7 @@ public partial class JumpState : PhysicsState
 	{
 		if (Rb.Velocity.Y > 0)
 			Rb.Velocity *= Vector2.Right;
-		if (InputSystem.IsPressed("Space"))
+		if (inputSystem.IsPressed("Space"))
 		{
 			Rb.Velocity += Vector2.Up * jumpStartPower;
 			startedWithSpace = true;
@@ -50,9 +51,9 @@ public partial class JumpState : PhysicsState
 	void UpdateAction()
 	{
 		if (!startedWithSpace) return;
-		constantForce.X = (InputSystem.IsPressed("A") ^ InputSystem.IsPressed("D")) ? (InputSystem.IsPressed("A") ? -speed : speed) : 0;
-		constantForce.Y = InputSystem.IsPressed("Space") ? (Rb.IsOnFloor() ? (-force) : constantForce.Y) : Mathf.Max(constantForce.Y,0);
-		if(!InputSystem.IsPressed("Space"))
+		constantForce.X = inputSystem.GetHoryzontalVelocity() * speed;
+		constantForce.Y = inputSystem.IsPressed("Space") ? (Rb.IsOnFloor() ? (-force) : constantForce.Y) : Mathf.Max(constantForce.Y,0);
+		if(!inputSystem.IsPressed("Space"))
 			Rb.Velocity = new(Rb.Velocity.X, Mathf.Min(Rb.Velocity.Y, CalculateJumpLeftover(Rb.Velocity.Y)));
 
 

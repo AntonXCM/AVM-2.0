@@ -10,6 +10,7 @@ public partial class MoveState : PhysicsState
 	[Export] AudioStreamPlayer2D walkSound;
 	[Export] AudioStream defaultSound;
 	[Export] Dictionary<string, AudioStream> audios;
+	[Export] InputSystem inputSystem;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -23,5 +24,5 @@ public partial class MoveState : PhysicsState
 		Rb.Velocity = Rb.Velocity.MoveToward(targetVelocity, (float)delta * velocityChange);
 		walkSound.PitchScale = Rb.Velocity.Length() / speed;
 	}
-	void UpdateAction() => targetVelocity = InputSystem.GetHoryzontalVelocity(speed).Rotated(-Rb.GetFloorAngle());
+	void UpdateAction() => targetVelocity = new Vector2(inputSystem.GetHoryzontalVelocity() * speed,0).Rotated(-Rb.GetFloorAngle());
 }

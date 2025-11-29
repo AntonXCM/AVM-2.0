@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c8fq3relvopc5"]
 
 [ext_resource type="PackedScene" uid="uid://bmnsftk5h4ye" path="res://Levels/Train/Interiors/Paintings/4x3.tscn" id="1_hc4fk"]
-[ext_resource type="Texture2D" uid="uid://hxokwsx0gx8g" path="res://Sprites/Levels/Train/Background/Interior/Paintings-3x4.png" id="2_kw135"]
+[ext_resource type="Texture2D" uid="uid://hxokwsx0gx8g" path="res://Sprites/Levels/Train/Background/Interior/Paintings/Paintings-3x4.png" id="2_kw135"]
 
 [node name="Painting" instance=ExtResource("1_hc4fk")]
 texture = ExtResource("2_kw135")
