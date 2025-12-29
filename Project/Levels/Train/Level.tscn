@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=48 format=3 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 [ext_resource type="AudioStream" uid="uid://blycwsyb8q3xv" path="res://Ы.mp3" id="22_6r5em"]
 [ext_resource type="Texture2D" uid="uid://cnvyhtd1gijck" path="res://Sprites/Test/fire-1034853_960_720-1248634451.jpg" id="22_25non"]
+[ext_resource type="FontFile" uid="uid://drvobakrhg2qj" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Italic.png" id="23_bokf0"]
 [ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="23_jr686"]
 [ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="24_jhk61"]
 [ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="25_hcv3t"]
@@ -94,6 +95,10 @@ floor_snap_length = 1.0
 position = Vector2(-216, -14)
 
 [node name="Body" parent="PC" instance=ExtResource("9_kt0gt")]
+position = Vector2(0.984, 1.008)
+rotation = 0.79063374
+scale = Vector2(1.418122, -1.412834)
+skew = 1.558555
 
 [node name="Ground" type="StaticBody2D" parent="PC"]
 position = Vector2(0, 40)
@@ -150,7 +155,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(558, 305)
+size = Vector2i(459, 305)
 script = ExtResource("3_ut1n0")
 camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
@@ -182,7 +187,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(558, 305)
+size = Vector2i(459, 305)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
@@ -287,6 +292,22 @@ process_mode = 4
 physics_interpolation_mode = 2
 visible = false
 script = ExtResource("1_rsy8m")
+
+[node name="Label" type="Label" parent="Camera"]
+offset_left = -270.0
+offset_top = 359.0
+offset_right = -14.0
+offset_bottom = 472.25
+theme_override_fonts/font = ExtResource("23_bokf0")
+text = "ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
+ѐёђѓєѕіїјљњћќѝўџ
+АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+абвгдежзийклмнопрстуфхцчшщъыьэюя
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+΄΅·ΆΈΉΊΌΎΏΪΫάέήίΰϊϋόύώϏϐ
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρςστυφχψω"
 
 [node name="ObservationPoints" type="StaticBody2D" parent="Camera"]
 position = Vector2(-409, -88)

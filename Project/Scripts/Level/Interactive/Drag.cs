@@ -24,18 +24,23 @@ public partial class Drag : Node2D
 
     public override void _Input(InputEvent e)
     {
-        if (e is InputEventMouseButton mb)
+        if (isDragging && e is InputEventMouseButton mb)
         {
-            if (mb.ButtonIndex is MouseButton.Left && !mb.Pressed)
-                EndDragging();
-
-            if (isDragging)
+            if (mb.ButtonIndex is MouseButton.Left)
             {
-                if (mb.ButtonIndex is MouseButton.WheelUp)
-                    targetRotation = (targetRotation + scrollSpeed) % Mathf.Tau;
-                else if (mb.ButtonIndex is MouseButton.WheelDown)
-                    targetRotation = (targetRotation - scrollSpeed) % Mathf.Tau;
+                if(!mb.Pressed)   
+                    EndDragging();
             }
+            else if (mb.ButtonIndex is MouseButton.Right)
+            {
+                if (!mb.Pressed)
+                    rb.GlobalScale = new Vector2(-1, 3);
+                GD.Print(rb.GlobalScale);
+            }
+            else if (mb.ButtonIndex is MouseButton.WheelUp)
+                targetRotation = (targetRotation + scrollSpeed) % Mathf.Tau;
+            else if (mb.ButtonIndex is MouseButton.WheelDown)
+                targetRotation = (targetRotation - scrollSpeed) % Mathf.Tau;
         }
     }
 

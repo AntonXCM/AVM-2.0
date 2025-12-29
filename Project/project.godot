@@ -14,7 +14,6 @@ config/name="Антивирусмэн"
 run/main_scene="uid://tg5el2hicmu"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.5", "C#", "Mobile")
-config/windows_native_icon="res://icon.ico"
 
 [display]
 
@@ -59,7 +58,6 @@ texture={
 [physics]
 
 2d/run_on_separate_thread=true
-2d/physics_engine="GodotPhysics2D"
 2d/default_gravity_vector=Vector2(0, 0.3)
 2d/default_angular_damp=0.0
 

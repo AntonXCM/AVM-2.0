@@ -58,4 +58,16 @@ public partial class PcController : RigidBody2D
         if (DistanceFactor is 0) return;
         LinearVelocity += Vector2.Right * speed * DistanceFactor * delta;
     }
+    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
+    {
+        state.Transform = SetScale(state.Transform, new Vector2(1.1f,0.9f));
+        GD.Print(SetScale(state.Transform, new Vector2(1.1f,0.9f)).Scale);
+
+        static Transform2D SetScale(Transform2D transform, Vector2 scale)
+        {
+            transform.X = transform.X.Normalized() * scale.X;
+            transform.Y = transform.Y.Normalized() * scale.Y;
+            return transform;
+        }
+    }
 }

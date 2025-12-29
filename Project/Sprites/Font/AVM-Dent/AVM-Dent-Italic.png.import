@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://drvobakrhg2qj"
+path="res://.godot/imported/AVM-Dent-Italic.png-aff016b2ca72495f8182b13d426847f7.fontdata"
+
+[deps]
+
+source_file="res://Sprites/Font/AVM-Dent/AVM-Dent-Italic.png"
+dest_files=["res://.godot/imported/AVM-Dent-Italic.png-aff016b2ca72495f8182b13d426847f7.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'Ѐ\'-\'Џ\'", "\'ѐ\'-\'џ\'", "\'А\'-\'я\'", "\'A\'-\'Z\'", "\'΄\'-\'Ή\'", "\'a\'-\'z\'", "\'Ί\'-\'Ώ\'", "\'Α\'-\'ϐ\'", "\'!\'-\'/\'", "\':\'-\'@\'", "\'[`-\'`\'", "\'{\'-\'~\'")
+kerning_pairs=PackedStringArray()
+columns=32
+rows=9
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=0
