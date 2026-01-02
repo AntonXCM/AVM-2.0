@@ -8,12 +8,19 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Антивирусмэн"
 run/main_scene="uid://tg5el2hicmu"
 run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.5", "C#", "Mobile")
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 
 [display]
 
@@ -28,6 +35,10 @@ window/vsync/vsync_mode=0
 [dotnet]
 
 project/assembly_name="Антивирусмэн2.0"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/abfi/plugin.cfg")
 
 [file_customization]
 
@@ -48,6 +59,11 @@ theme/default_font_antialiasing=2
 texture={
 &"process/premult_alpha": true,
 &"roughness/mode": 1
+}
+dt.abfi={
+"letter_spacing": 1,
+"mipmaps": false,
+"ranges": PackedStringArray("Ѐ-Џ", "ѐ-џ", "А-я", "A-Z", "a-z", "Α-Ω", "α-ω", "Ί-Ώ", "΄-Ή", "Ϊ-ΰ", "ϊ-ϐ", "!-/", ":-@", "[-`", "{-~", "0-9", " ", "0x00-0x1f")
 }
 
 [layer_names]

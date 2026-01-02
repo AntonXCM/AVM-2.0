@@ -1,6 +1,6 @@
 [remap]
 
-importer="font_data_image"
+importer="dt.abfi"
 type="FontFile"
 uid="uid://drvobakrhg2qj"
 path="res://.godot/imported/AVM-Dent-Italic.png-aff016b2ca72495f8182b13d426847f7.fontdata"
@@ -12,14 +12,6 @@ dest_files=["res://.godot/imported/AVM-Dent-Italic.png-aff016b2ca72495f8182b13d4
 
 [params]
 
-character_ranges=PackedStringArray("\'Ѐ\'-\'Џ\'", "\'ѐ\'-\'џ\'", "\'А\'-\'я\'", "\'A\'-\'Z\'", "\'΄\'-\'Ή\'", "\'a\'-\'z\'", "\'Ί\'-\'Ώ\'", "\'Α\'-\'ϐ\'", "\'!\'-\'/\'", "\':\'-\'@\'", "\'[`-\'`\'", "\'{\'-\'~\'")
-kerning_pairs=PackedStringArray()
-columns=32
-rows=9
-image_margin=Rect2i(0, 0, 0, 0)
-character_margin=Rect2i(0, 0, 0, 0)
-ascent=0
-descent=0
-fallbacks=[]
-compress=true
-scaling_mode=0
+ranges=PackedStringArray("Ѐ-Џ", "ѐ-џ", "А-я", "A-Z", "a-z", "Α-Ω", "α-ω", "Ί-Ώ", "΄-Ή", "Ϊ-ΰ", "ϊ-ϐ", "!-/", ":-@", "[-`", "{-~", "0-9", " ", "0x00-0x1f")
+letter_spacing=1
+mipmaps=false

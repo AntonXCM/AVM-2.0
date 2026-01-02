@@ -1,0 +1,17 @@
+[remap]
+
+importer="dt.abfi"
+type="FontFile"
+uid="uid://cnoc1gsxqws8j"
+path="res://.godot/imported/AVM-Dent-Bold-Italic.png-70f6afcb5d780aa1b6343dbec835603c.fontdata"
+
+[deps]
+
+source_file="res://Sprites/Font/AVM-Dent/AVM-Dent-Bold-Italic.png"
+dest_files=["res://.godot/imported/AVM-Dent-Bold-Italic.png-70f6afcb5d780aa1b6343dbec835603c.fontdata"]
+
+[params]
+
+ranges=PackedStringArray("Ѐ-Џ", "ѐ-џ", "А-я", "A-Z", "a-z", "Α-Ω", "α-ω", "Ί-Ώ", "΄-Ή", "Ϊ-ΰ", "ϊ-ϐ", "!-/", ":-@", "[-`", "{-~", "0-9", " ", "0x00-0x1f")
+letter_spacing=1
+mipmaps=false

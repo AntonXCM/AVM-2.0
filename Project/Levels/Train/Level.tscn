@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://tg5el2hicmu"]
+[gd_scene load_steps=52 format=4 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
@@ -25,7 +25,6 @@
 [ext_resource type="Script" uid="uid://dy0kkeeugchrd" path="res://Scripts/Common/WindowManagement/ZoomCalculator.cs" id="18_sny0v"]
 [ext_resource type="AudioStream" uid="uid://blycwsyb8q3xv" path="res://Ы.mp3" id="22_6r5em"]
 [ext_resource type="Texture2D" uid="uid://cnvyhtd1gijck" path="res://Sprites/Test/fire-1034853_960_720-1248634451.jpg" id="22_25non"]
-[ext_resource type="FontFile" uid="uid://drvobakrhg2qj" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Italic.png" id="23_bokf0"]
 [ext_resource type="Script" uid="uid://de5ot2xns2620" path="res://Scripts/Level/Generators/Level2/Generator.cs" id="23_jr686"]
 [ext_resource type="Resource" uid="uid://cub84eafbcvo6" path="res://Levels/Train/Generator/Subdivisors/TiledSubdivisor.tres" id="24_jhk61"]
 [ext_resource type="Material" uid="uid://8b2hohx15d7e" path="res://Shaders/vagonShader.tres" id="25_hcv3t"]
@@ -35,6 +34,11 @@
 [ext_resource type="Resource" uid="uid://rjll1rc1rqxe" path="res://Levels/Train/Generator/Shape Creators/PointsCreator.tres" id="28_bci0e"]
 [ext_resource type="Resource" uid="uid://r7q1bffvo74r" path="res://Levels/Train/Generator/Tile Drawers/TileDrawer.tres" id="29_b2xy8"]
 [ext_resource type="Script" uid="uid://d1mb1lxaj307p" path="res://Scripts/Level/Interactive/TeleportHazard.cs" id="33_6r5em"]
+[ext_resource type="TileSet" uid="uid://x1jqpmn3o7uv" path="res://Levels/tileset.tres" id="35_6r5em"]
+[ext_resource type="FontFile" uid="uid://drvobakrhg2qj" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Italic.png" id="35_bokf0"]
+[ext_resource type="FontFile" uid="uid://cpmaw4rmp7h5o" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Regular.png" id="35_hqukm"]
+[ext_resource type="FontFile" uid="uid://cnoc1gsxqws8j" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Bold-Italic.png" id="37_6r5em"]
+[ext_resource type="FontFile" uid="uid://crtuayqra1fhb" path="res://Sprites/Font/AVM-Dent/AVM-Dent-Bold.png" id="38_kwywi"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5k851"]
 
@@ -95,7 +99,6 @@ floor_snap_length = 1.0
 position = Vector2(-216, -14)
 
 [node name="Body" parent="PC" instance=ExtResource("9_kt0gt")]
-position = Vector2(0.984, 1.008)
 rotation = 0.79063374
 scale = Vector2(1.418122, -1.412834)
 skew = 1.558555
@@ -155,7 +158,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(459, 305)
+size = Vector2i(641, 293)
 script = ExtResource("3_ut1n0")
 camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
@@ -187,7 +190,7 @@ transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(459, 305)
+size = Vector2i(641, 293)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
@@ -293,22 +296,6 @@ physics_interpolation_mode = 2
 visible = false
 script = ExtResource("1_rsy8m")
 
-[node name="Label" type="Label" parent="Camera"]
-offset_left = -270.0
-offset_top = 359.0
-offset_right = -14.0
-offset_bottom = 472.25
-theme_override_fonts/font = ExtResource("23_bokf0")
-text = "ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
-ѐёђѓєѕіїјљњћќѝўџ
-АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
-абвгдежзийклмнопрстуфхцчшщъыьэюя
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
-΄΅·ΆΈΉΊΌΎΏΪΫάέήίΰϊϋόύώϏϐ
-ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩ
-αβγδεζηθικλμνξοπρςστυφχψω"
-
 [node name="ObservationPoints" type="StaticBody2D" parent="Camera"]
 position = Vector2(-409, -88)
 collision_layer = 3
@@ -377,3 +364,129 @@ script = ExtResource("1_hglua")
 Speed = Vector2(-450, 0)
 
 [node name="Node" type="Node" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -6
+position = Vector2(638, -573)
+polygon = PackedVector2Array(480, -181, -251, -170, -264, 186, 490, 203)
+vertex_colors = PackedColorArray(0, 0.078431375, 0, 1, 0.78707683, 0.4062882, 0.34970775, 1, 0.8482613, 0.00056871295, 0.84825534, 1, 1.540184e-06, 0.44297132, 0.61924446, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Polygon2D"]
+tile_map_data = PackedByteArray("AAD//wsAAAAJAAAAAAAAAAsAAAAKAAAAAAABAAsAAAAKAAAAAAALAAsAAAALAAAAAAAKAAsAAAAKAAAAAAAJAAsAAAAKAAAAAAAIAAsAAAAKAAAAAAAHAAsAAAAKAAAAAAAGAAsAAAAKAAAAAAAFAAsAAAAKAAAAAAAEAAsAAAAKAAAAAAADAAsAAAAKAAAAAAACAAsAAAAKAAAAAAAKAAgAAAAJAAAAAAALAAgAAAAKAAAAAAAMAAgAAAALAAAAAAALAAMAAAAIAAEAAAALAAQAAAAIAAIAAAALAAUAAAAIAAMAAAAOAAIAAAABAAAAAAAPAAIAAAADAAAAAAARAAEAAAABAAAAAAASAAEAAAADAAAAAAAOAAsAAAAJAAEAAAAOAAwAAAAJAAMAAAAPAAsAAAAKAAEAAAAQAAsAAAAKAAEAAAARAAsAAAAKAAEAAAASAAsAAAAKAAEAAAATAAsAAAAKAAEAAAAUAAsAAAAKAAEAAAAVAAsAAAAKAAEAAAAWAAsAAAAKAAEAAAAZAAsAAAAKAAEAAAAYAAsAAAAKAAEAAAAXAAsAAAAKAAEAAAAPAAwAAAAKAAMAAAAQAAwAAAAKAAMAAAARAAwAAAAKAAMAAAASAAwAAAAKAAMAAAATAAwAAAAKAAMAAAAUAAwAAAAKAAMAAAAVAAwAAAAKAAMAAAAWAAwAAAAKAAMAAAAXAAwAAAAKAAMAAAAYAAwAAAAKAAMAAAAZAAwAAAAKAAMAAAAaAAwAAAALAAMAAAAaAAsAAAALAAEAAAAJAAEAAAANAAAAAAAJAAIAAAAIAAMAAAAIAAEAAAAKAAAAAAAHAAEAAAAJAAAAAAAAAAEAAAABAAAAAAABAAEAAAACAAAAAAACAAEAAAADAAAAAAANAA8AAAAAAAMAAAANAA4AAAAAAAEAAAALABEAAAAIAAAAAAD+/wgAAAAIAAAAAAA=")
+tile_set = ExtResource("35_6r5em")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 396.0
+offset_top = -512.0
+offset_right = 556.0
+offset_bottom = -407.0
+theme_override_fonts/font = ExtResource("38_kwywi")
+text = "The quick brown fox jumps
+over the lazy dog
+
+В чащах юга жил бы цитрус?
+Да, но фальшивый экземпляр!
+
+Ξεσκεπάζω την
+ψυχοφθόρα σας βδελυγμία"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 600.0
+offset_top = -709.0
+offset_right = 813.0
+offset_bottom = -568.0
+theme_override_colors/font_color = Color(0.25759998, 0.92, 0.43423995, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = -1
+theme_override_fonts/font = ExtResource("35_bokf0")
+text = "ITALIC
+
+ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
+ѐёђѓєѕіїјљњћќѝўџ
+АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+абвгдежзийклмнопрстуфхцчшщъыьэюя
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ΢ΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρςστυφχψω
+!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+0123456789"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 601.0
+offset_top = -557.0
+offset_right = 814.0
+offset_bottom = -416.0
+theme_override_colors/font_color = Color(0, 0.9352599, 0.83369094, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = -1
+theme_override_fonts/font = ExtResource("35_hqukm")
+text = "Regular
+
+ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
+ѐёђѓєѕіїјљњћќѝўџ
+АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+абвгдежзийклмнопрстуфхцчшщъыьэюя
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ΢ΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρςστυφχψω
+!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+0123456789"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 835.0
+offset_top = -708.0
+offset_right = 1091.0
+offset_bottom = -567.0
+theme_override_colors/font_color = Color(0.9266553, 0.7521089, 0.49746805, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = -1
+theme_override_fonts/font = ExtResource("37_6r5em")
+text = "Bold-italic
+
+ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
+ѐёђѓєѕіїјљњћќѝўџ
+АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+абвгдежзийклмнопрстуфхцчшщъыьэюя
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ΢ΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρςστυφχψω
+!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+0123456789"
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="."]
+offset_left = 837.0
+offset_top = -549.0
+offset_right = 1093.0
+offset_bottom = -408.0
+theme_override_colors/font_color = Color(1, 0.500689, 0.4427087, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = -1
+theme_override_fonts/font = ExtResource("38_kwywi")
+text = "Bold
+
+ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏ
+ѐёђѓєѕіїјљњћќѝўџ
+АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ
+абвгдежзийклмнопрстуфхцчшщъыьэюя
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ΢ΣΤΥΦΧΨΩ
+αβγδεζηθικλμνξοπρςστυφχψω
+!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+0123456789"
+horizontal_alignment = 1
