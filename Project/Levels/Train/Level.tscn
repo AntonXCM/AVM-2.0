@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://tg5el2hicmu"]
+[gd_scene format=4 uid="uid://tg5el2hicmu"]
 
 [ext_resource type="PackedScene" uid="uid://myv87mqaa4pd" path="res://Scripts/PlayerChara/AntivirusMan/player.tscn" id="1_3f304"]
 [ext_resource type="Script" uid="uid://davhktxbl1olt" path="res://Scripts/Level/Level.cs" id="1_hglua"]
@@ -85,36 +85,33 @@ size = Vector2(972, 580)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_357aj"]
 normal = Vector2(0, 1)
 
-[node name="TrainScene" type="Node2D"]
+[node name="TrainScene" type="Node2D" unique_id=888256688]
 texture_filter = 1
 
-[node name="Player" parent="." instance=ExtResource("1_3f304")]
+[node name="Player" parent="." unique_id=1039839188 instance=ExtResource("1_3f304")]
 position = Vector2(-258, -17)
 collision_layer = 4
 collision_mask = 5
 floor_constant_speed = true
 floor_snap_length = 1.0
 
-[node name="PC" type="Node2D" parent="."]
+[node name="PC" type="Node2D" parent="." unique_id=1930958162]
 position = Vector2(-216, -14)
 
-[node name="Body" parent="PC" instance=ExtResource("9_kt0gt")]
-rotation = 0.79063374
-scale = Vector2(1.418122, -1.412834)
-skew = 1.558555
+[node name="Body" parent="PC" unique_id=2059160696 instance=ExtResource("9_kt0gt")]
 
-[node name="Ground" type="StaticBody2D" parent="PC"]
+[node name="Ground" type="StaticBody2D" parent="PC" unique_id=90142983]
 position = Vector2(0, 40)
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="PC/Ground"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="PC/Ground" unique_id=1216460116]
 shape = SubResource("WorldBoundaryShape2D_5k851")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." unique_id=740403735]
 position = Vector2(-409, -88)
 
-[node name="Gradient2" type="Parallax2D" parent="Background"]
+[node name="Gradient2" type="Parallax2D" parent="Background" unique_id=2022678330]
 z_index = -1000
 texture_filter = 1
 scroll_scale = Vector2(0.003, 0.2)
@@ -122,7 +119,7 @@ repeat_size = Vector2(512, 0)
 repeat_times = 6
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Background/Gradient2"]
+[node name="Sprite" type="Sprite2D" parent="Background/Gradient2" unique_id=306211660]
 texture_repeat = 3
 position = Vector2(900, -200)
 texture = ExtResource("2_nupcv")
@@ -130,7 +127,7 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 512, 768)
 
-[node name="Container" type="Control" parent="Background"]
+[node name="Container" type="Control" parent="Background" unique_id=2022293696]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +136,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BackgroundRender" type="TextureRect" parent="Background/Container" node_paths=PackedStringArray("camera")]
+[node name="BackgroundRender" type="TextureRect" parent="Background/Container" unique_id=509639047 node_paths=PackedStringArray("camera")]
 show_behind_parent = true
 z_index = -997
 z_as_relative = false
@@ -153,29 +150,29 @@ stretch_mode = 2
 script = ExtResource("4_etk17")
 camera = NodePath("../../../Camera/Behavior/Camera2D")
 
-[node name="Sun" type="SubViewport" parent="Background/Container/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Sun" type="SubViewport" parent="Background/Container/BackgroundRender" unique_id=794556088 node_paths=PackedStringArray("camera", "insidecamera")]
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(641, 293)
+size = Vector2i(573, 306)
 script = ExtResource("3_ut1n0")
 camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Sun"]
+[node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Sun" unique_id=530450218]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Background/Container/BackgroundRender/Sun"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background/Container/BackgroundRender/Sun" unique_id=1632263600]
 
-[node name="Sun" type="ParallaxLayer" parent="Background/Container/BackgroundRender/Sun/ParallaxBackground"]
+[node name="Sun" type="ParallaxLayer" parent="Background/Container/BackgroundRender/Sun/ParallaxBackground" unique_id=1446827447]
 texture_filter = 1
 motion_scale = Vector2(0.1, 0.25)
 script = ExtResource("1_yf6p5")
 speed = Vector2(0, -0.5)
 
-[node name="Spriite" type="Sprite2D" parent="Background/Container/BackgroundRender/Sun/ParallaxBackground/Sun" node_paths=PackedStringArray("camera")]
+[node name="Spriite" type="Sprite2D" parent="Background/Container/BackgroundRender/Sun/ParallaxBackground/Sun" unique_id=1459700040 node_paths=PackedStringArray("camera")]
 position = Vector2(300, 150)
 texture = ExtResource("3_hpjpt")
 region_rect = Rect2(0, 0, 960, 64)
@@ -184,28 +181,28 @@ mater = SubResource("ShaderMaterial_etk17")
 camera = NodePath("../../../InsideCamera")
 speed = 0.37
 
-[node name="Forground" type="SubViewport" parent="Background/Container/BackgroundRender" node_paths=PackedStringArray("camera", "insidecamera")]
+[node name="Forground" type="SubViewport" parent="Background/Container/BackgroundRender" unique_id=528215353 node_paths=PackedStringArray("camera", "insidecamera")]
 process_mode = 3
 transparent_bg = true
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 oversampling = false
-size = Vector2i(641, 293)
+size = Vector2i(573, 306)
 size_2d_override_stretch = true
 render_target_update_mode = 3
 script = ExtResource("3_ut1n0")
 camera = NodePath("../../../../Camera/Behavior/Camera2D")
 insidecamera = NodePath("InsideCamera")
 
-[node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Forground"]
+[node name="InsideCamera" type="Camera2D" parent="Background/Container/BackgroundRender/Forground" unique_id=2005220280]
 position = Vector2(-409, -88)
 position_smoothing_speed = 2.0
 
-[node name="Node2D" type="Node2D" parent="Background/Container/BackgroundRender/Forground"]
+[node name="Node2D" type="Node2D" parent="Background/Container/BackgroundRender/Forground" unique_id=477489989]
 texture_filter = 1
 material = SubResource("ShaderMaterial_5k851")
 
-[node name="RailGlint" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D"]
+[node name="RailGlint" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D" unique_id=791312478]
 process_mode = 3
 z_index = 4
 z_as_relative = false
@@ -217,7 +214,7 @@ script = ExtResource("13_6r5em")
 frameTime = 0.08
 posBounds = Vector2(-1356.5, 1827)
 
-[node name="Rails" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D"]
+[node name="Rails" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D" unique_id=1452179802]
 z_as_relative = false
 use_parent_material = true
 scroll_scale = Vector2(1.5, 1)
@@ -225,7 +222,7 @@ repeat_size = Vector2(288, 0)
 repeat_times = 10
 script = ExtResource("4_rsy8m")
 
-[node name="Spriite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Rails"]
+[node name="Spriite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Rails" unique_id=2089288308]
 z_index = 1
 z_as_relative = false
 use_parent_material = true
@@ -233,7 +230,7 @@ position = Vector2(0, 73)
 texture = ExtResource("4_jk3e0")
 region_rect = Rect2(0, 0, 2048, 64)
 
-[node name="Power" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D"]
+[node name="Power" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D" unique_id=1701858845]
 z_as_relative = false
 use_parent_material = true
 scroll_scale = Vector2(1, 1.1)
@@ -241,21 +238,21 @@ repeat_size = Vector2(660, 0)
 repeat_times = 5
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Power"]
+[node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Power" unique_id=2044120038]
 z_as_relative = false
 use_parent_material = true
 position = Vector2(0, -127)
 texture = ExtResource("5_f7yi0")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Props" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D"]
+[node name="Props" type="Parallax2D" parent="Background/Container/BackgroundRender/Forground/Node2D" unique_id=162172429]
 z_as_relative = false
 use_parent_material = true
 scroll_scale = Vector2(0.334, 1)
 repeat_size = Vector2(2496, 0)
 script = ExtResource("4_rsy8m")
 
-[node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Props"]
+[node name="Sprite" type="Sprite2D" parent="Background/Container/BackgroundRender/Forground/Node2D/Props" unique_id=1309419754]
 z_index = -1
 texture_repeat = 2
 material = SubResource("ShaderMaterial_hqukm")
@@ -263,9 +260,9 @@ position = Vector2(0, 237)
 texture = ExtResource("3_ix047")
 region_rect = Rect2(0, 0, 1000, 256)
 
-[node name="Camera" type="Node2D" parent="."]
+[node name="Camera" type="Node2D" parent="." unique_id=1407242062]
 
-[node name="Behavior" type="Node2D" parent="Camera" node_paths=PackedStringArray("Following", "StaticScenes")]
+[node name="Behavior" type="Node2D" parent="Camera" unique_id=552791060 node_paths=PackedStringArray("Following", "StaticScenes")]
 position = Vector2(-409, -88)
 script = ExtResource("14_357aj")
 Following = NodePath("../../Player")
@@ -273,59 +270,59 @@ DeadZone = Vector2(0, 64)
 StaticScenes = [NodePath("../ObservationPoints/CollisionShape2D6"), NodePath("../ObservationPoints/CollisionShape2D7"), NodePath("../ObservationPoints/CollisionShape2D8")]
 Speed = 8.0
 
-[node name="Camera2D" type="Camera2D" parent="Camera/Behavior"]
+[node name="Camera2D" type="Camera2D" parent="Camera/Behavior" unique_id=452931553]
 process_mode = 3
 zoom = Vector2(2, 2)
 position_smoothing_speed = 2.0
 script = ExtResource("7_ne20o")
 
-[node name="Zoom calculator" type="Node" parent="Camera/Behavior/Camera2D"]
+[node name="Zoom calculator" type="Node" parent="Camera/Behavior/Camera2D" unique_id=1910328604]
 script = ExtResource("18_sny0v")
 targetHeight = 800.0
 pixelSize = 3.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera/Behavior/Camera2D"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Camera/Behavior/Camera2D" unique_id=487330856]
 stream = ExtResource("22_6r5em")
 volume_db = -10.845
 autoplay = true
 parameters/looping = true
 
-[node name="DebugDrag" type="Node2D" parent="Camera/Behavior"]
+[node name="DebugDrag" type="Node2D" parent="Camera/Behavior" unique_id=1226297135]
 process_mode = 4
 physics_interpolation_mode = 2
 visible = false
 script = ExtResource("1_rsy8m")
 
-[node name="ObservationPoints" type="StaticBody2D" parent="Camera"]
+[node name="ObservationPoints" type="StaticBody2D" parent="Camera" unique_id=1284504650]
 position = Vector2(-409, -88)
 collision_layer = 3
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="Camera/ObservationPoints"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Camera/ObservationPoints" unique_id=1935797997]
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_5k851")
 disabled = true
 
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="Camera/ObservationPoints"]
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Camera/ObservationPoints" unique_id=1134956956]
 position = Vector2(-1365, -7.6293945e-06)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_25non")
 disabled = true
 
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="Camera/ObservationPoints"]
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Camera/ObservationPoints" unique_id=1177049327]
 position = Vector2(1827, -3)
 rotation = -1.5707964
 shape = SubResource("RectangleShape2D_qbvol")
 disabled = true
 
-[node name="Train" type="Node2D" parent="."]
+[node name="Train" type="Node2D" parent="." unique_id=377597598]
 
-[node name="Chain" parent="Train" instance=ExtResource("11_m2n1c")]
+[node name="Chain" parent="Train" unique_id=1544609721 instance=ExtResource("11_m2n1c")]
 position = Vector2(1702, -104)
 MaxCapacity = 6
 Speed = Vector2(-80, 0)
 Spacing = Vector2(-648, 0)
 
-[node name="Generator" type="Node" parent="Train"]
+[node name="Generator" type="Node" parent="Train" unique_id=2100845628]
 script = ExtResource("23_jr686")
 roomSize = Rect2i(0, 0, 35, 14)
 subdivisors = Array[Resource]([ExtResource("24_jhk61")])
@@ -333,7 +330,7 @@ shapeCreators = Array[Resource]([ExtResource("25_hqukm"), ExtResource("26_6r5em"
 tileDrawer = ExtResource("29_b2xy8")
 generationMaterial = ExtResource("25_hcv3t")
 
-[node name="Hazards" type="Area2D" parent="."]
+[node name="Hazards" type="Area2D" parent="." unique_id=1211954815]
 position = Vector2(-1084.5, -301)
 collision_layer = 7
 collision_mask = 7
@@ -343,39 +340,39 @@ gravity_direction = Vector2(0, -1)
 linear_damp = 100.0
 script = ExtResource("33_6r5em")
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="Hazards"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Hazards" unique_id=1104400697]
 position = Vector2(-877.5, 213)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_357aj")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hazards"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hazards" unique_id=618378161]
 position = Vector2(825.5, 343)
 shape = SubResource("WorldBoundaryShape2D_5k851")
 
-[node name="Fire10348539607201248634451" type="Sprite2D" parent="Hazards"]
+[node name="Fire10348539607201248634451" type="Sprite2D" parent="Hazards" unique_id=882588855]
 position = Vector2(-1356.5, 196)
 rotation = -3.1415927
 scale = Vector2(1, -1)
 texture = ExtResource("22_25non")
 
-[node name="Level" type="Node" parent="."]
+[node name="Level" type="Node" parent="." unique_id=2070443917]
 unique_name_in_owner = true
 script = ExtResource("1_hglua")
 Speed = Vector2(-450, 0)
 
-[node name="Node" type="Node" parent="."]
+[node name="Node" type="Node" parent="." unique_id=1041809197]
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=2088287135]
 z_index = -6
 position = Vector2(638, -573)
 polygon = PackedVector2Array(480, -181, -251, -170, -264, 186, 490, 203)
 vertex_colors = PackedColorArray(0, 0.078431375, 0, 1, 0.78707683, 0.4062882, 0.34970775, 1, 0.8482613, 0.00056871295, 0.84825534, 1, 1.540184e-06, 0.44297132, 0.61924446, 1)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Polygon2D"]
+[node name="TileMapLayer" type="TileMapLayer" parent="Polygon2D" unique_id=105633112]
 tile_map_data = PackedByteArray("AAD//wsAAAAJAAAAAAAAAAsAAAAKAAAAAAABAAsAAAAKAAAAAAALAAsAAAALAAAAAAAKAAsAAAAKAAAAAAAJAAsAAAAKAAAAAAAIAAsAAAAKAAAAAAAHAAsAAAAKAAAAAAAGAAsAAAAKAAAAAAAFAAsAAAAKAAAAAAAEAAsAAAAKAAAAAAADAAsAAAAKAAAAAAACAAsAAAAKAAAAAAAKAAgAAAAJAAAAAAALAAgAAAAKAAAAAAAMAAgAAAALAAAAAAALAAMAAAAIAAEAAAALAAQAAAAIAAIAAAALAAUAAAAIAAMAAAAOAAIAAAABAAAAAAAPAAIAAAADAAAAAAARAAEAAAABAAAAAAASAAEAAAADAAAAAAAOAAsAAAAJAAEAAAAOAAwAAAAJAAMAAAAPAAsAAAAKAAEAAAAQAAsAAAAKAAEAAAARAAsAAAAKAAEAAAASAAsAAAAKAAEAAAATAAsAAAAKAAEAAAAUAAsAAAAKAAEAAAAVAAsAAAAKAAEAAAAWAAsAAAAKAAEAAAAZAAsAAAAKAAEAAAAYAAsAAAAKAAEAAAAXAAsAAAAKAAEAAAAPAAwAAAAKAAMAAAAQAAwAAAAKAAMAAAARAAwAAAAKAAMAAAASAAwAAAAKAAMAAAATAAwAAAAKAAMAAAAUAAwAAAAKAAMAAAAVAAwAAAAKAAMAAAAWAAwAAAAKAAMAAAAXAAwAAAAKAAMAAAAYAAwAAAAKAAMAAAAZAAwAAAAKAAMAAAAaAAwAAAALAAMAAAAaAAsAAAALAAEAAAAJAAEAAAANAAAAAAAJAAIAAAAIAAMAAAAIAAEAAAAKAAAAAAAHAAEAAAAJAAAAAAAAAAEAAAABAAAAAAABAAEAAAACAAAAAAACAAEAAAADAAAAAAANAA8AAAAAAAMAAAANAA4AAAAAAAEAAAALABEAAAAIAAAAAAD+/wgAAAAIAAAAAAA=")
 tile_set = ExtResource("35_6r5em")
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="." unique_id=1603343530]
 offset_left = 396.0
 offset_top = -512.0
 offset_right = 556.0
@@ -391,7 +388,7 @@ over the lazy dog
 ψυχοφθόρα σας βδελυγμία"
 horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=446558128]
 offset_left = 600.0
 offset_top = -709.0
 offset_right = 813.0
@@ -416,7 +413,7 @@ abcdefghijklmnopqrstuvwxyz
 0123456789"
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="."]
+[node name="Label3" type="Label" parent="." unique_id=1359228591]
 offset_left = 601.0
 offset_top = -557.0
 offset_right = 814.0
@@ -441,7 +438,7 @@ abcdefghijklmnopqrstuvwxyz
 0123456789"
 horizontal_alignment = 1
 
-[node name="Label4" type="Label" parent="."]
+[node name="Label4" type="Label" parent="." unique_id=832312069]
 offset_left = 835.0
 offset_top = -708.0
 offset_right = 1091.0
@@ -466,7 +463,7 @@ abcdefghijklmnopqrstuvwxyz
 0123456789"
 horizontal_alignment = 1
 
-[node name="Label5" type="Label" parent="."]
+[node name="Label5" type="Label" parent="." unique_id=1130123836]
 offset_left = 837.0
 offset_top = -549.0
 offset_right = 1093.0

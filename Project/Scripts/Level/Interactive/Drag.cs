@@ -34,8 +34,15 @@ public partial class Drag : Node2D
             else if (mb.ButtonIndex is MouseButton.Right)
             {
                 if (!mb.Pressed)
-                    rb.GlobalScale = new Vector2(-1, 3);
-                GD.Print(rb.GlobalScale);
+                {
+                    var scale = rb.Scale;
+                    scale.X *= -1;
+                    rb.Scale = scale;
+
+                    GD.Print(targetRotation);
+                    targetRotation = (targetRotation + Mathf.Pi) % Mathf.Tau;
+                    GD.Print(targetRotation);
+                }
             }
             else if (mb.ButtonIndex is MouseButton.WheelUp)
                 targetRotation = (targetRotation + scrollSpeed) % Mathf.Tau;

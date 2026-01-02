@@ -1,3 +1,4 @@
+using System;
 using DustyStudios.MathAVM;
 using Godot;
 
@@ -44,30 +45,21 @@ public partial class PcController : RigidBody2D
                     SetXTarget();
                     break;
             }
-            AngularVelocity = MathA.Angle.MoveTowardsDiff(Rotation, 0, deltaf * angularSpeed);
+            var CurrentRotation = Rotation;
+            if (Scale.Y < 0)
+                CurrentRotation = (CurrentRotation + Mathf.Pi) % Mathf.Tau;
+            AngularVelocity = MathA.Angle.MoveTowardsDiff(CurrentRotation, 0, deltaf * angularSpeed);
         }
     }
     void SetXTarget() => targetXPosition = startXPosition + (GD.Randf() - .5f) * xDispersion;
     public void KeepHeight(float delta)
     {
         if (DistanceFactor is 0) return;
-        LinearVelocity += ray.TargetPosition.Rotated(ray.GlobalRotation).Normalized() * ySpeed * DistanceFactor * delta;
+        LinearVelocity += ray.GlobalTransform.BasisXform(ray.TargetPosition).Normalized()  * ySpeed * DistanceFactor * delta;
     }
     public void MoveX(float delta, float speed)
     {
         if (DistanceFactor is 0) return;
         LinearVelocity += Vector2.Right * speed * DistanceFactor * delta;
-    }
-    public override void _IntegrateForces(PhysicsDirectBodyState2D state)
-    {
-        state.Transform = SetScale(state.Transform, new Vector2(1.1f,0.9f));
-        GD.Print(SetScale(state.Transform, new Vector2(1.1f,0.9f)).Scale);
-
-        static Transform2D SetScale(Transform2D transform, Vector2 scale)
-        {
-            transform.X = transform.X.Normalized() * scale.X;
-            transform.Y = transform.Y.Normalized() * scale.Y;
-            return transform;
-        }
     }
 }
