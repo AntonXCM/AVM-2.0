@@ -39,9 +39,7 @@ public partial class Drag : Node2D
                     scale.X *= -1;
                     rb.Scale = scale;
 
-                    GD.Print(targetRotation);
                     targetRotation = (targetRotation + Mathf.Pi) % Mathf.Tau;
-                    GD.Print(targetRotation);
                 }
             }
             else if (mb.ButtonIndex is MouseButton.WheelUp)

@@ -44,7 +44,6 @@ scale_over_velocity_curve = SubResource("CurveTexture_jsyav")
 color_ramp = SubResource("GradientTexture1D_hk620")
 
 [node name="PC" type="RigidBody2D" unique_id=1026856478 node_paths=PackedStringArray("ray")]
-scale = Vector2(-1, 1)
 collision_layer = 2
 collision_mask = 2
 input_pickable = true

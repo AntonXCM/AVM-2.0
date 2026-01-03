@@ -258,6 +258,7 @@ func _import(
 
 	var size := Vector2i(font_h, 0)
 	font.set_texture_image(0, size, 0, image)
+	font.fixed_size_scale_mode = TextServer.FIXED_SIZE_SCALE_INTEGER_ONLY
 	font.fixed_size = font_h
 	font.allow_system_fallback = false
 	font.generate_mipmaps = options.mipmaps

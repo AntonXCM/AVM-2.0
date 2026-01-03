@@ -66,9 +66,11 @@ public static class NodeExtentions
 		return dict;
 	}
 	public static T AddChild<T>(this Node node, Func<T> createChild) where T : Node
-    {
-        T child = createChild();
-     	node.AddChild(child);
-        return child;
-    }
+	{
+		T child = createChild();
+		node.AddChild(child);
+		return child;
+	}
+
+    public static Vector2 GetCenterPosition(this Control control) => control.Position + control.Size * 0.5f;
 }
