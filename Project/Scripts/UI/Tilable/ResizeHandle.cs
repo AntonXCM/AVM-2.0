@@ -18,17 +18,19 @@ public partial class ResizeHandle : Control
         if (e is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left)
         {
             if (mb.Pressed && GetGlobalRect().HasPoint(mb.Position))
-                dragging = true;
-            else
+                dragging = Root.instance.StartDrag(this);
+            else if(dragging)
+            {
+                Root.instance.EndDrag(this);
                 dragging = false;
+            }
         }
         else if (dragging && e is InputEventMouseMotion mm)
         {
             float d = horizontal ? mm.Relative.X / group.Size.X : mm.Relative.Y / group.Size.Y;
             group.AdjustWeight(index, d);
-            Root.instance.handledInput = true;
         } 
     }
 
-    public override void _Draw() => DrawRect(new Rect2(Vector2.Zero, Size), new Color(0, 0, 0, 1)); //Заглушка
+    public override void _Draw() => DrawRect(new Rect2(Vector2.Zero, Size), Root.instance.ResizeHandleColor);
 }

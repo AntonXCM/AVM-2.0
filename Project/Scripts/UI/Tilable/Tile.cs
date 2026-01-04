@@ -1,57 +1,61 @@
 using Godot;
 public partial class Tile : Control
 {
-    bool dragging = false;
-    [Export] TilesContainer parent;
-    public override void _Ready()
+    TilesContainer target;
+    [Export] bool dragging;
+    public bool Dragging
     {
-        TreeEntered += Parented;
-        Parented();
-    }
-
-    public void Parented()
-    {
-        var newParent = GetParentOrNull<TilesContainer>();
-        if (newParent is not null)
-            parent = newParent;
+        get => dragging;
+        set
+        {
+            if (dragging == value) return;
+            ZIndex = value ? 10 : 0;
+            Scale = value ? Root.instance.DragSize : Vector2.One;
+            //TODO: Add shadow    
+            dragging = value;
+        }
     }
     public override void _Input(InputEvent e)
     {
-        if(Root.instance.handledInput) return;
         if (e is InputEventMouseButton mb && mb.ButtonIndex is MouseButton.Left)
         {
-            if (mb.Pressed && GetGlobalRect().HasPoint(mb.Position))
-                StartDragging();
-            else if (dragging)
-                EndDragging();
-        }
-        else if (e is InputEventMouseMotion mm && dragging)
-            Position += mm.Relative;
-    }
-    private void StartDragging()
-    {
-        dragging = true;
-        Reparent(Root.instance);
-    }
-    private void EndDragging()
-    {
-        dragging = false;
-        var pos = GetGlobalMousePosition();
-        TilesContainer target = null;
-        foreach (var ch in Root.instance.GetChildren())
-            if (ch is TilesContainer g && g.GetGlobalRect().HasPoint(pos))
+            if (mb.Pressed && GetGlobalRect().HasPoint(mb.Position) && Root.instance.StartDrag(this))
             {
-                target = g;
-                break;
+                Dragging = true;
+                var parent = (TilesContainer)GetParent();
+                Reparent(Root.instance);
+                parent.UpdateLayout();
             }
-        if ((target is null || parent == target) && parent != null)
-            target = parent;
-        else if (parent.GetChildCount() == 0)
-            parent.QueueFree();
-        GD.Print("Parented", parent.Name);
-        Reparent(parent);
-        parent.AcceptChild(this);
-        target.UpdateLayout();
-        parent = target;
+            else if (Dragging)
+            {
+                Dragging = false;
+                Root.instance.EndDrag(this);
+                if (!IsInstanceValid(target) || !target.IsInsideTree()) return;
+                Reparent(target);
+                target.AcceptChild(this);
+            }
+        }
+        if (e is not InputEventMouseMotion mm || !Dragging) return;
+        Position += mm.Relative;
+        FindTarget();
+        QueueRedraw();
+    }
+    private void FindTarget()
+    {
+        var pos = GetGlobalMousePosition();
+        foreach (var ch in Root.instance.Containers) //Отсюда контейнеры удаляются в Dispose
+            if (ch.GetGlobalRect().HasPoint(pos))
+            {
+                target = ch;
+                return;
+            }
+        target = Root.instance.RootContainer;
+    }
+    public override void _Draw()
+    {
+        if (!Dragging || !IsInstanceValid(target) || !target.IsInsideTree()) return;
+        Control control = target.GetNearestNeighbor(this);
+        Rect2 rect = GetGlobalTransform().AffineInverse() * control.GetGlobalRect();
+        DrawRect(rect, Root.instance.TargetColor);
     }
 }

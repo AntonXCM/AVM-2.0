@@ -72,5 +72,5 @@ public static class NodeExtentions
 		return child;
 	}
 
-    public static Vector2 GetCenterPosition(this Control control) => control.Position + control.Size * 0.5f;
+    public static Vector2 GetCenterPosition(this Control control) => control.GlobalPosition + control.Size * 0.5f;
 }

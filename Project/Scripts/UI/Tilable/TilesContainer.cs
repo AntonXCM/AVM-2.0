@@ -1,14 +1,17 @@
-using System;
 using Godot;
-
 public partial class TilesContainer : Control
 {
-    [Export] public bool Horizontal = true, ScaleWithParent = false;
+    [Export] public bool Horizontal = true, IsRoot = false;
     float[] weights = [];
     ResizeHandle[] handles = [];
     private Control parent;
     public override void _Ready()
     {
+        if (IsRoot)
+            Root.instance.RootContainer = this;
+        else
+            Root.instance.Containers.Add(this);
+
         Name = "Tiles Container " + (char)(GD.Randi() % 27 + 'A');
         UpdateLayout();
     }
@@ -20,6 +23,7 @@ public partial class TilesContainer : Control
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
+        Root.instance.Containers.Remove(this);
         foreach (var handle in handles)
             handle.QueueFree();
         if (parent is TilesContainer container)
@@ -29,12 +33,29 @@ public partial class TilesContainer : Control
     public override void _EnterTree()
     {
         parent = (Control)GetParent();
-        if (ScaleWithParent)
+        if (IsRoot)
             parent.Resized += () => Size = parent.Size;
+    }
+    public Control GetNearestNeighbor(Control to)
+    {
+        float best = float.MaxValue;
+        Control last = to;
+        for (int i = GetChildCount() - 1; i >= 0; i--)
+        {
+            Control c = (Control)GetChild(i);
+            if (c == to) continue;
+            float d = Horizontal ? Mathf.Abs(to.GetCenterPosition().X - c.GetCenterPosition().X)
+                                 : Mathf.Abs(to.GetCenterPosition().Y - c.GetCenterPosition().Y);
+            if (d > best)
+                return last;
+            last = c;
+            best = d;
+        }
+        return last;
     }
     public void AcceptChild(Node node)
     {
-        if (node is not Control added) throw new Exception("Э! чё ты мне сунул?");
+        if (node is not Control added) throw new System.Exception("Э! чё ты мне сунул?");
         var addedCenterPosition = added.GetCenterPosition();
 
         bool wantHorizontal = Horizontal;
@@ -45,24 +66,7 @@ public partial class TilesContainer : Control
         
         if (GetChildCount() >= 3 && wantHorizontal != Horizontal)
         {
-            Control neighbor = FindNearestNeighbor(added);
-            Control FindNearestNeighbor(Control added)
-            {
-                float best = float.MaxValue;
-                Control last = added;
-                for (int i = GetChildCount() - 2; i >= 0; i--)
-                {
-                    Control c = (Control)GetChild(i);
-                    if (c == added) continue;
-                    float d = Horizontal ? Mathf.Abs(added.GetCenterPosition().X - c.GetCenterPosition().X)
-                                         : Mathf.Abs(added.GetCenterPosition().Y - c.GetCenterPosition().Y);
-                    if (d > best || i is 0)
-                        return last;
-                    last = c;
-                    best = d;
-                }
-                throw new Exception("How?");
-            }
+            Control neighbor = GetNearestNeighbor(added);
             if (neighbor is not null)
             {
                 var sub = new TilesContainer
@@ -71,8 +75,32 @@ public partial class TilesContainer : Control
                     Size = neighbor.Size,
                     Position = neighbor.Position
                 };
-                added.Reparent(sub);
-                neighbor.Reparent(sub);
+                if (wantHorizontal)
+                {
+                    if (added.Position.X < neighbor.Position.X)
+                    {
+                        added.Reparent(sub);
+                        neighbor.Reparent(sub);
+                    }
+                    else
+                    {
+                        neighbor.Reparent(sub);
+                        added.Reparent(sub);
+                    }
+                }
+                else
+                {
+                    if (added.Position.Y < neighbor.Position.Y)
+                    {
+                        added.Reparent(sub);
+                        neighbor.Reparent(sub);
+                    }
+                    else
+                    {
+                        neighbor.Reparent(sub);
+                        added.Reparent(sub);
+                    }
+                }
                 AddChild(sub);
                 AcceptChild(sub);
                 return;
@@ -104,6 +132,19 @@ public partial class TilesContainer : Control
     public void UpdateLayout()
     {
         int childCount = GetChildCount();
+        if (!IsRoot)
+        {
+            if (childCount == 1)
+            {
+                Unpack();
+                return;
+            }
+            else if (childCount == 0)
+            {
+                QueueFree();
+                return;
+            }
+        }
         if (weights.Length != childCount)
         {
             weights = new float[childCount];
@@ -111,8 +152,8 @@ public partial class TilesContainer : Control
             for (int i = 0; i < childCount; i++)
                 weights[i] = weight;
         }
-        
-        int handlesCount = childCount - 1;
+
+        int handlesCount = Mathf.Max(0, childCount - 1);
         if (handlesCount != handles.Length)
         {
             var newHandles = new ResizeHandle[handlesCount];
@@ -137,7 +178,6 @@ public partial class TilesContainer : Control
 
         var available = Size;
         float offset = 0;
-
         for (int i = 0; i < childCount; i++)
         {
             var c = (Control)GetChild(i);
@@ -147,7 +187,7 @@ public partial class TilesContainer : Control
                 c.Position = new Vector2(offset, 0);
                 c.Size = new Vector2(w, available.Y);
                 offset += w;
-                if(i != handles.Length)
+                if (i < handles.Length)
                     handles[i].Setup(this, i, true, new Rect2(GlobalPosition.X + offset - 4, GlobalPosition.Y, 8, available.Y));
             }
             else
@@ -157,11 +197,10 @@ public partial class TilesContainer : Control
                 c.Size = new Vector2(available.X, h);
                 offset += h;
 
-                if(i != handles.Length)
+                if (i < handles.Length)
                     handles[i].Setup(this, i, false, new Rect2(GlobalPosition.X, GlobalPosition.Y + offset - 4, available.X, 8));
             }
         }
-
     }
     public void AdjustWeight(int index, float delta)
     {

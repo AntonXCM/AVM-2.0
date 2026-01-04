@@ -19,8 +19,10 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 591.0
 script = ExtResource("1_3dxm6")
+TargetColor = Color(0.120000005, 0.82399976, 1, 0.24313726)
 
 [node name="Container" type="Control" parent="Control" unique_id=833939963]
+process_priority = -1
 clip_contents = true
 layout_mode = 1
 anchors_preset = 0
@@ -29,7 +31,26 @@ offset_bottom = 702.0
 mouse_behavior_recursive = 2
 script = ExtResource("1_fos0i")
 Horizontal = false
-ScaleWithParent = true
+IsRoot = true
+
+[node name="ColorRect2" type="ColorRect" parent="Control/Container" unique_id=697615001]
+custom_minimum_size = Vector2(0, 111)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 111.0
+size_flags_stretch_ratio = 0.0
+color = Color(0.78039217, 0.8117647, 0.8666667, 1)
+script = ExtResource("3_lgr22")
+
+[node name="Label" type="Label" parent="Control/Container/ColorRect2" unique_id=504788064]
+z_index = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_3dxm6")
+theme_override_font_sizes/font_size = 34
+text = "Панелька РАЗ"
 
 [node name="ColorRect" type="ColorRect" parent="Control/Container" unique_id=424640474]
 custom_minimum_size = Vector2(0, 111)
@@ -37,6 +58,7 @@ layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 111.0
 size_flags_stretch_ratio = 0.0
+color = Color(0.78039217, 0.8117647, 0.8666667, 1)
 script = ExtResource("3_lgr22")
 
 [node name="Label" type="Label" parent="Control/Container/ColorRect" unique_id=931157919]
